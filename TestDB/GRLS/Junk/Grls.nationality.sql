@@ -1,0 +1,26 @@
+USE TestDB
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+IF OBJECT_ID('Grls.nationality', 'U') IS NOT NULL
+DROP TABLE Grls.nationality
+GO
+
+CREATE TABLE Grls.nationality
+(
+	id				int IDENTITY(1, 1)	NOT NULL ,
+	country_name	varchar(50)			NOT NULL ,
+	region_id		int					NOT NULL
+)
+GO
+ALTER TABLE Grls.nationality ADD PRIMARY KEY CLUSTERED 
+(
+	id ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE Grls.nationality ADD CONSTRAINT FK_nationality_region FOREIGN KEY (region_id) REFERENCES Grls.region(id);
+GO

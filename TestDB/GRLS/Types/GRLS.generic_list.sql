@@ -1,0 +1,16 @@
+USE [TestDB]
+GO
+
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+DROP TYPE IF EXISTS GRLS.generic_list
+GO
+
+CREATE TYPE GRLS.generic_list AS TABLE   
+(
+	data_value			varchar(50)
+)
+GO  
