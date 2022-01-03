@@ -25,11 +25,14 @@ CREATE VIEW GRLS.basic_analysis AS
 			INNER JOIN GRLS.model_attribute ma
 				INNER JOIN GRLS.attribute_level_2 al2
 					INNER JOIN GRLS.attribute_level_1 al1
+						INNER JOIN GRLS.attribute_scheme sc 
+						ON al1.scheme_id = sc.scheme_id
 					ON al2.l1_id = al1.l1_id
 				ON ma.attribute_id = al2.l2_id
 			ON m.id = ma.model_id
 		WHERE
-			al1.for_aggregation = 1
+			al1.for_aggregation = 1 AND 
+			sc.active = 1
 	) ,
 	w_work2 AS (
 		SELECT
@@ -61,5 +64,3 @@ CREATE VIEW GRLS.basic_analysis AS
 		w_work3 w3
 		INNER JOIN GRLS.model m
 		ON w3.model_id = m.id
-
-
