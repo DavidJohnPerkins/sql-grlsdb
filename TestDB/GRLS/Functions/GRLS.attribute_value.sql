@@ -1,4 +1,4 @@
-USE [TestDB]
+USE TestDB
 GO
 
 SET ANSI_NULLS ON
