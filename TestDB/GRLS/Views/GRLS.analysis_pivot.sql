@@ -12,19 +12,6 @@ GO
 DECLARE @sql 		varchar(MAX),
 		@pivotlist 	varchar(MAX)
 
-
-SELECT @pivotlist = (SELECT STRING_AGG(w.abbrev, ',') FROM
-(
-	SELECT TOP 100
-		l1.abbrev
-	FROM 
-		GRLS.attribute_level_1 l1
-	ORDER BY
-		l1.abbrev
-) w) 
-
-print @pivotlist
-
 SET @sql = '
 	CREATE VIEW GRLS.analysis_pivot AS	
 		SELECT
@@ -45,7 +32,7 @@ SET @sql = '
 			MAX(x)
 		FOR d.abbrev IN(~pivotlist)
 	) piv;'
-	SET @sql = REPLACE(@sql, '~pivotlist', @pivotlist) 
+	SET @sql = REPLACE(@sql, '~pivotlist', GRLS.l1_abbrevs_as_string()) 
 	SET @sql = REPLACE(@sql, '^', '''');
 
 	EXEC (@sql)
