@@ -6,4 +6,4 @@ FROM
 	ON al1.l1_id = al2.l1_id
 ORDER BY
 	al1.abbrev ,
-	al2.l2_desc
+	al2.l2_preference desc

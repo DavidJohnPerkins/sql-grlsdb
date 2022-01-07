@@ -21,6 +21,7 @@ SET @sql = '
 			SELECT
 				ba.model_id,
 				ba.sobriquet,
+				ba.adjusted_total,
 				ba.hotness_quotient,
 				ba.abbrev,
 				CONVERT(varchar(255), ba.l2_desc + ^ (^ + CONVERT(varchar, ba.adj_preference) + ^)^) AS x

@@ -20,6 +20,8 @@ BEGIN
 			l1.abbrev
 		FROM 
 			GRLS.attribute_level_1 l1
+		WHERE
+			l1.for_aggregation = 1
 		ORDER BY
 			l1.abbrev) w
 	) 

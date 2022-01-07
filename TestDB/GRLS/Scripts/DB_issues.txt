@@ -1,86 +1,77 @@
-{\rtf1\ansi\ansicpg1252\cocoartf2636
-\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
-{\colortbl;\red255\green255\blue255;\red251\green0\blue7;\red0\green0\blue0;}
-{\*\expandedcolortbl;;\cssrgb\c100000\c12195\c0;\cssrgb\c0\c0\c0;}
-\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
-\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+A
+Aaliyah
+Adriana F
+Agatha Vega
+Aleksandrina
+Alena I
+Alexa
+Alice Wonder
+Alisa
+Alisa A
+Alisa I
+Alissa Foxy
+Allana
+Alma
+Altea
+Amandine
+Amelie B
+Anata
+Andrea C
+Angel
+Anie Darling
+Anita Bellini
+Anna AJ
+Anna LJ
+Anna Tatu
+Anya
+Ardelia A
+Arianna
+Arina F
+Aspen A
+Augustina ** PUAT++
+Aurita
+Avery
+Aya A
 
-\f0\fs24 \cf0 MONS Unpronounced to be added and balanced\
-\
-Models to capture\
-\
-Aaliyah\
-Adriana F\
-Agatha Vega\
-Aleksandrina\
-Alena I\
-Alexa\
-\cf2 Alice May\cf0 \
-Alice Wonder\
-Alisa\
-Alisa A\
-Alisa I\
-Alissa Foxy\
-Allana\
-Alma\
-Altea\
-Amandine\
-Amelie B\
-Anata\
-Andrea C\
-Angel\
-Angely Grace ***\
-Anie Darling\
-Anita Bellini\
-Anna AJ\
-Anna LJ\
-Anna Tatu\
-Anya\
-\cf2 Apolonia\cf0 \
-Ardelia A\
-\cf2 Aria A\cf0 \
-Arianna\
-Arina F\
-Aspen A\
-\cf2 Aubrey\cf0 \
-\cf2 Ava\cf0 \
-Aurita\
-Avery\
-Aya A\
-\cf2 Bailey Bae\cf0 \
-Barbara\
-Belicia\
-Belinda A\
-Blake Bartelli\
-Bony A\
-Brea Bennett\
-Bretona\
-Briana\
-Bridget\
-Brionie W\
-Brit\
-Candice ***\
-Candice B\
-Cara Mell\
-Carla B\
-Carla Cox\
-Carmen Y\
-Carolina Abril\
-Carolina Sweets\
-Casey\
-Cassia ***\
-Cayenne\
-Celeste\
-Chanel Fenn\
-Charlene\
-Charlotte Stokely\
-Chrissy\
-\cf2 Cira\cf0 \
-Clarice A\
-\cf2 Clover\cf0 \
-Colette\
-Cordelia A\
-Corinna\
+B
+Barbara
+Belicia
+Belinda A
+Blake Bartelli
+Bony A
+Brea Bennett
+Bretona
+Briana
+Bridget
+Brionie W
+Brit
+
+C
+Cadey
+Candice ***
+Candice B
+Cara Mell
+Carla B
+Carla Cox
+Carmen Y
+Carolina Abril
+Carolina Sampaio (Esme?)
+Carolina Sweets
+Casey
+Cassia ***
+Cayenne
+Celeste
+Chanel Fenn
+Charlene
+Charlotte Stokely
+Cherry Kiss
+Chrissy
+Clarice A
+Colette
+Cordelia A
+Corinna
+
+D
 Dana\
 Danica\
 Danica A\
@@ -90,32 +81,38 @@ Debora A\
 Demi A\
 Dillion Harper\
 Dominika\
-Eden Arya\
-Eden Petty\
-Eliana\
-Elisa\
-\cf2 Elle\cf0 \
-Elle B\
-Ellie V\
-Elvira E\
-\cf2 Emma\cf0 \
-Erica\
-Etna\
-Eufrat\
-Eva G\
-Eve Luv\
-FayeA\
-Fernanda\
-Foxy Salt\
-Frances A\
-\cf2 Francesa\cf0 \
-Francesca B (pierced up and down)\
-Freya\
-Ganna A\
-Genevieve\
-Georgia Jones\
-Gina\
-Gwen\
+
+E
+Eden Arya
+Eden Petty
+Eliana
+Elisa
+Elize (bushy)
+Elle B
+Ellie V
+Elvira E
+Erica
+Etna
+Eufrat
+Eva G
+Eve Luv
+
+F
+FayeA
+Fernanda
+Foxy Salt
+Frances A
+Francesca B (pierced up and down)
+Freya
+
+G
+Ganna A
+Genevieve
+Georgia Jones
+Gina
+Gloria
+Gwen
+
 Hannelie D\
 Hannelie G\
 Helen H\
@@ -123,6 +120,7 @@ Helen H\
 Hiromi\
 Holly Anderson ** PUAT\
 Hunter\
+
 Indiana\
 Innah\
 Ira\
@@ -146,32 +144,34 @@ Joanna\
 Joy Lamore\
 Julia B\
 Juliette\
-Kahlisa (bushy)\
-Kaleesy / Stefani\
-Kalena A\
-Kalisy ***\
-Kami\
-\cf2 Kara\cf0 \
-Kara Tang\
-Karina O\
-Karissa / Katie A\
-Kate K\
-Katej\
-Katherine A\
-\cf2 Katherinne\cf0 \
-Katy N\
-Katy Rose\
-Katya AC\
-Katya AD\
-Katya D\
-Kimiko\
-Kristine R\
-Ksenia (blonde)\
-Ksenya A\
+
+K
+Kahlisa (bushy)
+Kaleesy / Stefani
+Kalena A
+Kalisy ***
+Kami
+Kara Tang
+Karina O
+Karissa / Katie A
+Kate K
+Katej
+Katherine A
+Katy N
+Katy Rose
+Katya AC
+Katya AD
+Katya D
+Kimiko
+Kristine R
+Ksenia (blonde)
+Ksenya A
+
+L
 Lace ***\
 Lady D\
 Laila ** BRSH\
-Landysh A\
+Landysh A *** (bushy)
 Laetitia\
 Lara E\
 Laren\
@@ -231,6 +231,7 @@ Nensi A\
 Nensi B\
 \cf2 Nicca\cf0 \
 Nicky K\
+Nicole
 Niemira\
 Nika\
 Nika O\
@@ -258,6 +259,7 @@ Riccarda\
 Roberta Berti (Colette)\
 Ruth Medina\
 Sabrisse A\
+Sade Mare\
 Sally Charles\
 Samantha Drone\
 Sandra Shine\
@@ -297,12 +299,10 @@ Veronika F\
 Victoria Mur\
 Victoria R\
 Vika AD\
+Verotrois\
 Verunka\
 \cf2 Xenia\cf0 \
 Yarina A\
 \cf2 Zelda\cf0 \
 Zita\
 Zita A\
-\
-\
-}
