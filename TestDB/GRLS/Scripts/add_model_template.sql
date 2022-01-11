@@ -1,28 +1,31 @@
+USE TestDB
+GO
+
 DECLARE @attribs GRLS.kv_pair
 DECLARE @names GRLS.generic_list_vc_int
 
 INSERT INTO @names VALUES
-('Angely Grace', 1),
-('Angelina', 0)/*,
+('Uma Jolie', 1),
+('Belicia', 0)/*,
 ('Jati', 0) ,
 ('Katrina', 0),
 ('Mia', 0)*/
 
 INSERT INTO @attribs VALUES
 
-('SOBR', 'Angely Grace') ,
+('SOBR', 'Uma Jolie') ,
 ('HQUO', '8'),
 
-('ASHP', 'Balanced') ,
---('ASHP', 'Boyish') ,
+--('ASHP', 'Balanced') ,
+('ASHP', 'Boyish') ,
 --('ASHP', 'Peach') ,
 --('ASHP', 'Flat') ,
 --('ASHP', 'Slight Lower Sag') ,
 --('ASHP', 'Heavy Lower Sag') ,
 
-('ASIZ', 'Petite') ,
+--('ASIZ', 'Petite') ,
 --('ASIZ', 'Small / Flat') ,
---('ASIZ', 'Medium') ,
+('ASIZ', 'Medium') ,
 --('ASIZ', 'Large') ,
 --('ASIZ', 'Heavy') ,
 --('ASIZ', 'Oversize') ,
@@ -43,28 +46,28 @@ INSERT INTO @attribs VALUES
 --('BILD', 'Heavy-Regular') ,
 --('BILD', 'Heavy') ,
 
---('BRDR', 'None') ,
-('BRDR', 'Slight') ,
+('BRDR', 'None') ,
+--('BRDR', 'Slight') ,
 --('BRDR', 'Moderate') ,
 --('BRDR', 'Heavy') ,
 
 --('BRSH', 'Nubs') ,
---('BRSH', 'Conical') ,
-('BRSH', 'Semi-Pendulous') ,
+('BRSH', 'Conical') ,
+--('BRSH', 'Semi-Pendulous') ,
 --('BRSH', 'Dome') ,
 --('BRSH', 'Full') ,
 --('BRSH', 'Pendulous') ,
 
---('BSIZ', 'Small') ,
+('BSIZ', 'Small') ,
 --('BSIZ', 'Flat') ,
-('BSIZ', 'Medium') ,
+--('BSIZ', 'Medium') ,
 --('BSIZ', 'Large') ,
 --('BSIZ', 'Oversized') ,
 
 --('CMPX', 'Freckled') ,
-('CMPX', 'Mediterranean') ,
+--('CMPX', 'Mediterranean') ,
 --('CMPX', 'Dark') ,
---('CMPX', 'Fair') ,
+('CMPX', 'Fair') ,
 --('CMPX', 'Asian') ,
 --('CMPX', 'Pale') ,
 
@@ -79,19 +82,19 @@ INSERT INTO @attribs VALUES
 --('EYES', 'Dark Brown') ,
 --('EYES', 'Brown') ,
 --('EYES', 'Deep Grey') ,
-('EYES', 'Grey') ,
+--('EYES', 'Grey') ,
 --('EYES', 'Blue') ,
 --('EYES', 'Hazel') ,
 --('EYES', 'Green') ,
---('EYES', 'Pale Blue') ,
+('EYES', 'Pale Blue') ,
 
 --('HAIR', 'Dark Brunette') ,
 --('HAIR', 'Black') ,
-('HAIR', 'Brunette') ,
+--('HAIR', 'Brunette') ,
 --('HAIR', 'Copper Red') ,
 --('HAIR', 'Fair') ,
 --('HAIR', 'Ash Blonde') ,
---('HAIR', 'Mid Brown') ,
+('HAIR', 'Mid Brown') ,
 --('HAIR', 'Deep Grey') ,
 --('HAIR', 'Regular Blonde') ,
 --('HAIR', 'Bright Red') ,
@@ -100,23 +103,23 @@ INSERT INTO @attribs VALUES
 --('HAIR', 'Dyed/Coloured') ,
 --('HAIR', 'Bleached Blonde') ,
 
---('MONS', 'Plump / Retreating') ,
+('MONS', 'Plump / Retreating') ,
 --('MONS', 'Plump / Proud') ,
 --('MONS', 'Natural / Proud') ,
-('MONS', 'Natural / Retreating') ,
+--('MONS', 'Natural / Retreating') ,
 --('MONS', 'Flat / Retreating') ,
 --('MONS', 'Narrow / Retreating') ,
 --('MONS', 'Narrow / Proud') ,
 --('MONS', 'Unattractive') ,
 
---('NATN', 'Not Known') ,
+('NATN', 'Not Known') ,
 --('NATN', 'USA') ,
 --('NATN', 'Russia') ,
 --('NATN', 'Slovenia') ,
 --('NATN', 'Czech Republic') ,
 --('NATN', 'Croatia') ,
 --('NATN', 'Spain') ,
-('NATN', 'Ukraine') ,
+--('NATN', 'Ukraine') ,
 --('NATN', 'Hungary') ,
 --('NATN', 'Latvia') ,
 --('NATN', 'United Kingdom') ,
@@ -137,8 +140,8 @@ INSERT INTO @attribs VALUES
 --('NPSH', 'Flat') ,
 
 --('NPSZ', 'Tiny') ,
---('NPSZ', 'Small') ,
-('NPSZ', 'Normal') ,
+('NPSZ', 'Small') ,
+--('NPSZ', 'Normal') ,
 --('NPSZ', 'Large') ,
 --('NPSZ', 'Very Large') ,
 
