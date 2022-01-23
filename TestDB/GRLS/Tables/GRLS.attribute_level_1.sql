@@ -13,10 +13,11 @@ GO
 
 CREATE TABLE GRLS.attribute_level_1
 (
-	l1_id		int IDENTITY(1, 1)	NOT NULL ,
-	l1_desc		varchar(50)			NOT NULL ,
-	abbrev		char(4)				NOT NULL
-)
+	l1_id				int IDENTITY(1, 1)	NOT NULL ,
+	l1_desc				varchar(50)			NOT NULL ,
+	abbrev				char(4)				NOT NULL
+	for_aggregation		bit					NOT NULL,
+	attr_weight			int					NOT NULL)
 GO
 ALTER TABLE GRLS.attribute_level_1 ADD PRIMARY KEY CLUSTERED 
 (

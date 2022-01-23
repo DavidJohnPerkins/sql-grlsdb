@@ -5,34 +5,34 @@ DECLARE @attribs GRLS.kv_pair
 DECLARE @names GRLS.generic_list_vc_int
 
 INSERT INTO @names VALUES
-('Uma Jolie', 1),
-('Belicia', 0)/*,
+('Olga M', 1),
+('Orea', 0)/*,
 ('Jati', 0) ,
 ('Katrina', 0),
 ('Mia', 0)*/
 
 INSERT INTO @attribs VALUES
 
-('SOBR', 'Uma Jolie') ,
-('HQUO', '8'),
+('SOBR', 'Olga M') ,
+('HQUO', '9'),
 
---('ASHP', 'Balanced') ,
-('ASHP', 'Boyish') ,
+('ASHP', 'Balanced') ,
+--('ASHP', 'Boyish') ,
 --('ASHP', 'Peach') ,
 --('ASHP', 'Flat') ,
 --('ASHP', 'Slight Lower Sag') ,
 --('ASHP', 'Heavy Lower Sag') ,
 
 --('ASIZ', 'Petite') ,
---('ASIZ', 'Small / Flat') ,
-('ASIZ', 'Medium') ,
+('ASIZ', 'Small / Flat') ,
+--('ASIZ', 'Medium') ,
 --('ASIZ', 'Large') ,
 --('ASIZ', 'Heavy') ,
 --('ASIZ', 'Oversize') ,
 
 --('ATTR', 'Ten') ,
---('ATTR', 'Knockout') ,
-('ATTR', 'Beautiful') ,
+('ATTR', 'Knockout') ,
+--('ATTR', 'Beautiful') ,
 --('ATTR', 'Pretty') ,
 --('ATTR', 'Gamine') ,
 --('ATTR', 'Girl-Next-Door') ,
@@ -52,22 +52,22 @@ INSERT INTO @attribs VALUES
 --('BRDR', 'Heavy') ,
 
 --('BRSH', 'Nubs') ,
-('BRSH', 'Conical') ,
---('BRSH', 'Semi-Pendulous') ,
+--('BRSH', 'Conical') ,
+('BRSH', 'Semi-Pendulous') ,
 --('BRSH', 'Dome') ,
 --('BRSH', 'Full') ,
 --('BRSH', 'Pendulous') ,
 
-('BSIZ', 'Small') ,
+--('BSIZ', 'Small') ,
 --('BSIZ', 'Flat') ,
---('BSIZ', 'Medium') ,
+('BSIZ', 'Medium') ,
 --('BSIZ', 'Large') ,
 --('BSIZ', 'Oversized') ,
 
 --('CMPX', 'Freckled') ,
---('CMPX', 'Mediterranean') ,
+('CMPX', 'Mediterranean') ,
 --('CMPX', 'Dark') ,
-('CMPX', 'Fair') ,
+--('CMPX', 'Fair') ,
 --('CMPX', 'Asian') ,
 --('CMPX', 'Pale') ,
 
@@ -82,19 +82,19 @@ INSERT INTO @attribs VALUES
 --('EYES', 'Dark Brown') ,
 --('EYES', 'Brown') ,
 --('EYES', 'Deep Grey') ,
---('EYES', 'Grey') ,
+('EYES', 'Grey') ,
 --('EYES', 'Blue') ,
 --('EYES', 'Hazel') ,
 --('EYES', 'Green') ,
-('EYES', 'Pale Blue') ,
+--('EYES', 'Pale Blue') ,
 
---('HAIR', 'Dark Brunette') ,
+('HAIR', 'Dark Brunette') ,
 --('HAIR', 'Black') ,
 --('HAIR', 'Brunette') ,
 --('HAIR', 'Copper Red') ,
 --('HAIR', 'Fair') ,
 --('HAIR', 'Ash Blonde') ,
-('HAIR', 'Mid Brown') ,
+--('HAIR', 'Mid Brown') ,
 --('HAIR', 'Deep Grey') ,
 --('HAIR', 'Regular Blonde') ,
 --('HAIR', 'Bright Red') ,
@@ -112,20 +112,20 @@ INSERT INTO @attribs VALUES
 --('MONS', 'Narrow / Proud') ,
 --('MONS', 'Unattractive') ,
 
-('NATN', 'Not Known') ,
---('NATN', 'USA') ,
---('NATN', 'Russia') ,
---('NATN', 'Slovenia') ,
---('NATN', 'Czech Republic') ,
+--('NATN', 'Not Known') ,
+--('NATN', 'Belarus') ,
 --('NATN', 'Croatia') ,
---('NATN', 'Spain') ,
---('NATN', 'Ukraine') ,
+--('NATN', 'Czech Republic') ,
+--('NATN', 'Germany') ,
 --('NATN', 'Hungary') ,
 --('NATN', 'Latvia') ,
---('NATN', 'United Kingdom') ,
---('NATN', 'Belarus') ,
 --('NATN', 'Moldova') ,
---('NATN', 'Germany') ,
+--('NATN', 'Russia') ,
+--('NATN', 'Slovenia') ,
+--('NATN', 'Spain') ,
+('NATN', 'Ukraine') ,
+--('NATN', 'United Kingdom') ,
+--('NATN', 'USA') ,
 
 --('NPCL', 'Dark') ,
 ('NPCL', 'Normal') ,
@@ -140,20 +140,20 @@ INSERT INTO @attribs VALUES
 --('NPSH', 'Flat') ,
 
 --('NPSZ', 'Tiny') ,
-('NPSZ', 'Small') ,
---('NPSZ', 'Normal') ,
+--('NPSZ', 'Small') ,
+('NPSZ', 'Normal') ,
 --('NPSZ', 'Large') ,
 --('NPSZ', 'Very Large') ,
 
-('PUAT', 'Plump No Protrusion') ,
+--('PUAT', 'Plump No Protrusion') ,
 --('PUAT', 'No Protrusion') ,
---('PUAT', 'Slight Protrusion') ,
+('PUAT', 'Slight Protrusion') ,
 --('PUAT', 'Noticeable Protrusion') ,
 --('PUAT', 'Unsightly') ,
 
 --('YTHF', 'Mid Teens') 
-('YTHF', 'Late Teens') 
---('YTHF', 'Early Twenties') 
+--('YTHF', 'Late Teens') 
+('YTHF', 'Early Twenties') 
 --('YTHF', 'Mid Twenties') 
 --('YTHF', 'Late Twenties')
 
