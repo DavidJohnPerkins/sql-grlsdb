@@ -25,7 +25,7 @@ ALTER TABLE GRLS.attribute_level_1 ADD PRIMARY KEY CLUSTERED
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 */
-
+/*
 BEGIN TRY
 
 	BEGIN TRANSACTION
@@ -38,6 +38,36 @@ BEGIN TRY
 	ALTER TABLE GRLS.attribute_level_1
 		ADD CONSTRAINT FK_attr_level_1_attr_scheme FOREIGN KEY (scheme_id) REFERENCES GRLS.attribute_scheme(scheme_id)
 			ON DELETE CASCADE
+
+	COMMIT TRANSACTION
+
+END TRY
+BEGIN CATCH
+   SELECT  
+		ERROR_NUMBER() AS ErrorNumber , 
+        ERROR_SEVERITY() AS ErrorSeverity,  
+        ERROR_STATE() AS ErrorState,  
+        ERROR_PROCEDURE() AS ErrorProcedure,  
+        ERROR_LINE() AS ErrorLine,  
+        ERROR_MESSAGE() AS ErrorMessage
+
+	ROLLBACK
+END CATCH
+*/
+BEGIN TRY
+
+	BEGIN TRANSACTION
+
+	ALTER TABLE GRLS.attribute_level_1
+		DROP CONSTRAINT FK_attr_level_1_attr_scheme
+
+	DROP INDEX U_IDX_schemeid_l1id ON GRLS.attribute_level_1
+
+	ALTER TABLE GRLS.attribute_level_1
+		DROP COLUMN scheme_id -- , attr_weight
+
+	ALTER TABLE GRLS.attribute_level_1
+		DROP COLUMN  attr_weight
 
 	COMMIT TRANSACTION
 

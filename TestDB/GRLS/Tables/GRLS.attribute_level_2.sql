@@ -42,6 +42,7 @@ ALTER TABLE GRLS.attribute_level_2
 GO
 */
 
+/*
 BEGIN TRY
 
 	BEGIN TRANSACTION
@@ -60,6 +61,26 @@ BEGIN TRY
 	COMMIT TRANSACTION
 
 END TRY
+*/
+BEGIN TRY
+
+	BEGIN TRANSACTION
+
+	ALTER TABLE GRLS.attribute_level_2
+		DROP CONSTRAINT FK_attr_level_2_attr_scheme
+
+	DROP INDEX U_IDX_schemeid_l1id_l2id ON GRLS.attribute_level_2
+
+	ALTER TABLE GRLS.attribute_level_2
+		DROP COLUMN scheme_id 
+
+	ALTER TABLE GRLS.attribute_level_2
+		DROP COLUMN l2_preference
+
+	COMMIT TRANSACTION
+
+END TRY
+
 BEGIN CATCH
    SELECT  
 		ERROR_NUMBER() AS ErrorNumber , 

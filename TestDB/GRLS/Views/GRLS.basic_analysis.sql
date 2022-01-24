@@ -23,8 +23,8 @@ CREATE VIEW GRLS.basic_analysis AS
 		FROM
 			GRLS.model m
 			INNER JOIN GRLS.model_attribute ma
-				INNER JOIN GRLS.attribute_level_2 al2
-					INNER JOIN GRLS.attribute_level_1 al1
+				INNER JOIN GRLS.v_attribute_level_2 al2
+					INNER JOIN GRLS.v_attribute_level_1 al1
 						INNER JOIN GRLS.attribute_scheme sc 
 						ON al1.scheme_id = sc.scheme_id
 					ON al2.l1_id = al1.l1_id

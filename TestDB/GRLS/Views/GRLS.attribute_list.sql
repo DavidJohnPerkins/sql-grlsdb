@@ -23,7 +23,7 @@ CREATE VIEW GRLS.attribute_list AS
 		GRLS.model m
 		INNER JOIN GRLS.model_attribute ma
 			INNER JOIN GRLS.attribute_level_2 al2
-				INNER JOIN GRLS.attribute_level_1 al1
+				INNER JOIN GRLS.v_attribute_level_1 al1
 				ON al2.l1_id = al1.l1_id
 			ON ma.attribute_id = al2.l2_id
 		ON m.id = ma.model_id
