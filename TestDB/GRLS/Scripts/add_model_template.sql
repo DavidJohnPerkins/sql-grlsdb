@@ -5,16 +5,17 @@ DECLARE @attribs GRLS.kv_pair
 DECLARE @names GRLS.generic_list_vc_int
 
 INSERT INTO @names VALUES
-('Olga M', 1),
-('Orea', 0)/*,
-('Jati', 0) ,
-('Katrina', 0),
+('Grace', 1),
+('Anneli', 0), 
+('Pinky', 0), 
+('June', 0), 
+('Annelie', 0)/*,
 ('Mia', 0)*/
 
 INSERT INTO @attribs VALUES
 
-('SOBR', 'Olga M') ,
-('HQUO', '9'),
+('SOBR', 'Grace') ,
+('HQUO', '10'),
 
 ('ASHP', 'Balanced') ,
 --('ASHP', 'Boyish') ,
@@ -23,15 +24,15 @@ INSERT INTO @attribs VALUES
 --('ASHP', 'Slight Lower Sag') ,
 --('ASHP', 'Heavy Lower Sag') ,
 
---('ASIZ', 'Petite') ,
-('ASIZ', 'Small / Flat') ,
+('ASIZ', 'Petite') ,
+--('ASIZ', 'Small / Flat') ,
 --('ASIZ', 'Medium') ,
 --('ASIZ', 'Large') ,
 --('ASIZ', 'Heavy') ,
 --('ASIZ', 'Oversize') ,
 
---('ATTR', 'Ten') ,
-('ATTR', 'Knockout') ,
+('ATTR', 'Ten') ,
+--('ATTR', 'Knockout') ,
 --('ATTR', 'Beautiful') ,
 --('ATTR', 'Pretty') ,
 --('ATTR', 'Gamine') ,
@@ -52,8 +53,8 @@ INSERT INTO @attribs VALUES
 --('BRDR', 'Heavy') ,
 
 --('BRSH', 'Nubs') ,
---('BRSH', 'Conical') ,
-('BRSH', 'Semi-Pendulous') ,
+('BRSH', 'Conical') ,
+--('BRSH', 'Semi-Pendulous') ,
 --('BRSH', 'Dome') ,
 --('BRSH', 'Full') ,
 --('BRSH', 'Pendulous') ,
@@ -65,9 +66,9 @@ INSERT INTO @attribs VALUES
 --('BSIZ', 'Oversized') ,
 
 --('CMPX', 'Freckled') ,
-('CMPX', 'Mediterranean') ,
+--('CMPX', 'Mediterranean') ,
 --('CMPX', 'Dark') ,
---('CMPX', 'Fair') ,
+('CMPX', 'Fair') ,
 --('CMPX', 'Asian') ,
 --('CMPX', 'Pale') ,
 
@@ -93,7 +94,7 @@ INSERT INTO @attribs VALUES
 --('HAIR', 'Brunette') ,
 --('HAIR', 'Copper Red') ,
 --('HAIR', 'Fair') ,
---('HAIR', 'Ash Blonde') ,
+('HAIR', 'Ash Blonde') ,
 --('HAIR', 'Mid Brown') ,
 --('HAIR', 'Deep Grey') ,
 --('HAIR', 'Regular Blonde') ,
@@ -115,7 +116,7 @@ INSERT INTO @attribs VALUES
 --('NATN', 'Not Known') ,
 --('NATN', 'Belarus') ,
 --('NATN', 'Croatia') ,
---('NATN', 'Czech Republic') ,
+('NATN', 'Czech Republic') ,
 --('NATN', 'Germany') ,
 --('NATN', 'Hungary') ,
 --('NATN', 'Latvia') ,
@@ -123,7 +124,7 @@ INSERT INTO @attribs VALUES
 --('NATN', 'Russia') ,
 --('NATN', 'Slovenia') ,
 --('NATN', 'Spain') ,
-('NATN', 'Ukraine') ,
+--('NATN', 'Ukraine') ,
 --('NATN', 'United Kingdom') ,
 --('NATN', 'USA') ,
 
@@ -132,28 +133,28 @@ INSERT INTO @attribs VALUES
 --('NPCL', 'Pale') ,
 
 --('NPSH', 'Pert') ,
-('NPSH', 'Slightly Pert') ,
+--('NPSH', 'Slightly Pert') ,
 --('NPSH', 'Very Pert') ,
---('NPSH', 'Slightly Puffy') ,
+('NPSH', 'Slightly Puffy') ,
 --('NPSH', 'Puffy') ,
 --('NPSH', 'Very Puffy') ,
 --('NPSH', 'Flat') ,
 
 --('NPSZ', 'Tiny') ,
 --('NPSZ', 'Small') ,
-('NPSZ', 'Normal') ,
---('NPSZ', 'Large') ,
+--('NPSZ', 'Normal') ,
+('NPSZ', 'Large') ,
 --('NPSZ', 'Very Large') ,
 
---('PUAT', 'Plump No Protrusion') ,
+('PUAT', 'Plump No Protrusion') ,
 --('PUAT', 'No Protrusion') ,
-('PUAT', 'Slight Protrusion') ,
+--('PUAT', 'Slight Protrusion') ,
 --('PUAT', 'Noticeable Protrusion') ,
 --('PUAT', 'Unsightly') ,
 
 --('YTHF', 'Mid Teens') 
---('YTHF', 'Late Teens') 
-('YTHF', 'Early Twenties') 
+('YTHF', 'Late Teens') 
+--('YTHF', 'Early Twenties') 
 --('YTHF', 'Mid Twenties') 
 --('YTHF', 'Late Twenties')
 
