@@ -19,6 +19,7 @@ SET @sql = '
 		FROM
 		(
 			SELECT
+				ba.scheme_id,
 				ba.model_id,
 				ba.sobriquet,
 				ba.adjusted_total,

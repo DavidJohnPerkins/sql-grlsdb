@@ -13,26 +13,23 @@ CREATE VIEW GRLS.basic_analysis AS
 
 	WITH w_work AS (
 		SELECT
+			att.scheme_id,
 			m.id AS model_id ,
 			m.sobriquet ,
 			m.hotness_quotient,
-			al1.abbrev ,
-			al2.l2_desc ,
-			CONVERT(float, al2.l2_preference) AS l2_preference ,
-			CONVERT(float, al1.attr_weight) / 10 AS attr_weight
+			att.abbrev ,
+			att.l2_desc ,
+			CONVERT(float, att.l2_preference) AS l2_preference ,
+			CONVERT(float, att.attr_weight) / 10 AS attr_weight
 		FROM
 			GRLS.model m
 			INNER JOIN GRLS.model_attribute ma
-				INNER JOIN GRLS.v_attribute_level_2 al2
-					INNER JOIN GRLS.v_attribute_level_1 al1
-						INNER JOIN GRLS.attribute_scheme sc 
-						ON al1.scheme_id = sc.scheme_id
-					ON al2.l1_id = al1.l1_id
-				ON ma.attribute_id = al2.l2_id
+				INNER JOIN GRLS.v_attribute att
+				ON ma.attribute_id = att.l2_id
 			ON m.id = ma.model_id
 		WHERE
-			al1.for_aggregation = 1 AND 
-			sc.active = 1
+			att.for_aggregation = 1 AND 
+			att.active = 1
 	) ,
 	w_work2 AS (
 		SELECT
@@ -44,6 +41,7 @@ CREATE VIEW GRLS.basic_analysis AS
 	w_work3 AS
 	(
 		SELECT
+			w.scheme_id,
 			w.model_id ,
 			w.sobriquet ,
 			w.hotness_quotient,
@@ -52,8 +50,8 @@ CREATE VIEW GRLS.basic_analysis AS
 			w.l2_desc ,
 			w.l2_preference ,
 			w.adj_preference ,
-			CONVERT(decimal(5, 2), w.adj_preference / SUM(w.adj_preference) OVER (PARTITION BY w.model_id) * 100) AS [Weight] ,
-			CONVERT(decimal(8, 2), SUM(w.adj_preference) OVER (PARTITION BY w.model_id)) AS Total1
+			CONVERT(decimal(5, 2), w.adj_preference / SUM(w.adj_preference) OVER (PARTITION BY w.scheme_id, w.model_id) * 100) AS [Weight] ,
+			CONVERT(decimal(8, 2), SUM(w.adj_preference) OVER (PARTITION BY w.scheme_id, w.model_id)) AS Total1
 		FROM
 			w_work2 w
 	)

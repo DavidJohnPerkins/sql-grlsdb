@@ -5,16 +5,16 @@ DECLARE @attribs GRLS.kv_pair
 DECLARE @names GRLS.generic_list_vc_int
 
 INSERT INTO @names VALUES
-('Grace', 1),
+('Grace', 1)/*1,
 ('Anneli', 0), 
 ('Pinky', 0), 
 ('June', 0), 
-('Annelie', 0)/*,
+('Annelie', 0),
 ('Mia', 0)*/
 
 INSERT INTO @attribs VALUES
 
-('SOBR', 'Grace') ,
+('SOBR', 'Izzy Delphine') ,
 ('HQUO', '10'),
 
 ('ASHP', 'Balanced') ,
@@ -24,8 +24,8 @@ INSERT INTO @attribs VALUES
 --('ASHP', 'Slight Lower Sag') ,
 --('ASHP', 'Heavy Lower Sag') ,
 
-('ASIZ', 'Petite') ,
---('ASIZ', 'Small / Flat') ,
+--('ASIZ', 'Petite') ,
+('ASIZ', 'Small / Flat') ,
 --('ASIZ', 'Medium') ,
 --('ASIZ', 'Large') ,
 --('ASIZ', 'Heavy') ,
@@ -40,8 +40,8 @@ INSERT INTO @attribs VALUES
 --('ATTR', 'Cosmetic-led') ,
 --('ATTR', 'Plain') ,
 
---('BILD', 'Petite') ,
-('BILD', 'Regular-Petite') ,
+('BILD', 'Petite') ,
+--('BILD', 'Regular-Petite') ,
 --('BILD', 'Regular') ,
 --('BILD', 'Extra-Petite') ,
 --('BILD', 'Heavy-Regular') ,
@@ -52,23 +52,23 @@ INSERT INTO @attribs VALUES
 --('BRDR', 'Moderate') ,
 --('BRDR', 'Heavy') ,
 
---('BRSH', 'Nubs') ,
-('BRSH', 'Conical') ,
+('BRSH', 'Nubs') ,
+--('BRSH', 'Conical') ,
 --('BRSH', 'Semi-Pendulous') ,
 --('BRSH', 'Dome') ,
 --('BRSH', 'Full') ,
 --('BRSH', 'Pendulous') ,
 
---('BSIZ', 'Small') ,
+('BSIZ', 'Small') ,
 --('BSIZ', 'Flat') ,
-('BSIZ', 'Medium') ,
+--('BSIZ', 'Medium') ,
 --('BSIZ', 'Large') ,
 --('BSIZ', 'Oversized') ,
 
---('CMPX', 'Freckled') ,
+('CMPX', 'Freckled') ,
 --('CMPX', 'Mediterranean') ,
 --('CMPX', 'Dark') ,
-('CMPX', 'Fair') ,
+--('CMPX', 'Fair') ,
 --('CMPX', 'Asian') ,
 --('CMPX', 'Pale') ,
 
@@ -83,13 +83,13 @@ INSERT INTO @attribs VALUES
 --('EYES', 'Dark Brown') ,
 --('EYES', 'Brown') ,
 --('EYES', 'Deep Grey') ,
-('EYES', 'Grey') ,
+--('EYES', 'Grey') ,
 --('EYES', 'Blue') ,
---('EYES', 'Hazel') ,
+('EYES', 'Hazel') ,
 --('EYES', 'Green') ,
 --('EYES', 'Pale Blue') ,
 
-('HAIR', 'Dark Brunette') ,
+--('HAIR', 'Dark Brunette') ,
 --('HAIR', 'Black') ,
 --('HAIR', 'Brunette') ,
 --('HAIR', 'Copper Red') ,
@@ -104,11 +104,11 @@ INSERT INTO @attribs VALUES
 --('HAIR', 'Dyed/Coloured') ,
 --('HAIR', 'Bleached Blonde') ,
 
-('MONS', 'Plump / Retreating') ,
+--('MONS', 'Plump / Retreating') ,
 --('MONS', 'Plump / Proud') ,
 --('MONS', 'Natural / Proud') ,
 --('MONS', 'Natural / Retreating') ,
---('MONS', 'Flat / Retreating') ,
+('MONS', 'Flat / Retreating') ,
 --('MONS', 'Narrow / Retreating') ,
 --('MONS', 'Narrow / Proud') ,
 --('MONS', 'Unattractive') ,
@@ -133,27 +133,27 @@ INSERT INTO @attribs VALUES
 --('NPCL', 'Pale') ,
 
 --('NPSH', 'Pert') ,
---('NPSH', 'Slightly Pert') ,
+('NPSH', 'Slightly Pert') ,
 --('NPSH', 'Very Pert') ,
-('NPSH', 'Slightly Puffy') ,
+--('NPSH', 'Slightly Puffy') ,
 --('NPSH', 'Puffy') ,
 --('NPSH', 'Very Puffy') ,
 --('NPSH', 'Flat') ,
 
 --('NPSZ', 'Tiny') ,
 --('NPSZ', 'Small') ,
---('NPSZ', 'Normal') ,
-('NPSZ', 'Large') ,
+('NPSZ', 'Normal') ,
+--('NPSZ', 'Large') ,
 --('NPSZ', 'Very Large') ,
 
-('PUAT', 'Plump No Protrusion') ,
---('PUAT', 'No Protrusion') ,
+--('PUAT', 'Plump No Protrusion') ,
+('PUAT', 'No Protrusion') ,
 --('PUAT', 'Slight Protrusion') ,
 --('PUAT', 'Noticeable Protrusion') ,
 --('PUAT', 'Unsightly') ,
 
---('YTHF', 'Mid Teens') 
-('YTHF', 'Late Teens') 
+('YTHF', 'Mid Teens') 
+--('YTHF', 'Late Teens') 
 --('YTHF', 'Early Twenties') 
 --('YTHF', 'Mid Twenties') 
 --('YTHF', 'Late Twenties')
