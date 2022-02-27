@@ -5,7 +5,7 @@ DECLARE @attribs GRLS.kv_pair
 DECLARE @names GRLS.generic_list_vc_int
 
 INSERT INTO @names VALUES
-('Grace', 1)/*1,
+('Izzy Delphine', 1)/*1,
 ('Anneli', 0), 
 ('Pinky', 0), 
 ('June', 0), 
