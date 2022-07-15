@@ -6,10 +6,10 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-DROP VIEW IF EXISTS GRLS.basic_analysis
+DROP VIEW IF EXISTS GRLS.v_basic_analysis
 GO
 
-CREATE VIEW GRLS.basic_analysis AS
+CREATE VIEW GRLS.v_basic_analysis AS
 
 	WITH w_work AS (
 		SELECT
