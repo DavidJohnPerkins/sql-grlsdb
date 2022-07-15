@@ -58,7 +58,7 @@ BEGIN
 				SELECT
 					att.id
 				FROM
-					GRLS.attribute_list att 
+					GRLS.v_attribute_list att 
 				WHERE 
 					att.sobriquet = @v_model_sobriquet AND
 					att.abbrev = @v_l1_abbrev
