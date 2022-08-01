@@ -5,8 +5,8 @@ DECLARE @attribs GRLS.kv_pair
 DECLARE @names GRLS.generic_list_vc_int
 
 INSERT INTO @names VALUES
-('Izzy Delphine', 1)/*1,
-('Anneli', 0), 
+('Alex de la Flor', 1)/*,
+('Monika', 0), 
 ('Pinky', 0), 
 ('June', 0), 
 ('Annelie', 0),
@@ -14,7 +14,7 @@ INSERT INTO @names VALUES
 
 INSERT INTO @attribs VALUES
 
-('SOBR', 'Izzy Delphine') ,
+('SOBR', 'ALEX_DE_LA_FLOR') ,
 ('HQUO', '10'),
 
 ('ASHP', 'Balanced') ,
@@ -25,23 +25,23 @@ INSERT INTO @attribs VALUES
 --('ASHP', 'Heavy Lower Sag') ,
 
 --('ASIZ', 'Petite') ,
-('ASIZ', 'Small / Flat') ,
---('ASIZ', 'Medium') ,
+--('ASIZ', 'Small / Flat') ,
+('ASIZ', 'Medium') ,
 --('ASIZ', 'Large') ,
 --('ASIZ', 'Heavy') ,
 --('ASIZ', 'Oversize') ,
 
-('ATTR', 'Ten') ,
+--('ATTR', 'Ten') ,
 --('ATTR', 'Knockout') ,
---('ATTR', 'Beautiful') ,
+('ATTR', 'Beautiful') ,
 --('ATTR', 'Pretty') ,
 --('ATTR', 'Gamine') ,
 --('ATTR', 'Girl-Next-Door') ,
 --('ATTR', 'Cosmetic-led') ,
 --('ATTR', 'Plain') ,
 
-('BILD', 'Petite') ,
---('BILD', 'Regular-Petite') ,
+--('BILD', 'Petite') ,
+('BILD', 'Regular-Petite') ,
 --('BILD', 'Regular') ,
 --('BILD', 'Extra-Petite') ,
 --('BILD', 'Heavy-Regular') ,
@@ -52,49 +52,49 @@ INSERT INTO @attribs VALUES
 --('BRDR', 'Moderate') ,
 --('BRDR', 'Heavy') ,
 
-('BRSH', 'Nubs') ,
+--('BRSH', 'Nubs') ,
 --('BRSH', 'Conical') ,
 --('BRSH', 'Semi-Pendulous') ,
---('BRSH', 'Dome') ,
+('BRSH', 'Dome') ,
 --('BRSH', 'Full') ,
 --('BRSH', 'Pendulous') ,
 
-('BSIZ', 'Small') ,
+--('BSIZ', 'Small') ,
 --('BSIZ', 'Flat') ,
---('BSIZ', 'Medium') ,
+('BSIZ', 'Medium') ,
 --('BSIZ', 'Large') ,
 --('BSIZ', 'Oversized') ,
 
-('CMPX', 'Freckled') ,
+--('CMPX', 'Freckled') ,
 --('CMPX', 'Mediterranean') ,
---('CMPX', 'Dark') ,
+('CMPX', 'Dark') ,
 --('CMPX', 'Fair') ,
 --('CMPX', 'Asian') ,
 --('CMPX', 'Pale') ,
 
-('ETHN', 'White') ,
+--('ETHN', 'White') ,
 --('ETHN', 'Latino') ,
 --('ETHN', 'Indian Asian') ,
 --('ETHN', 'Indonesian') ,
 --('ETHN', 'Japanese') ,
 --('ETHN', 'Chinese') ,
---('ETHN', 'Afro-Caribbean') ,
+('ETHN', 'Afro-Caribbean') ,
 
---('EYES', 'Dark Brown') ,
+('EYES', 'Dark Brown') ,
 --('EYES', 'Brown') ,
 --('EYES', 'Deep Grey') ,
 --('EYES', 'Grey') ,
 --('EYES', 'Blue') ,
-('EYES', 'Hazel') ,
+--('EYES', 'Hazel') ,
 --('EYES', 'Green') ,
 --('EYES', 'Pale Blue') ,
 
 --('HAIR', 'Dark Brunette') ,
---('HAIR', 'Black') ,
+('HAIR', 'Black') ,
 --('HAIR', 'Brunette') ,
 --('HAIR', 'Copper Red') ,
 --('HAIR', 'Fair') ,
-('HAIR', 'Ash Blonde') ,
+--('HAIR', 'Ash Blonde') ,
 --('HAIR', 'Mid Brown') ,
 --('HAIR', 'Deep Grey') ,
 --('HAIR', 'Regular Blonde') ,
@@ -103,12 +103,13 @@ INSERT INTO @attribs VALUES
 --('HAIR', 'White Blonde') ,
 --('HAIR', 'Dyed/Coloured') ,
 --('HAIR', 'Bleached Blonde') ,
+--('HAIR', 'Afro') ,
 
 --('MONS', 'Plump / Retreating') ,
 --('MONS', 'Plump / Proud') ,
 --('MONS', 'Natural / Proud') ,
---('MONS', 'Natural / Retreating') ,
-('MONS', 'Flat / Retreating') ,
+('MONS', 'Natural / Retreating') ,
+--('MONS', 'Flat / Retreating') ,
 --('MONS', 'Narrow / Retreating') ,
 --('MONS', 'Narrow / Proud') ,
 --('MONS', 'Unattractive') ,
@@ -116,7 +117,7 @@ INSERT INTO @attribs VALUES
 --('NATN', 'Not Known') ,
 --('NATN', 'Belarus') ,
 --('NATN', 'Croatia') ,
-('NATN', 'Czech Republic') ,
+--('NATN', 'Czech Republic') ,
 --('NATN', 'Germany') ,
 --('NATN', 'Hungary') ,
 --('NATN', 'Latvia') ,
@@ -127,33 +128,34 @@ INSERT INTO @attribs VALUES
 --('NATN', 'Ukraine') ,
 --('NATN', 'United Kingdom') ,
 --('NATN', 'USA') ,
+('NATN', 'Brazil'),
 
---('NPCL', 'Dark') ,
-('NPCL', 'Normal') ,
+('NPCL', 'Dark') ,
+--('NPCL', 'Normal') ,
 --('NPCL', 'Pale') ,
 
 --('NPSH', 'Pert') ,
-('NPSH', 'Slightly Pert') ,
---('NPSH', 'Very Pert') ,
+--('NPSH', 'Slightly Pert') ,
+('NPSH', 'Very Pert') ,
 --('NPSH', 'Slightly Puffy') ,
 --('NPSH', 'Puffy') ,
 --('NPSH', 'Very Puffy') ,
 --('NPSH', 'Flat') ,
 
 --('NPSZ', 'Tiny') ,
---('NPSZ', 'Small') ,
-('NPSZ', 'Normal') ,
+('NPSZ', 'Small') ,
+--('NPSZ', 'Normal') ,
 --('NPSZ', 'Large') ,
 --('NPSZ', 'Very Large') ,
 
---('PUAT', 'Plump No Protrusion') ,
-('PUAT', 'No Protrusion') ,
+('PUAT', 'Plump No Protrusion') ,
+--('PUAT', 'No Protrusion') ,
 --('PUAT', 'Slight Protrusion') ,
 --('PUAT', 'Noticeable Protrusion') ,
 --('PUAT', 'Unsightly') ,
 
-('YTHF', 'Mid Teens') 
---('YTHF', 'Late Teens') 
+--('YTHF', 'Mid Teens') 
+('YTHF', 'Late Teens') 
 --('YTHF', 'Early Twenties') 
 --('YTHF', 'Mid Twenties') 
 --('YTHF', 'Late Twenties')
