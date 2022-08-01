@@ -6,14 +6,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-DROP VIEW IF EXISTS GRLS.analysis_pivot
+DROP VIEW IF EXISTS GRLS.v_analysis_pivot
 GO
 
 DECLARE @sql 		varchar(MAX),
 		@pivotlist 	varchar(MAX)
 
 SET @sql = '
-	CREATE VIEW GRLS.analysis_pivot AS	
+	CREATE VIEW GRLS.v_analysis_pivot AS	
 		SELECT
 			piv.*
 		FROM
@@ -27,7 +27,7 @@ SET @sql = '
 				ba.abbrev,
 				CONVERT(varchar(255), ba.l2_desc + ^ (^ + CONVERT(varchar, ba.adj_preference) + ^)^) AS x
 			FROM
-				GRLS.basic_analysis ba
+				GRLS.v_basic_analysis ba
 			) d
 		PIVOT
 		(
