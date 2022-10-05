@@ -6,7 +6,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-DROP VIEW IF EXISTS GRLS.v_analysis_pivot
+IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.v_analysis_pivot') AND [type] IN ('V'))
+BEGIN 
+	DROP VIEW GRLS.v_analysis_pivot
+	PRINT '########## GRLS.v_analysis_pivot dropped successfully ##########'
+END
 GO
 
 DECLARE @sql 		varchar(MAX),
@@ -21,6 +25,7 @@ SET @sql = '
 			SELECT
 				ba.scheme_id,
 				ba.model_id,
+				ba.model_name,
 				ba.sobriquet,
 				ba.adjusted_total,
 				ba.hotness_quotient,
@@ -28,6 +33,8 @@ SET @sql = '
 				CONVERT(varchar(255), ba.l2_desc + ^ (^ + CONVERT(varchar, ba.adj_preference) + ^)^) AS x
 			FROM
 				GRLS.v_basic_analysis ba
+			WHERE
+				ba.for_aggregation = 1
 			) d
 		PIVOT
 		(
@@ -39,3 +46,4 @@ SET @sql = '
 
 	EXEC (@sql)
 GO
+PRINT '########## GRLS.v_analysis_pivot created successfully ##########'
