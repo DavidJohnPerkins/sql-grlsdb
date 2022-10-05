@@ -5,8 +5,8 @@ DECLARE @attribs GRLS.kv_pair
 DECLARE @names GRLS.generic_list_vc_int
 
 INSERT INTO @names VALUES
-('Alex de la Flor', 1)/*,
-('Monika', 0), 
+('Ekaterina D', 1),
+('Dorea B', 0)/*, 
 ('Pinky', 0), 
 ('June', 0), 
 ('Annelie', 0),
@@ -14,7 +14,7 @@ INSERT INTO @names VALUES
 
 INSERT INTO @attribs VALUES
 
-('SOBR', 'ALEX_DE_LA_FLOR') ,
+('SOBR', 'EKATERINA_D') ,
 ('HQUO', '10'),
 
 ('ASHP', 'Balanced') ,
@@ -25,15 +25,15 @@ INSERT INTO @attribs VALUES
 --('ASHP', 'Heavy Lower Sag') ,
 
 --('ASIZ', 'Petite') ,
---('ASIZ', 'Small / Flat') ,
-('ASIZ', 'Medium') ,
+('ASIZ', 'Small / Flat') ,
+--('ASIZ', 'Medium') ,
 --('ASIZ', 'Large') ,
 --('ASIZ', 'Heavy') ,
 --('ASIZ', 'Oversize') ,
 
---('ATTR', 'Ten') ,
+('ATTR', 'Ten') ,
 --('ATTR', 'Knockout') ,
-('ATTR', 'Beautiful') ,
+--('ATTR', 'Beautiful') ,
 --('ATTR', 'Pretty') ,
 --('ATTR', 'Gamine') ,
 --('ATTR', 'Girl-Next-Door') ,
@@ -65,32 +65,32 @@ INSERT INTO @attribs VALUES
 --('BSIZ', 'Large') ,
 --('BSIZ', 'Oversized') ,
 
---('CMPX', 'Freckled') ,
+('CMPX', 'Freckled') ,
 --('CMPX', 'Mediterranean') ,
-('CMPX', 'Dark') ,
+--('CMPX', 'Dark') ,
 --('CMPX', 'Fair') ,
 --('CMPX', 'Asian') ,
 --('CMPX', 'Pale') ,
 
---('ETHN', 'White') ,
+('ETHN', 'White') ,
 --('ETHN', 'Latino') ,
 --('ETHN', 'Indian Asian') ,
 --('ETHN', 'Indonesian') ,
 --('ETHN', 'Japanese') ,
 --('ETHN', 'Chinese') ,
-('ETHN', 'Afro-Caribbean') ,
+--('ETHN', 'Afro-Caribbean') ,
 
-('EYES', 'Dark Brown') ,
+--('EYES', 'Dark Brown') ,
 --('EYES', 'Brown') ,
 --('EYES', 'Deep Grey') ,
---('EYES', 'Grey') ,
+('EYES', 'Grey') ,
 --('EYES', 'Blue') ,
 --('EYES', 'Hazel') ,
 --('EYES', 'Green') ,
 --('EYES', 'Pale Blue') ,
 
 --('HAIR', 'Dark Brunette') ,
-('HAIR', 'Black') ,
+--('HAIR', 'Black') ,
 --('HAIR', 'Brunette') ,
 --('HAIR', 'Copper Red') ,
 --('HAIR', 'Fair') ,
@@ -99,7 +99,7 @@ INSERT INTO @attribs VALUES
 --('HAIR', 'Deep Grey') ,
 --('HAIR', 'Regular Blonde') ,
 --('HAIR', 'Bright Red') ,
---('HAIR', 'Light Red') ,
+('HAIR', 'Light Red') ,
 --('HAIR', 'White Blonde') ,
 --('HAIR', 'Dyed/Coloured') ,
 --('HAIR', 'Bleached Blonde') ,
@@ -108,13 +108,14 @@ INSERT INTO @attribs VALUES
 --('MONS', 'Plump / Retreating') ,
 --('MONS', 'Plump / Proud') ,
 --('MONS', 'Natural / Proud') ,
-('MONS', 'Natural / Retreating') ,
+--('MONS', 'Natural / Retreating') ,
 --('MONS', 'Flat / Retreating') ,
---('MONS', 'Narrow / Retreating') ,
+('MONS', 'Narrow / Retreating') ,
 --('MONS', 'Narrow / Proud') ,
 --('MONS', 'Unattractive') ,
 
 --('NATN', 'Not Known') ,
+--('NATN', 'Brazil'),
 --('NATN', 'Belarus') ,
 --('NATN', 'Croatia') ,
 --('NATN', 'Czech Republic') ,
@@ -122,40 +123,39 @@ INSERT INTO @attribs VALUES
 --('NATN', 'Hungary') ,
 --('NATN', 'Latvia') ,
 --('NATN', 'Moldova') ,
---('NATN', 'Russia') ,
+('NATN', 'Russia') ,
 --('NATN', 'Slovenia') ,
 --('NATN', 'Spain') ,
 --('NATN', 'Ukraine') ,
 --('NATN', 'United Kingdom') ,
 --('NATN', 'USA') ,
-('NATN', 'Brazil'),
 
-('NPCL', 'Dark') ,
---('NPCL', 'Normal') ,
+--('NPCL', 'Dark') ,
+('NPCL', 'Normal') ,
 --('NPCL', 'Pale') ,
 
 --('NPSH', 'Pert') ,
 --('NPSH', 'Slightly Pert') ,
-('NPSH', 'Very Pert') ,
---('NPSH', 'Slightly Puffy') ,
+--('NPSH', 'Very Pert') ,
+('NPSH', 'Slightly Puffy') ,
 --('NPSH', 'Puffy') ,
 --('NPSH', 'Very Puffy') ,
 --('NPSH', 'Flat') ,
 
 --('NPSZ', 'Tiny') ,
-('NPSZ', 'Small') ,
---('NPSZ', 'Normal') ,
+--('NPSZ', 'Small') ,
+('NPSZ', 'Normal') ,
 --('NPSZ', 'Large') ,
 --('NPSZ', 'Very Large') ,
 
-('PUAT', 'Plump No Protrusion') ,
---('PUAT', 'No Protrusion') ,
+--('PUAT', 'Plump No Protrusion') ,
+('PUAT', 'No Protrusion') ,
 --('PUAT', 'Slight Protrusion') ,
 --('PUAT', 'Noticeable Protrusion') ,
 --('PUAT', 'Unsightly') ,
 
---('YTHF', 'Mid Teens') 
-('YTHF', 'Late Teens') 
+('YTHF', 'Mid Teens') 
+--('YTHF', 'Late Teens') 
 --('YTHF', 'Early Twenties') 
 --('YTHF', 'Mid Twenties') 
 --('YTHF', 'Late Twenties')
