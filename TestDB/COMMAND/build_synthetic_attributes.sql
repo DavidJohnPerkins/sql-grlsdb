@@ -25,6 +25,8 @@ GO
 
 -- Views
 :r "TestDB/GRLS/Views/GRLS.v_basic_analysis.sql"
+:r "TestDB/GRLS/Views/GRLS.v_attribute_level_2_detail.sql"
+:r "TestDB/GRLS/Views/GRLS.v_attribute.sql"
 
 -- StoredProcs
 :r "TestDB/COMMON/StoredProcedures/COMMON.c_model.sql"
