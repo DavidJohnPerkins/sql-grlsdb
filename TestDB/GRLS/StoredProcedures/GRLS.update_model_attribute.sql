@@ -6,11 +6,17 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-DROP PROCEDURE IF EXISTS GRLS.update_model_attribute
+IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.update_model_attribute') AND [type] IN ('P', 'PC'))
+BEGIN 
+	DROP PROCEDURE GRLS.update_model_attribute
+	PRINT '########## GRLS.update_model_attribute dropped successfully ##########'
+END
 GO
 
 CREATE PROCEDURE GRLS.update_model_attribute (
-	@p_input_json		COMMON.json
+	@p_input_json		COMMON.json,
+	@p_debug			bit = 0,
+	@p_execute			bit = 1
 )
 AS
 BEGIN 
@@ -52,37 +58,45 @@ BEGIN
 			)
 			RAISERROR ('Level 2 attribute %s not found for level 1 attribute %s.', 16, 1, @v_l2_desc, @v_l1_abbrev)
 
-			BEGIN TRANSACTION
+		BEGIN TRANSACTION
 
-			;WITH w_ma_id AS (
-				SELECT
-					att.id
-				FROM
-					GRLS.v_attribute_list att 
-				WHERE 
-					att.sobriquet = @v_model_sobriquet AND
-					att.abbrev = @v_l1_abbrev
-			)	
-			DELETE
-				ma
+		;WITH w_ma_id AS (
+			SELECT
+				att.id
 			FROM
-				GRLS.model_attribute ma
-				INNER JOIN w_ma_id w 
-				ON ma.id = w.id
+				GRLS.v_attribute_list att 
+			WHERE 
+				att.sobriquet = @v_model_sobriquet AND
+				att.abbrev = @v_l1_abbrev
+		)	
+		DELETE
+			ma
+		FROM
+			GRLS.model_attribute ma
+			INNER JOIN w_ma_id w 
+			ON ma.id = w.id
 
-			INSERT INTO GRLS.model_attribute
-				SELECT
-					m.id,
-					l2.l2_id
-				FROM
-					GRLS.v_attribute_level_2 l2,
-					GRLS.model m
-				WHERE 
-					m.sobriquet = @v_model_sobriquet AND
-					l2.abbrev = @v_l1_abbrev AND
-					l2.l2_desc = @v_l2_desc
+		INSERT INTO GRLS.model_attribute
+			SELECT
+				m.id,
+				l2.l2_id
+			FROM
+				GRLS.v_attribute_level_2 l2,
+				GRLS.model m
+			WHERE 
+				m.sobriquet = @v_model_sobriquet AND
+				l2.abbrev = @v_l1_abbrev AND
+				l2.l2_desc = @v_l2_desc
 
+		IF @p_execute = 1
+		BEGIN
 			COMMIT TRANSACTION
+		END
+		ELSE
+		BEGIN
+			ROLLBACK TRANSACTION
+			PRINT 'Transaction rolled back - no changes made'
+		END
 
 	END TRY
 	BEGIN CATCH
@@ -103,3 +117,4 @@ BEGIN
 	END CATCH
 END
 GO
+PRINT '########## GRLS.update_model_attribute created successfully ##########'
