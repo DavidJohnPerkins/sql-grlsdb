@@ -34,7 +34,5 @@ CREATE UNIQUE CLUSTERED INDEX U_IDX_imageid_attrl2id ON GRLS.image_attribute (im
 GO
 ALTER TABLE GRLS.image_attribute ADD CONSTRAINT FK_image_attribute_image FOREIGN KEY (image_id) REFERENCES GRLS.image(image_id) ON DELETE CASCADE;
 GO
-ALTER TABLE GRLS.image_attribute ADD CONSTRAINT FK_image_attribute_attr_l2 FOREIGN KEY (image_attr_l2_id) REFERENCES GRLS.xxxxxxxxxxxxxxxmodel(id) ON DELETE CASCADE;
-GO
 
 PRINT '########## Table GRLS.image_attribute created successfully ##########'
