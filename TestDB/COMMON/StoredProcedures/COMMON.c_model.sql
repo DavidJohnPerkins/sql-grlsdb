@@ -26,7 +26,8 @@ BEGIN
 	SET NOCOUNT ON
 
 	DECLARE @model_id	int,
-			@hq 		int = (SELECT ba.hot_quotient FROM @p_base_attribs ba)
+			@hq 		int = (SELECT ba.hot_quotient FROM @p_base_attribs ba),
+			@yob 		int = (SELECT ba.yob FROM @p_base_attribs ba)
 
 	BEGIN TRY
 	
@@ -42,6 +43,12 @@ BEGIN
 		IF @hq < 1 OR @hq > 10 
    			RAISERROR ('The hot_quotient value must be from 1 - 10 - operation failed.', 16, 1)
 		
+		IF NOT @yob IS NULL
+		BEGIN
+			IF @yob NOT BETWEEN 1985 AND 2005
+	   			RAISERROR ('The yob value must be from 1985 - 2005 - operation failed.', 16, 1)
+		END
+
 		IF (SELECT COUNT(1) FROM @p_model_names mn WHERE mn.principal_name = 1) != 1
    			RAISERROR ('There must be one, and only one, principal name - operation failed.', 16, 1)
 
@@ -64,10 +71,11 @@ BEGIN
 
 		BEGIN TRANSACTION
 
-		INSERT INTO GRLS.model (sobriquet, hotness_quotient)
+		INSERT INTO GRLS.model (sobriquet, hotness_quotient, year_of_birth)
 			SELECT
 				ba.sobriquet,
-				ba.hot_quotient
+				ba.hot_quotient,
+				ba.yob
 			FROM 
 				@p_base_attribs ba
 
