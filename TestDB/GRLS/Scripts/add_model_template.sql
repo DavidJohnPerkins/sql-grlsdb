@@ -5,16 +5,16 @@ DECLARE @attribs GRLS.kv_pair
 DECLARE @names GRLS.generic_list_vc_int
 
 INSERT INTO @names VALUES
-('Ekaterina D', 1),
-('Dorea B', 0)/*, 
-('Pinky', 0), 
+('Etna', 1),
+('Bogdana', 0), 
+('Ciera', 0)/*, 
 ('June', 0), 
 ('Annelie', 0),
 ('Mia', 0)*/
 
 INSERT INTO @attribs VALUES
 
-('SOBR', 'EKATERINA_D') ,
+('SOBR', 'ETNA') ,
 ('HQUO', '10'),
 
 ('ASHP', 'Balanced') ,
@@ -24,8 +24,8 @@ INSERT INTO @attribs VALUES
 --('ASHP', 'Slight Lower Sag') ,
 --('ASHP', 'Heavy Lower Sag') ,
 
---('ASIZ', 'Petite') ,
-('ASIZ', 'Small / Flat') ,
+('ASIZ', 'Petite') ,
+--('ASIZ', 'Small / Flat') ,
 --('ASIZ', 'Medium') ,
 --('ASIZ', 'Large') ,
 --('ASIZ', 'Heavy') ,
@@ -53,20 +53,20 @@ INSERT INTO @attribs VALUES
 --('BRDR', 'Heavy') ,
 
 --('BRSH', 'Nubs') ,
---('BRSH', 'Conical') ,
+('BRSH', 'Conical') ,
 --('BRSH', 'Semi-Pendulous') ,
-('BRSH', 'Dome') ,
+--('BRSH', 'Dome') ,
 --('BRSH', 'Full') ,
 --('BRSH', 'Pendulous') ,
 
---('BSIZ', 'Small') ,
+('BSIZ', 'Small') ,
 --('BSIZ', 'Flat') ,
-('BSIZ', 'Medium') ,
+--('BSIZ', 'Medium') ,
 --('BSIZ', 'Large') ,
 --('BSIZ', 'Oversized') ,
 
-('CMPX', 'Freckled') ,
---('CMPX', 'Mediterranean') ,
+--('CMPX', 'Freckled') ,
+('CMPX', 'Mediterranean') ,
 --('CMPX', 'Dark') ,
 --('CMPX', 'Fair') ,
 --('CMPX', 'Asian') ,
@@ -82,8 +82,8 @@ INSERT INTO @attribs VALUES
 
 --('EYES', 'Dark Brown') ,
 --('EYES', 'Brown') ,
---('EYES', 'Deep Grey') ,
-('EYES', 'Grey') ,
+('EYES', 'Deep Grey') ,
+--('EYES', 'Grey') ,
 --('EYES', 'Blue') ,
 --('EYES', 'Hazel') ,
 --('EYES', 'Green') ,
@@ -95,22 +95,22 @@ INSERT INTO @attribs VALUES
 --('HAIR', 'Copper Red') ,
 --('HAIR', 'Fair') ,
 --('HAIR', 'Ash Blonde') ,
---('HAIR', 'Mid Brown') ,
+('HAIR', 'Mid Brown') ,
 --('HAIR', 'Deep Grey') ,
 --('HAIR', 'Regular Blonde') ,
 --('HAIR', 'Bright Red') ,
-('HAIR', 'Light Red') ,
+--('HAIR', 'Light Red') ,
 --('HAIR', 'White Blonde') ,
 --('HAIR', 'Dyed/Coloured') ,
 --('HAIR', 'Bleached Blonde') ,
 --('HAIR', 'Afro') ,
 
 --('MONS', 'Plump / Retreating') ,
---('MONS', 'Plump / Proud') ,
+('MONS', 'Plump / Proud') ,
 --('MONS', 'Natural / Proud') ,
 --('MONS', 'Natural / Retreating') ,
 --('MONS', 'Flat / Retreating') ,
-('MONS', 'Narrow / Retreating') ,
+--('MONS', 'Narrow / Retreating') ,
 --('MONS', 'Narrow / Proud') ,
 --('MONS', 'Unattractive') ,
 
@@ -123,10 +123,10 @@ INSERT INTO @attribs VALUES
 --('NATN', 'Hungary') ,
 --('NATN', 'Latvia') ,
 --('NATN', 'Moldova') ,
-('NATN', 'Russia') ,
+--('NATN', 'Russia') ,
 --('NATN', 'Slovenia') ,
 --('NATN', 'Spain') ,
---('NATN', 'Ukraine') ,
+('NATN', 'Ukraine') ,
 --('NATN', 'United Kingdom') ,
 --('NATN', 'USA') ,
 
@@ -148,8 +148,8 @@ INSERT INTO @attribs VALUES
 --('NPSZ', 'Large') ,
 --('NPSZ', 'Very Large') ,
 
---('PUAT', 'Plump No Protrusion') ,
-('PUAT', 'No Protrusion') ,
+('PUAT', 'Plump No Protrusion') ,
+--('PUAT', 'No Protrusion') ,
 --('PUAT', 'Slight Protrusion') ,
 --('PUAT', 'Noticeable Protrusion') ,
 --('PUAT', 'Unsightly') ,
@@ -160,4 +160,8 @@ INSERT INTO @attribs VALUES
 --('YTHF', 'Mid Twenties') 
 --('YTHF', 'Late Twenties')
 
-EXEC GRLS.add_model @attribs, @names
+select * from @attribs FOR JSON AUTO
+
+
+
+--EXEC GRLS.add_model @attribs, @names

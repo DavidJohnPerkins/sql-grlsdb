@@ -1,0 +1,53 @@
+DECLARE @y TABLE (
+	sobriquet	GRLS.sobriquet,
+	yob			int
+)
+
+INSERT INTO @y VALUES
+	('CUTE_LINDA', 1994),
+	('CLOVER', 1989),
+	('ALICE_MAY', 1994),
+	('AVA', 1998),
+	('EMMA', 1989),
+	('IVETA', 1985),
+	('AUBREY', 1997),
+	('FRANCESCA', 1989),
+	('CIRA', 1995),
+	('TRACY_A', 1990),
+	('SARAH', 1986),
+	('SAPPHIRA', 1995),
+	('MICHELLE_H', 1992),
+	('MONIKA_DEE', 1996),
+	('HELLA_G', 1996),
+	('APOLONIA', 1992),
+	('NICCA', 1985),
+	('ANGELY_GRACE', 1999),
+	('UMA_JOLIE', 1995),
+	('GRACE', 1992),
+	('IZZY_DELPHINE', 1991),
+	('NELA', 1988),
+	('NELLY_A', 1985),
+	('LUNA_C', 1989),
+	('ALEX_DE_LA_FLOR', 1997),
+	('EKATERINA_D', 1993),
+	('CAESARIA', 1990),
+	('TRACY_LINDSAY', 1991),
+	('NORDICA', 1993),
+	('CLARICE_A', 1997),
+	('ADRIANA_F', 1991),
+	('SASHA_L', 1992),
+	('TINA', 1983),
+	('VIKI_D', 1988),
+	('LUCE_A', 1990),
+	('BAMBI_JOLI', 1992),
+	('BRIDGIT', 1991),
+	('COLETTE', 1995)
+
+UPDATE
+	m 
+SET 
+	m.year_of_birth = y.yob
+FROM 
+	GRLS.model m
+	INNER JOIN @y y
+	ON m.sobriquet = y.sobriquet COLLATE DATABASE_DEFAULT
