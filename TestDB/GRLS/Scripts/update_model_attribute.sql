@@ -1,9 +1,9 @@
 declare @json COMMON.json = '
 	{
-		"model_sobriquet": "NORDICA",
-		"l1_abbrev": "ASHP",
-		"l2_desc": "Boyish"
+		"model_sobriquet": "ZELDA",
+		"l1_abbrev": "BRSH",
+		"l2_desc": "Semi-Pendulous"
 	}
 '
 
-EXEC GRLS.update_model_attribute @json
+EXEC GRLS.update_model_attribute @json,0,1

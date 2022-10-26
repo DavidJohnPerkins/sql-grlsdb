@@ -5,20 +5,17 @@ DECLARE @json	COMMON.json = '
 	{
 		"base_attribs": 
 		{
-			"sobriquet": "MAGEN",
-		 	"hot_quotient": 10,
-			"yob": 1996
+			"sobriquet": "AUBREY",
+		 	"hot_quotient": 9
 		},
 		"model_names": [
-			{ "model_name": "Carla B",			"principal_name": 1 },
-			{ "model_name": "April",			"principal_name": 0 },
-			{ "model_name": "Oxana",			"principal_name": 0 }
+			{ "model_name": "Aubrey",		"principal_name": 1 }
 		],
 		"attribs": [
 			{
 				"abbrev": "ASHP", "options": [
-					{ "l2_desc": "Balanced", 			"selected": 1 },
-					{ "l2_desc": "Boyish",				"selected": 0 },
+					{ "l2_desc": "Balanced", 			"selected": 0 },
+					{ "l2_desc": "Boyish",				"selected": 1 },
 					{ "l2_desc": "Peach",				"selected": 0 },
 					{ "l2_desc": "Flat",				"selected": 0 },
 					{ "l2_desc": "Slight Lower Sag",	"selected": 0 },
@@ -77,9 +74,9 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "BSIZ", "options": [
-					{ "l2_desc": "Small",				"selected": 1 },
+					{ "l2_desc": "Small",				"selected": 0 },
 					{ "l2_desc": "Flat",				"selected": 0 },
-					{ "l2_desc": "Medium",				"selected": 0 },
+					{ "l2_desc": "Medium",				"selected": 1 },
 					{ "l2_desc": "Large",				"selected": 0 },
 					{ "l2_desc": "Oversized",			"selected": 0 }
 				]
@@ -96,9 +93,9 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "ETHN", "options": [
-					{ "l2_desc": "White",				"selected": 0 },
+					{ "l2_desc": "White",				"selected": 1 },
 					{ "l2_desc": "Latino",				"selected": 0 },
-					{ "l2_desc": "Indian Asian",		"selected": 1 },
+					{ "l2_desc": "Indian Asian",		"selected": 0 },
 					{ "l2_desc": "Indonesian",			"selected": 0 },
 					{ "l2_desc": "Japanese",			"selected": 0 },
 					{ "l2_desc": "Chinese",				"selected": 0 },
@@ -107,8 +104,8 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "EYES", "options": [
-					{ "l2_desc": "Dark Brown",			"selected": 1 },
-					{ "l2_desc": "Brown",				"selected": 0 },
+					{ "l2_desc": "Dark Brown",			"selected": 0 },
+					{ "l2_desc": "Brown",				"selected": 1 },
 					{ "l2_desc": "Deep Grey",			"selected": 0 },
 					{ "l2_desc": "Grey",				"selected": 0 },
 					{ "l2_desc": "Blue",				"selected": 0 },
@@ -120,8 +117,8 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "HAIR", "options": [
 					{ "l2_desc": "Dark Brunette",		"selected": 0 },
-					{ "l2_desc": "Black",				"selected": 1 },
-					{ "l2_desc": "Brunette",			"selected": 0 }, 
+					{ "l2_desc": "Black",				"selected": 0 },
+					{ "l2_desc": "Brunette",			"selected": 1 }, 
 					{ "l2_desc": "Copper Red",			"selected": 0 }, 
 					{ "l2_desc": "Fair",				"selected": 0 }, 
 					{ "l2_desc": "Ash Blonde",			"selected": 0 },
@@ -138,8 +135,8 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "MONS", "options": [
-					{ "l2_desc": "Plump / Retreating",		"selected": 1 },
-					{ "l2_desc": "Plump / Proud",			"selected": 0 },
+					{ "l2_desc": "Plump / Retreating",		"selected": 0 },
+					{ "l2_desc": "Plump / Proud",			"selected": 1 },
 					{ "l2_desc": "Natural / Proud",			"selected": 0 },
 					{ "l2_desc": "Natural / Retreating",	"selected": 0 },
 					{ "l2_desc": "Flat / Retreating",		"selected": 0 },
@@ -158,29 +155,30 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Czech Republic",		"selected": 0 },
 					{ "l2_desc": "Germany",				"selected": 0 },
 					{ "l2_desc": "Hungary",				"selected": 0 },
+					{ "l2_desc": "Japan",				"selected": 0 },
 					{ "l2_desc": "Latvia",				"selected": 0 },
 					{ "l2_desc": "Moldova",				"selected": 0 },
 					{ "l2_desc": "Russia",				"selected": 0 },
 					{ "l2_desc": "Slovenia",			"selected": 0 },
 					{ "l2_desc": "Spain",				"selected": 0 },
-					{ "l2_desc": "Thailand",			"selected": 1 },
+					{ "l2_desc": "Thailand",			"selected": 0 },
 					{ "l2_desc": "Ukraine",				"selected": 0 },
 					{ "l2_desc": "United Kingdom",		"selected": 0 },
-					{ "l2_desc": "USA",					"selected": 0 }
+					{ "l2_desc": "USA",					"selected": 1 }
 				]
 			},
 			{
 				"abbrev": "NPCL", "options": [
-					{ "l2_desc": "Dark",				"selected": 1 },
-					{ "l2_desc": "Normal",				"selected": 0 },
+					{ "l2_desc": "Dark",				"selected": 0 },
+					{ "l2_desc": "Normal",				"selected": 1 },
 					{ "l2_desc": "Pale",				"selected": 0 }
 				]
 			},
 			{
 				"abbrev": "NPSH", "options": [
-					{ "l2_desc": "Pert",				"selected": 0 },
+					{ "l2_desc": "Pert",				"selected": 1 },
 					{ "l2_desc": "Slightly Pert",		"selected": 0 },
-					{ "l2_desc": "Very Pert",			"selected": 1 },
+					{ "l2_desc": "Very Pert",			"selected": 0 },
 					{ "l2_desc": "Slightly Puffy",		"selected": 0 },
 					{ "l2_desc": "Puffy",				"selected": 0 },
 					{ "l2_desc": "Very Puffy",			"selected": 0 },
@@ -199,6 +197,7 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "PUAT", "options": [
 					{ "l2_desc": "Plump No Protrusion",		"selected": 1 },
+					{ "l2_desc": "Plump Slight Protrusion",	"selected": 0 },
 					{ "l2_desc": "No Protrusion",			"selected": 0 },
 					{ "l2_desc": "Slight Protrusion",		"selected": 0 },
 					{ "l2_desc": "Noticeable Protrusion",	"selected": 0 },
