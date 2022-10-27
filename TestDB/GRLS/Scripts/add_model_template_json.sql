@@ -5,11 +5,12 @@ DECLARE @json	COMMON.json = '
 	{
 		"base_attribs": 
 		{
-			"sobriquet": "AUBREY",
-		 	"hot_quotient": 9
+			"sobriquet":		"SANTA",
+		 	"hot_quotient":		8,
+			 "yob":				1996
 		},
 		"model_names": [
-			{ "model_name": "Aubrey",		"principal_name": 1 }
+			{ "model_name": "Santa",		"principal_name": 1 }
 		],
 		"attribs": [
 			{
@@ -35,8 +36,8 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "ATTR", "options": [
 					{ "l2_desc": "Ten",					"selected": 0 },
-					{ "l2_desc": "Knockout",			"selected": 1 },
-					{ "l2_desc": "Beautiful",			"selected": 0 },
+					{ "l2_desc": "Knockout",			"selected": 0 },
+					{ "l2_desc": "Beautiful",			"selected": 1 },
 					{ "l2_desc": "Pretty",				"selected": 0 },
 					{ "l2_desc": "Gamine",				"selected": 0 },
 					{ "l2_desc": "Girl-Next-Door",		"selected": 0 },
@@ -65,18 +66,18 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "BRSH", "options": [
 					{ "l2_desc": "Nubs",				"selected": 0 },
-					{ "l2_desc": "Conical",				"selected": 0 },
+					{ "l2_desc": "Conical",				"selected": 1 },
 					{ "l2_desc": "Semi-Pendulous",		"selected": 0 },
-					{ "l2_desc": "Dome",				"selected": 1 },
+					{ "l2_desc": "Dome",				"selected": 0 },
 					{ "l2_desc": "Full",				"selected": 0 },
 					{ "l2_desc": "Pendulous",			"selected": 0 }
 				]
 			},
 			{
 				"abbrev": "BSIZ", "options": [
-					{ "l2_desc": "Small",				"selected": 0 },
+					{ "l2_desc": "Small",				"selected": 1 },
 					{ "l2_desc": "Flat",				"selected": 0 },
-					{ "l2_desc": "Medium",				"selected": 1 },
+					{ "l2_desc": "Medium",				"selected": 0 },
 					{ "l2_desc": "Large",				"selected": 0 },
 					{ "l2_desc": "Oversized",			"selected": 0 }
 				]
@@ -105,11 +106,11 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "EYES", "options": [
 					{ "l2_desc": "Dark Brown",			"selected": 0 },
-					{ "l2_desc": "Brown",				"selected": 1 },
+					{ "l2_desc": "Brown",				"selected": 0 },
 					{ "l2_desc": "Deep Grey",			"selected": 0 },
 					{ "l2_desc": "Grey",				"selected": 0 },
 					{ "l2_desc": "Blue",				"selected": 0 },
-					{ "l2_desc": "Hazel",				"selected": 0 },
+					{ "l2_desc": "Hazel",				"selected": 1 },
 					{ "l2_desc": "Green",				"selected": 0 },
 					{ "l2_desc": "Pale Blue",			"selected": 0 }
 				]
@@ -150,7 +151,7 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Not Known",			"selected": 0 },
 					{ "l2_desc": "Belgium",				"selected": 0 },
 					{ "l2_desc": "Brazil",				"selected": 0 },
-					{ "l2_desc": "Belarus",				"selected": 0 },
+					{ "l2_desc": "Belarus",				"selected": 0 },	
 					{ "l2_desc": "Croatia",				"selected": 0 },
 					{ "l2_desc": "Czech Republic",		"selected": 0 },
 					{ "l2_desc": "Germany",				"selected": 0 },
@@ -162,9 +163,9 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Slovenia",			"selected": 0 },
 					{ "l2_desc": "Spain",				"selected": 0 },
 					{ "l2_desc": "Thailand",			"selected": 0 },
-					{ "l2_desc": "Ukraine",				"selected": 0 },
+					{ "l2_desc": "Ukraine",				"selected": 1 },
 					{ "l2_desc": "United Kingdom",		"selected": 0 },
-					{ "l2_desc": "USA",					"selected": 1 }
+					{ "l2_desc": "USA",					"selected": 0 }
 				]
 			},
 			{
@@ -176,10 +177,10 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "NPSH", "options": [
-					{ "l2_desc": "Pert",				"selected": 1 },
+					{ "l2_desc": "Pert",				"selected": 0 },
 					{ "l2_desc": "Slightly Pert",		"selected": 0 },
 					{ "l2_desc": "Very Pert",			"selected": 0 },
-					{ "l2_desc": "Slightly Puffy",		"selected": 0 },
+					{ "l2_desc": "Slightly Puffy",		"selected": 1 },
 					{ "l2_desc": "Puffy",				"selected": 0 },
 					{ "l2_desc": "Very Puffy",			"selected": 0 },
 					{ "l2_desc": "Flat",				"selected": 0 }
@@ -196,8 +197,8 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "PUAT", "options": [
-					{ "l2_desc": "Plump No Protrusion",		"selected": 1 },
-					{ "l2_desc": "Plump Slight Protrusion",	"selected": 0 },
+					{ "l2_desc": "Plump No Protrusion",		"selected": 0 },
+					{ "l2_desc": "Plump Slight Protrusion",	"selected": 1 },
 					{ "l2_desc": "No Protrusion",			"selected": 0 },
 					{ "l2_desc": "Slight Protrusion",		"selected": 0 },
 					{ "l2_desc": "Noticeable Protrusion",	"selected": 0 },
