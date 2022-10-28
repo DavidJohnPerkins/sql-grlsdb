@@ -5,18 +5,17 @@ DECLARE @json	COMMON.json = '
 	{
 		"base_attribs": 
 		{
-			"sobriquet":		"SANTA",
-		 	"hot_quotient":		8,
-			 "yob":				1996
+			"sobriquet":		"ELENA_GENERI",
+		 	"hot_quotient":		8
 		},
 		"model_names": [
-			{ "model_name": "Santa",		"principal_name": 1 }
+			{ "model_name": "Elena Generi",		"principal_name": 1 }
 		],
 		"attribs": [
 			{
 				"abbrev": "ASHP", "options": [
-					{ "l2_desc": "Balanced", 			"selected": 0 },
-					{ "l2_desc": "Boyish",				"selected": 1 },
+					{ "l2_desc": "Balanced", 			"selected": 1 },
+					{ "l2_desc": "Boyish",				"selected": 0 },
 					{ "l2_desc": "Peach",				"selected": 0 },
 					{ "l2_desc": "Flat",				"selected": 0 },
 					{ "l2_desc": "Slight Lower Sag",	"selected": 0 },
@@ -25,10 +24,10 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "ASIZ", "options": [
-					{ "l2_desc": "Petite",				"selected": 1 },
+					{ "l2_desc": "Petite",				"selected": 0 },
 					{ "l2_desc": "Small / Flat",		"selected": 0 },
 					{ "l2_desc": "Medium",				"selected": 0 },
-					{ "l2_desc": "Large",				"selected": 0 },
+					{ "l2_desc": "Large",				"selected": 1 },
 					{ "l2_desc": "Heavy",				"selected": 0 },
 					{ "l2_desc": "Oversize",			"selected": 0 }
 				]
@@ -37,8 +36,8 @@ DECLARE @json	COMMON.json = '
 				"abbrev": "ATTR", "options": [
 					{ "l2_desc": "Ten",					"selected": 0 },
 					{ "l2_desc": "Knockout",			"selected": 0 },
-					{ "l2_desc": "Beautiful",			"selected": 1 },
-					{ "l2_desc": "Pretty",				"selected": 0 },
+					{ "l2_desc": "Beautiful",			"selected": 0 },
+					{ "l2_desc": "Pretty",				"selected": 1 },
 					{ "l2_desc": "Gamine",				"selected": 0 },
 					{ "l2_desc": "Girl-Next-Door",		"selected": 0 },
 					{ "l2_desc": "Cosmetic-led",		"selected": 0 },
@@ -47,8 +46,8 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "BILD", "options": [
-					{ "l2_desc": "Petite",				"selected": 0 },
-					{ "l2_desc": "Regular-Petite",		"selected": 1 },
+					{ "l2_desc": "Petite",				"selected": 1 },
+					{ "l2_desc": "Regular-Petite",		"selected": 0 },
 					{ "l2_desc": "Regular",				"selected": 0 },
 					{ "l2_desc": "Extra-Petite",		"selected": 0 },
 					{ "l2_desc": "Heavy-Regular",		"selected": 0 },
@@ -117,9 +116,9 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "HAIR", "options": [
-					{ "l2_desc": "Dark Brunette",		"selected": 0 },
+					{ "l2_desc": "Dark Brunette",		"selected": 1 },
 					{ "l2_desc": "Black",				"selected": 0 },
-					{ "l2_desc": "Brunette",			"selected": 1 }, 
+					{ "l2_desc": "Brunette",			"selected": 0 }, 
 					{ "l2_desc": "Copper Red",			"selected": 0 }, 
 					{ "l2_desc": "Fair",				"selected": 0 }, 
 					{ "l2_desc": "Ash Blonde",			"selected": 0 },
@@ -136,8 +135,8 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "MONS", "options": [
-					{ "l2_desc": "Plump / Retreating",		"selected": 0 },
-					{ "l2_desc": "Plump / Proud",			"selected": 1 },
+					{ "l2_desc": "Plump / Retreating",		"selected": 1 },
+					{ "l2_desc": "Plump / Proud",			"selected": 0 },
 					{ "l2_desc": "Natural / Proud",			"selected": 0 },
 					{ "l2_desc": "Natural / Retreating",	"selected": 0 },
 					{ "l2_desc": "Flat / Retreating",		"selected": 0 },
@@ -163,9 +162,9 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Slovenia",			"selected": 0 },
 					{ "l2_desc": "Spain",				"selected": 0 },
 					{ "l2_desc": "Thailand",			"selected": 0 },
-					{ "l2_desc": "Ukraine",				"selected": 1 },
+					{ "l2_desc": "Ukraine",				"selected": 0 },
 					{ "l2_desc": "United Kingdom",		"selected": 0 },
-					{ "l2_desc": "USA",					"selected": 0 }
+					{ "l2_desc": "USA",					"selected": 1 }
 				]
 			},
 			{
@@ -179,8 +178,8 @@ DECLARE @json	COMMON.json = '
 				"abbrev": "NPSH", "options": [
 					{ "l2_desc": "Pert",				"selected": 0 },
 					{ "l2_desc": "Slightly Pert",		"selected": 0 },
-					{ "l2_desc": "Very Pert",			"selected": 0 },
-					{ "l2_desc": "Slightly Puffy",		"selected": 1 },
+					{ "l2_desc": "Very Pert",			"selected": 1 },
+					{ "l2_desc": "Slightly Puffy",		"selected": 0 },
 					{ "l2_desc": "Puffy",				"selected": 0 },
 					{ "l2_desc": "Very Puffy",			"selected": 0 },
 					{ "l2_desc": "Flat",				"selected": 0 }
