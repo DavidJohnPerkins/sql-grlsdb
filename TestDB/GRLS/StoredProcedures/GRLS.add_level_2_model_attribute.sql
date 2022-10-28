@@ -82,9 +82,6 @@ BEGIN
 			EXISTS (SELECT a.scheme_id FROM GRLS.attribute_scheme a EXCEPT SELECT b.scheme_id FROM @v_preferences b)
 				RAISERROR ('There are missing or invalid schemes - operation failed.', 16, 1)
 
-		IF EXISTS (SELECT 1 FROM @v_preferences p WHERE p.preference < 1 OR p.preference > 10)
-			RAISERROR ('Preferences must be from 1 to 10 - operation failed.', 16, 1)
-
 		BEGIN TRANSACTION
 
 		INSERT INTO GRLS.attribute_level_2 (l1_id, l2_desc)

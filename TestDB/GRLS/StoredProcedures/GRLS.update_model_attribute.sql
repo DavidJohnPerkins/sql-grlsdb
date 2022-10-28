@@ -76,6 +76,9 @@ BEGIN
 			INNER JOIN w_ma_id w 
 			ON ma.id = w.id
 
+		IF @p_debug = 1
+			PRINT 'DELETIONS COMPLETE'
+
 		INSERT INTO GRLS.model_attribute
 			SELECT
 				m.id,
@@ -88,9 +91,13 @@ BEGIN
 				l2.abbrev = @v_l1_abbrev AND
 				l2.l2_desc = @v_l2_desc
 
+		IF @p_debug = 1
+			PRINT 'INSERTIONS COMPLETE'
+
 		IF @p_execute = 1
 		BEGIN
 			COMMIT TRANSACTION
+			PRINT 'COMMIT COMPLETE'
 		END
 		ELSE
 		BEGIN
