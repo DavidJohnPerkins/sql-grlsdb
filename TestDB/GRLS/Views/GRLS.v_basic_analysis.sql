@@ -18,6 +18,7 @@ CREATE VIEW GRLS.v_basic_analysis AS
 	WITH w_work AS (
 		SELECT
 			att.scheme_id,
+			ma.id AS ma_attr_id,
 			m.id AS model_id ,
 			mn.model_name,
 			m.sobriquet ,
@@ -50,6 +51,7 @@ CREATE VIEW GRLS.v_basic_analysis AS
 	(
 		SELECT
 			w2.scheme_id,
+			w2.ma_attr_id,
 			w2.model_id ,
 			w2.model_name,
 			w2.sobriquet ,
