@@ -1,8 +1,8 @@
 declare @json COMMON.json = '
 	{
-		"model_sobriquet": "ZELDA",
-		"l1_abbrev": "BRSH",
-		"l2_desc": "Semi-Pendulous"
+		"model_sobriquet": "ARIA_A",
+		"l1_abbrev": "NPPF",
+		"l2_desc": "Very Puffy"
 	}
 '
 
