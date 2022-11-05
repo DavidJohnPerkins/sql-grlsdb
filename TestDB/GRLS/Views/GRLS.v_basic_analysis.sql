@@ -17,62 +17,29 @@ CREATE VIEW GRLS.v_basic_analysis AS
 
 	WITH w_work AS (
 		SELECT
-			att.scheme_id,
-			ma.id AS ma_attr_id,
-			m.id AS model_id ,
-			mn.model_name,
-			m.sobriquet ,
-			m.hotness_quotient,
-			att.abbrev ,
-			att.l2_desc ,
-			CONVERT(float, att.l2_preference) AS l2_preference ,
-			CONVERT(float, att.attr_weight) / 10 AS attr_weight ,
-			att.for_aggregation
+			ab.scheme_id,
+			ab.ma_attr_id,
+			ab.model_id ,
+			ab.model_name,
+			ab.sobriquet ,
+			ab.hotness_quotient,
+			ab.attr_weight,
+			ab.abbrev ,
+			ab.l2_desc ,
+			ab.l2_preference ,
+			ab.adj_preference ,
+			ab.for_aggregation,
+			CONVERT(decimal(5, 2), ab.adj_preference / SUM(ab.adj_preference) OVER (PARTITION BY ab.scheme_id, ab.model_id) * 100) AS [Weight] ,
+			CONVERT(decimal(8, 2), SUM(ab.adj_preference) OVER (PARTITION BY ab.scheme_id, ab.model_id)) AS Total1
 		FROM
-			GRLS.model m
-			INNER JOIN GRLS.model_attribute ma
-				INNER JOIN GRLS.model_name mn
-				ON ma.model_id = mn.model_id AND mn.principal_name = 1
-				INNER JOIN GRLS.v_attribute att
-				ON ma.attribute_id = att.l2_id
-			ON m.id = ma.model_id
-		WHERE
-			--att.for_aggregation = 1 AND 
-			att.active = 1
-	) ,
-	w_work2 AS (
-		SELECT
-			w.* ,
-			w.l2_preference * (1 + w.attr_weight) AS adj_preference
-		FROM
-			w_work w
-	) ,
-	w_work3 AS
-	(
-		SELECT
-			w2.scheme_id,
-			w2.ma_attr_id,
-			w2.model_id ,
-			w2.model_name,
-			w2.sobriquet ,
-			w2.hotness_quotient,
-			w2.attr_weight,
-			w2.abbrev ,
-			w2.l2_desc ,
-			w2.l2_preference ,
-			w2.adj_preference ,
-			w2.for_aggregation,
-			CONVERT(decimal(5, 2), w2.adj_preference / SUM(w2.adj_preference) OVER (PARTITION BY w2.scheme_id, w2.model_id) * 100) AS [Weight] ,
-			CONVERT(decimal(8, 2), SUM(w2.adj_preference) OVER (PARTITION BY w2.scheme_id, w2.model_id)) AS Total1
-		FROM
-			w_work2 w2
+			GRLS.v_analysis_base ab
 	)
 	SELECT
-		w3.* ,
-		ROUND(w3.Total1 * (1 + (CONVERT(float, m.hotness_quotient) / 100)), 2) AS adjusted_total
+		w.* ,
+		ROUND(w.Total1 * (1 + (CONVERT(float, m.hotness_quotient) / 100)), 2) AS adjusted_total
 	FROM 
-		w_work3 w3
+		w_work w
 		INNER JOIN GRLS.model m
-		ON w3.model_id = m.id
+		ON w.model_id = m.id
 GO
 PRINT '########## GRLS.v_basic_analysis created successfully ##########'

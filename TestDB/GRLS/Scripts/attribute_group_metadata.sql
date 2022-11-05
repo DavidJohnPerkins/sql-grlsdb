@@ -24,7 +24,8 @@ INSERT INTO @work (grp_id, abbrev) VALUES
 (@id, 'BRDR'),
 (@id, 'NPSZ'),
 (@id, 'NPSH'),
-(@id, 'NPCL')
+(@id, 'NPCL'),
+(@id, 'NPPF')
 
 INSERT INTO GRLS.attribute_level_1_group_detail (l1_group_id, l1_id)
 SELECT
@@ -123,7 +124,8 @@ INSERT INTO @work (grp_id, abbrev) VALUES
 (@id, 'BRDR'),
 (@id, 'NPSZ'),
 (@id, 'NPSH'),
-(@id, 'NPCL')
+(@id, 'NPCL'),
+(@id, 'NPPF')
 
 INSERT INTO GRLS.attribute_level_1_group_detail (l1_group_id, l1_id)
 SELECT
