@@ -1,6 +1,3 @@
-USE TestDB
-GO
-
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -19,6 +16,7 @@ CREATE VIEW GRLS.v_analysis_base AS
 		SELECT
 			att.scheme_id,
 			ma.id AS ma_attr_id,
+			ma.standout_factor,
 			m.id AS model_id ,
 			mn.model_name,
 			m.sobriquet ,

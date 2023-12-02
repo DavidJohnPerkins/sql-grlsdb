@@ -81,10 +81,11 @@ BEGIN
 
 			SET @model_id = @@IDENTITY
 
-		INSERT INTO GRLS.model_attribute (model_id, attribute_id)
+		INSERT INTO GRLS.model_attribute (model_id, attribute_id, standout_factor)
 		SELECT
 			@model_id ,
-			av.l2_id
+			av.l2_id ,
+			1
 		FROM
 			@p_attribs a
 			CROSS APPLY GRLS.attribute_values(a.abbrev, a.l2_desc) av

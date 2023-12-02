@@ -37,3 +37,6 @@ GO
 ALTER TABLE GRLS.model_attribute ADD CONSTRAINT FK_model_attr_model_id FOREIGN KEY (model_id) REFERENCES GRLS.model(id)
 	ON DELETE CASCADE;
 GO
+
+ALTER TABLE GRLS.model_attribute ADD standout_factor float NOT NULL DEFAULT 1.0
+

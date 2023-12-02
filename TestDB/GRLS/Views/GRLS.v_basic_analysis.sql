@@ -1,6 +1,3 @@
-USE TestDB
-GO
-
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -13,7 +10,7 @@ BEGIN
 END
 GO
 
-CREATE VIEW GRLS.v_basic_analysis AS
+CREATE VIEW [GRLS].[v_basic_analysis] AS
 
 	WITH w_work AS (
 		SELECT
@@ -25,12 +22,13 @@ CREATE VIEW GRLS.v_basic_analysis AS
 			ab.hotness_quotient,
 			ab.attr_weight,
 			ab.abbrev ,
+			ab.standout_factor,
 			ab.l2_desc ,
 			ab.l2_preference ,
 			ab.adj_preference ,
 			ab.for_aggregation,
-			CONVERT(decimal(5, 2), ab.adj_preference / SUM(ab.adj_preference) OVER (PARTITION BY ab.scheme_id, ab.model_id) * 100) AS [Weight] ,
-			CONVERT(decimal(8, 2), SUM(ab.adj_preference) OVER (PARTITION BY ab.scheme_id, ab.model_id)) AS Total1
+			--CONVERT(decimal(5, 2), ab.adj_preference / SUM(ab.adj_preference) OVER (PARTITION BY ab.scheme_id, ab.model_id) * 100) AS [Weight] ,
+			CONVERT(decimal(8, 2), SUM(ab.adj_preference * ab.standout_factor) OVER (PARTITION BY ab.scheme_id, ab.model_id)) AS Total1
 		FROM
 			GRLS.v_analysis_base ab
 	)

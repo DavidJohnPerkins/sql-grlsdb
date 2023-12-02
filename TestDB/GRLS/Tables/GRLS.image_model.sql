@@ -40,4 +40,7 @@ GO
 ALTER TABLE GRLS.image_model ADD CONSTRAINT FK_image_model_model FOREIGN KEY (model_id) REFERENCES GRLS.model(id) ON DELETE CASCADE;
 GO
 
+ALTER TABLE GRLS.image_model ADD reference_image bit DEFAULT 0;
+
+
 PRINT '########## Table GRLS.image_model created successfully ##########'
