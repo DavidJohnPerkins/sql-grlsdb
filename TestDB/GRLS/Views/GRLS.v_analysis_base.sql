@@ -18,19 +18,18 @@ CREATE VIEW GRLS.v_analysis_base AS
 			ma.id AS ma_attr_id,
 			ma.standout_factor,
 			m.id AS model_id ,
-			mn.model_name,
+			m.principal_name,
 			m.sobriquet ,
 			m.hotness_quotient,
+			m.nationality,
 			att.abbrev ,
 			att.l2_desc ,
 			CONVERT(float, att.l2_preference) AS l2_preference ,
 			CONVERT(float, att.attr_weight) / 10 AS attr_weight ,
 			att.for_aggregation
 		FROM
-			GRLS.model m
+			GRLS.v_model_extended m
 			INNER JOIN GRLS.model_attribute ma
-				INNER JOIN GRLS.model_name mn
-				ON ma.model_id = mn.model_id AND mn.principal_name = 1
 				INNER JOIN GRLS.v_attribute att
 				ON ma.attribute_id = att.l2_id
 			ON m.id = ma.model_id
