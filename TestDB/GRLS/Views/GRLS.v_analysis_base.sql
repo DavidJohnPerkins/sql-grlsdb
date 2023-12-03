@@ -36,7 +36,8 @@ CREATE VIEW GRLS.v_analysis_base AS
 			ON m.id = ma.model_id
 		WHERE
 			att.for_aggregation = 1 AND 
-			att.active = 1
+			att.active = 1 AND 
+			ma.valid_to IS NULL
 	)
 	SELECT
 		w.* ,

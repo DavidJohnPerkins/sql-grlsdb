@@ -38,5 +38,12 @@ ALTER TABLE GRLS.model_attribute ADD CONSTRAINT FK_model_attr_model_id FOREIGN K
 	ON DELETE CASCADE;
 GO
 
-ALTER TABLE GRLS.model_attribute ADD standout_factor float NOT NULL DEFAULT 1.0
+ALTER TABLE GRLS.model_attribute ADD
+	standout_factor float NOT NULL DEFAULT 1.0,
+	valid_from	datetime NOT NULL DEFAULT '1900-01-01 00:00:00',
+	valid_to	datetime
 
+DROP INDEX IF EXISTS U_IDX_modelid_attrid ON GRLS.model_attribute
+GO
+CREATE CLUSTERED INDEX U_IDX_modelid_attrid ON GRLS.model_attribute (model_id, attribute_id) ON [PRIMARY];
+GO

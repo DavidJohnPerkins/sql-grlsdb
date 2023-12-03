@@ -30,7 +30,7 @@ SET @sql = '
 				ba.adjusted_total,
 				ba.hotness_quotient,
 				ba.abbrev,
-				CONVERT(varchar(255), ba.l2_desc + ^ (^ + CONVERT(varchar, ba.adj_preference) + ^)^) AS x
+				CONVERT(varchar(255), ba.l2_desc + ^ (^ + CONVERT(varchar, ba.adj_preference) + GRLS.format_standout_factor(ba.standout_factor) + ^)^) AS x
 			FROM
 				GRLS.v_basic_analysis ba
 			WHERE
