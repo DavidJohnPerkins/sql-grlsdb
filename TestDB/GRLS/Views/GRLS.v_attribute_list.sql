@@ -23,7 +23,8 @@ CREATE VIEW GRLS.v_attribute_list AS
 		al1.abbrev,
 		al1.l1_desc,
 		al2.l2_id,
-		al2.l2_desc
+		al2.l2_desc,
+		ma.standout_factor
 	FROM
 		GRLS.model m
 		INNER JOIN GRLS.model_attribute ma

@@ -15,9 +15,10 @@ GO
 
 CREATE TYPE COMMON.attrib_add_list AS TABLE   
 (
-	abbrev		char(4),
-	l2_desc		varchar(50),
-	selected 	bit
+	abbrev			char(4),
+	standout_factor	float,
+	l2_desc			varchar(50),
+	selected 		bit
 )
 GO  
 PRINT '########## COMMON.attrib_add_list created successfully ##########'

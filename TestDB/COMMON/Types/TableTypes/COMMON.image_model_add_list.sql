@@ -15,7 +15,8 @@ GO
 
 CREATE TYPE COMMON.image_model_add_list AS TABLE   
 (
-	sobriquet	GRLS.sobriquet
+	sobriquet		GRLS.sobriquet,
+	reference_image	bit
 )
 GO  
 PRINT '########## COMMON.image_model_add_list created successfully ##########'

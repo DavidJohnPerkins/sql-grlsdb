@@ -81,13 +81,15 @@ BEGIN
 		INSERT INTO @attribs
 		SELECT
 			a.abbrev,
+			a.standout_factor,
 			b.l2_desc,
 			b.selected
 		FROM OPENJSON (@attribs_json)
 		WITH
 		(
-			abbrev	GRLS.l1_abbrev,
-			options	COMMON.json AS JSON
+			abbrev				GRLS.l1_abbrev,
+			standout_factor 	float,
+			options				COMMON.json AS JSON
 		) a
 		CROSS APPLY OPENJSON (a.options)
 		WITH

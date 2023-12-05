@@ -85,7 +85,7 @@ BEGIN
 		SELECT
 			@model_id ,
 			av.l2_id ,
-			1
+			a.standout_factor
 		FROM
 			@p_attribs a
 			CROSS APPLY GRLS.attribute_values(a.abbrev, a.l2_desc) av

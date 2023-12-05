@@ -86,7 +86,8 @@ BEGIN
 		INSERT INTO GRLS.image_model
 		SELECT
 			@image_id ,
-			m.id
+			m.id,
+			p.reference_image
 		FROM 
 			@p_models p
 			INNER JOIN GRLS.model m

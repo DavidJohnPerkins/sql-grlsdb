@@ -26,7 +26,6 @@ SET @sql = '
 				ba.scheme_id,
 				ba.model_id,
 				ba.principal_name,
-				ba.sobriquet,
 				ba.nationality,
 				ba.adjusted_total,
 				ba.hotness_quotient,
