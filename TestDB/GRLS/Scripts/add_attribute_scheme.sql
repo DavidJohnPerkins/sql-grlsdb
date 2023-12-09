@@ -224,5 +224,5 @@ DECLARE @json	COMMON.json = '
 			}
 		]
 	}
-'
-EXEC GRLS.c_model_json @json, 0, 1
+';
+EXEC GRLS.c_attribute_scheme @json, 1, 1

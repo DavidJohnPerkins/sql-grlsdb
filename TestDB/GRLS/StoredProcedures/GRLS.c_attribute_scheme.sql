@@ -23,82 +23,69 @@ BEGIN
 
 	SET NOCOUNT ON
 
-	DECLARE @base_attribs		COMMON.base_attrib_add_list,
-			@attribs			COMMON.attrib_add_list,
-			@model_names		COMMON.name_add_list,
-			@sobr				GRLS.sobriquet,
-			@hquo				int,
-			@yob				int,
-			@names_json			COMMON.json,
-			@attribs_json		COMMON.json,
-			@base_attribs_json	COMMON.json
+	DECLARE @scheme_attribs			COMMON.scheme_attrib_add_list,
+			@prefs					COMMON.scheme_preference_add_list,
+			@prefs_json				COMMON.json,
+			@scheme_attribs_json	COMMON.json
 
 	BEGIN TRY
 
 		;WITH w_top_level AS (
 			SELECT
-				c.base_attribs	AS base_attribs,
-				c.model_names	AS model_names,
-				c.attribs 		AS attribs
+				c.scheme_attribs	AS scheme_attribs,
+				c.preferences 		AS preferences
 			FROM OPENJSON (@p_input_json)
 			WITH
 			(
-				base_attribs	COMMON.json AS JSON,
-				model_names 	COMMON.json AS JSON,
-				attribs 		COMMON.json AS JSON
+				scheme_attribs	COMMON.json AS JSON,
+				preferences		COMMON.json AS JSON
 			) c
 		)
 		SELECT
-			@base_attribs_json	= w.base_attribs,
-			@names_json			= w.model_names,
-			@attribs_json		= w.attribs
+			@scheme_attribs_json	= w.scheme_attribs,
+			@prefs_json				= w.preferences
 		FROM 
 			w_top_level w
 
-		INSERT INTO @base_attribs
+		INSERT INTO @scheme_attribs
 		SELECT
-			a.sobriquet,
-			a.hot_quotient,
-			a.yob
-		FROM OPENJSON(@base_attribs_json)
+			a.scheme_abbrev,
+			a.scheme_desc,
+			a.active
+		FROM OPENJSON(@scheme_attribs_json)
 		WITH (
-			sobriquet		GRLS.sobriquet, 
-			hot_quotient 	int,
-			yob				int
+			scheme_abbrev 	varchar(20), 
+			scheme_desc		varchar(50),
+			active			bit
 		) a
 
-		INSERT INTO @model_names
-		SELECT
-			a.model_name,
-			a.principal_name
-		FROM OPENJSON (@names_json)
-		WITH
-		(
-			model_name		varchar(50),
-			principal_name	bit
-		) a
-
-		INSERT INTO @attribs
+		INSERT INTO @prefs
 		SELECT
 			a.abbrev,
-			a.standout_factor,
+			a.attr_weight,
 			b.l2_desc,
-			b.selected
-		FROM OPENJSON (@attribs_json)
+			b.preference
+		FROM OPENJSON (@prefs_json)
 		WITH
 		(
-			abbrev				GRLS.l1_abbrev,
-			standout_factor 	float,
-			options				COMMON.json AS JSON
+			abbrev			GRLS.l1_abbrev,
+			attr_weight		int,
+			options			COMMON.json AS JSON
 		) a
 		CROSS APPLY OPENJSON (a.options)
 		WITH
 		(
 			l2_desc		GRLS.l2_desc,
-			selected	bit
+			preference	int
 		) b
 
-		EXEC COMMON.c_model @base_attribs, @attribs, @model_names, @p_debug, @p_execute
+		IF @p_debug = 1 
+		BEGIN
+			SELECT * FROM @scheme_attribs
+			SELECT * FROM @prefs
+		END 
+
+		EXEC COMMON.c_attribute_scheme @scheme_attribs, @prefs, @p_debug, @p_execute
 
 	END TRY
 
