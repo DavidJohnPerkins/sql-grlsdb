@@ -14,7 +14,7 @@ CREATE VIEW [GRLS].[v_basic_analysis] AS
 
 	WITH w_work AS (
 		SELECT
-			ab.scheme_id,
+			ab.scheme_abbrev,
 			ab.ma_attr_id,
 			ab.model_id ,
 			ab.principal_name,

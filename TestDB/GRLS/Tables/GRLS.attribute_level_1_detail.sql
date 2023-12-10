@@ -31,9 +31,10 @@ ALTER TABLE GRLS.attribute_level_1_detail
 		ON DELETE CASCADE;
 GO
 
+ALTER TABLE GRLS.attribute_level_1_detail DROP CONSTRAINT FK_attr_level_1_det_attr_scheme 
 ALTER TABLE GRLS.attribute_level_1_detail
 	ADD CONSTRAINT FK_attr_level_1_det_attr_scheme FOREIGN KEY (scheme_id) REFERENCES GRLS.attribute_scheme(scheme_id)
-		ON DELETE NO ACTION
+		ON DELETE CASCADE
 		
 INSERT INTO GRLS.attribute_level_1_detail (
 	l1_id,

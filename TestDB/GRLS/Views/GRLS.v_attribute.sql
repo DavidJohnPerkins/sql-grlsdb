@@ -17,6 +17,7 @@ CREATE VIEW GRLS.v_attribute AS
 
 	SELECT
 		al1.scheme_id,
+		sc.scheme_abbrev,
 		sc.active,
 		al1.l1_id,
 		al1.abbrev,

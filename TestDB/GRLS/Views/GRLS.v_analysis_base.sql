@@ -12,11 +12,15 @@ GO
 
 CREATE VIEW GRLS.v_analysis_base AS
 
-	WITH w_work AS (
+	WITH w_env AS  (
+		SELECT CASE COMMON.environment_value('USE_STANDOUT', 'FALSE') WHEN 'TRUE' THEN 1 ELSE 0 END AS use_so
+	),
+	w_work AS (
 		SELECT
 			att.scheme_id,
+			att.scheme_abbrev,
 			ma.id AS ma_attr_id,
-			ma.standout_factor,
+			CASE w.use_so WHEN 1 THEN ma.standout_factor ELSE 1 END AS standout_factor,
 			m.id AS model_id ,
 			m.principal_name,
 			m.sobriquet ,
@@ -32,7 +36,8 @@ CREATE VIEW GRLS.v_analysis_base AS
 			INNER JOIN GRLS.model_attribute ma
 				INNER JOIN GRLS.v_attribute att
 				ON ma.attribute_id = att.l2_id
-			ON m.id = ma.model_id
+			ON m.id = ma.model_id,
+			w_env w
 		WHERE
 			att.for_aggregation = 1 AND 
 			att.active = 1 AND 
@@ -42,7 +47,7 @@ CREATE VIEW GRLS.v_analysis_base AS
 		w.* ,
 		w.l2_preference * (1 + w.attr_weight) AS adj_preference
 	FROM
-		w_work w
+		w_work w 
 		
 GO
 PRINT '########## GRLS.v_analysis_base created successfully ##########'

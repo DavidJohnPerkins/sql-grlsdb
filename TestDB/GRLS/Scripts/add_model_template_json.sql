@@ -5,17 +5,18 @@ DECLARE @json	COMMON.json = '
 	{
 		"base_attribs": 
 		{
-			"sobriquet":		"NATANIA",
+			"sobriquet":		"SADE_MARE",
 		 	"hot_quotient":		10,
-			"yob":				1990
+			"yob":				1993
 		},
 		"model_names": [
-			{ "model_name": "Natania",	"principal_name": 1 },
-			{ "model_name": "Natalia",	"principal_name": 0 }
+			{ "model_name": "Sade Mare",	"principal_name": 1 },
+			{ "model_name": "Sabrina",	"principal_name": 0 },
+			{ "model_name": "Ila",	"principal_name": 0 }
 		],
 		"attribs": [
 			{
-				"abbrev": "ASHP", "standout_factor": 1.1, "options": [
+				"abbrev": "ASHP", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Balanced", 			"selected": 1 },
 					{ "l2_desc": "Boyish",				"selected": 0 },
 					{ "l2_desc": "Peach",				"selected": 0 },
@@ -35,7 +36,7 @@ DECLARE @json	COMMON.json = '
 				]
 			},
 			{
-				"abbrev": "ATTR", "standout_factor": 1.3, "options": [
+				"abbrev": "ATTR", "standout_factor": 1.2, "options": [
 					{ "l2_desc": "Ten",					"selected": 1 },
 					{ "l2_desc": "Knockout",			"selected": 0 },
 					{ "l2_desc": "Beautiful",			"selected": 0 },
@@ -50,8 +51,8 @@ DECLARE @json	COMMON.json = '
 				"abbrev": "BILD", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Extra-Petite",		"selected": 0 },
 					{ "l2_desc": "Petite",				"selected": 0 },
-					{ "l2_desc": "Regular-Petite",		"selected": 1 },
-					{ "l2_desc": "Tall-Petite",			"selected": 0 },
+					{ "l2_desc": "Regular-Petite",		"selected": 0 },
+					{ "l2_desc": "Tall-Petite",			"selected": 1 },
 					{ "l2_desc": "Regular",				"selected": 0 },
 					{ "l2_desc": "Heavy-Regular",		"selected": 0 },
 					{ "l2_desc": "Heavy",				"selected": 0 }
@@ -66,7 +67,7 @@ DECLARE @json	COMMON.json = '
 				]
 			},
 			{
-				"abbrev": "BRSH", "standout_factor": 1.3, "options": [
+				"abbrev": "BRSH", "standout_factor": 1.2, "options": [
 					{ "l2_desc": "Nubs",					"selected": 0 },
 					{ "l2_desc": "Conical",					"selected": 0 },
 					{ "l2_desc": "Semi-Pendulous Globe",	"selected": 0 },
@@ -88,8 +89,8 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "CMPX", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Freckled",			"selected": 0 },
-					{ "l2_desc": "Mediterranean",		"selected": 0 },
-					{ "l2_desc": "Dark",				"selected": 1 },
+					{ "l2_desc": "Mediterranean",		"selected": 1 },
+					{ "l2_desc": "Dark",				"selected": 0 },
 					{ "l2_desc": "Fair",				"selected": 0 },
 					{ "l2_desc": "Asian",				"selected": 0 },
 					{ "l2_desc": "Pale",				"selected": 0 }
@@ -138,11 +139,11 @@ DECLARE @json	COMMON.json = '
 				]
 			},
 			{
-				"abbrev": "MONS", "standout_factor": 1.3, "options": [
-					{ "l2_desc": "Plump / Proud",			"selected": 1 },
+				"abbrev": "MONS", "standout_factor": 1.0, "options": [
+					{ "l2_desc": "Plump / Proud",			"selected": 0 },
 					{ "l2_desc": "Plump / Retreating",		"selected": 0 },
 					{ "l2_desc": "Natural / Proud",			"selected": 0 },
-					{ "l2_desc": "Natural / Retreating",	"selected": 0 },
+					{ "l2_desc": "Natural / Retreating",	"selected": 1 },
 					{ "l2_desc": "Narrow / Proud",			"selected": 0 },
 					{ "l2_desc": "Narrow / Retreating",		"selected": 0 },
 					{ "l2_desc": "Flat / Retreating",		"selected": 0 },
@@ -177,8 +178,8 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "NPCL", "standout_factor": 1.0, "options": [
-					{ "l2_desc": "Dark",				"selected": 0 },
-					{ "l2_desc": "Normal",				"selected": 1 },
+					{ "l2_desc": "Dark",				"selected": 1 },
+					{ "l2_desc": "Normal",				"selected": 0 },
 					{ "l2_desc": "Pale",				"selected": 0 }
 				]
 			},
@@ -191,29 +192,29 @@ DECLARE @json	COMMON.json = '
 				]
 			},
 			{
-				"abbrev": "NPSH", "standout_factor": 1.2, "options": [
-					{ "l2_desc": "Slightly Pert",		"selected": 1 },
+				"abbrev": "NPSH", "standout_factor": 1.3, "options": [
+					{ "l2_desc": "Slightly Pert",		"selected": 0 },
 					{ "l2_desc": "Pert",				"selected": 0 },
-					{ "l2_desc": "Very Pert",			"selected": 0 },
+					{ "l2_desc": "Very Pert",			"selected": 1 },
 					{ "l2_desc": "Flat",				"selected": 0 }
 				]
 			},
 			{
 				"abbrev": "NPSZ", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Tiny",				"selected": 0 },
-					{ "l2_desc": "Small",				"selected": 0 },
-					{ "l2_desc": "Normal",				"selected": 1 },
+					{ "l2_desc": "Small",				"selected": 1 },
+					{ "l2_desc": "Normal",				"selected": 0 },
 					{ "l2_desc": "Large",				"selected": 0 },
 					{ "l2_desc": "Very Large",			"selected": 0 }
 				]
 			},
 			{
 				"abbrev": "PUAT", "standout_factor": 1.4, "options": [
-					{ "l2_desc": "Plump No Protrusion",		"selected": 1 },
+					{ "l2_desc": "Plump No Protrusion",		"selected": 0 },
 					{ "l2_desc": "Plump Slight Protrusion",	"selected": 0 },
 					{ "l2_desc": "No Protrusion",			"selected": 0 },
 					{ "l2_desc": "Slight Protrusion",		"selected": 0 },
-					{ "l2_desc": "Noticeable Protrusion",	"selected": 0 },
+					{ "l2_desc": "Noticeable Protrusion",	"selected": 1 },
 					{ "l2_desc": "Unsightly",				"selected": 0 }
 				] 	
 			},

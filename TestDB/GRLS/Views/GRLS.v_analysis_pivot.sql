@@ -23,7 +23,7 @@ SET @sql = '
 		FROM
 		(
 			SELECT
-				ba.scheme_id,
+				ba.scheme_abbrev,
 				ba.model_id,
 				ba.principal_name,
 				ba.nationality,
