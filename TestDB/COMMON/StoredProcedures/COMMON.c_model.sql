@@ -26,16 +26,21 @@ BEGIN
 	SET NOCOUNT ON
 
 	DECLARE @model_id	int,
-			@hq 		int = (SELECT ba.hot_quotient FROM @p_base_attribs ba),
-			@yob 		int = (SELECT ba.yob FROM @p_base_attribs ba)
+			@sobriquet	GRLS.sobriquet 	= (SELECT ba.sobriquet FROM @p_base_attribs ba),
+			@hq			int				= (SELECT ba.hot_quotient FROM @p_base_attribs ba),
+			@yob 		int				= (SELECT ba.yob FROM @p_base_attribs ba),
+			@prin_name	varchar(50)
 
 	BEGIN TRY
 	
 		IF @p_debug = 1
 			SELECT * FROM @p_attribs
 
-		IF (SELECT ba.sobriquet FROM @p_base_attribs ba) IS NULL
+		IF @sobriquet IS NULL
    			RAISERROR ('The sobriquet value is not found - operation failed.', 16, 1)
+
+		IF CHARINDEX(' ', @sobriquet, 0) != 0
+   			RAISERROR ('The sobriquet cannot contain spaces - operation failed.', 16, 1)
 
 		IF @hq IS NULL
    			RAISERROR ('The hot_quotient value is not found - operation failed.', 16, 1)
@@ -51,6 +56,10 @@ BEGIN
 
 		IF (SELECT COUNT(1) FROM @p_model_names mn WHERE mn.principal_name = 1) != 1
    			RAISERROR ('There must be one, and only one, principal name - operation failed.', 16, 1)
+
+		SET @prin_name = (SELECT mn.model_name FROM @p_model_names mn WHERE mn.principal_name = 1)
+		IF LOWER(@sobriquet) != LOWER(REPLACE(@prin_name, ' ', '_'))
+   			RAISERROR ('The principal name must match the sobriquet - operation failed.', 16, 1)
 
 		IF 	EXISTS (SELECT a.abbrev COLLATE DATABASE_DEFAULT FROM @p_attribs a EXCEPT SELECT b.abbrev FROM GRLS.attribute_level_1 b) OR
 			EXISTS (SELECT a.abbrev FROM GRLS.attribute_level_1 a EXCEPT SELECT b.abbrev COLLATE DATABASE_DEFAULT FROM @p_attribs b)

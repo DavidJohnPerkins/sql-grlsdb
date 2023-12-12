@@ -5,17 +5,16 @@ DECLARE @json	COMMON.json = '
 	{
 		"base_attribs": 
 		{
-			"sobriquet":		"NENSI_B",
-		 	"hot_quotient":		10,
-			"yob":				0
+			"sobriquet":		"NIMFA",
+		 	"hot_quotient":		9,
+			"yob":				1995
 		},
 		"model_names": [
-			{ "model_name": "Nensi B",	"principal_name": 1 },
-			{ "model_name": "Medina U",	"principal_name": 0 },
-			{ "model_name": "Katoa",	"principal_name": 0 },
-			{ "model_name": "Foxi Di",	"principal_name": 0 },
-			{ "model_name": "Inna",		"principal_name": 0 },
-			{ "model_name": "Foxy Di",	"principal_name": 0 }
+			{ "model_name": "Nimfa",	"principal_name": 1 },
+			{ "model_name": "Niki",	"principal_name": 0 },
+			{ "model_name": "Sophia",	"principal_name": 0 },
+			{ "model_name": "Cindy Y",	"principal_name": 0 },
+			{ "model_name": "Nimfa Sofia",	"principal_name": 0 }
 		],
 		"attribs": [
 			{
@@ -29,7 +28,7 @@ DECLARE @json	COMMON.json = '
 				]
 			},
 			{
-				"abbrev": "ASIZ", "standout_factor": 1.1, "options": [
+				"abbrev": "ASIZ", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Petite",				"selected": 1 },
 					{ "l2_desc": "Small / Flat",		"selected": 0 },
 					{ "l2_desc": "Medium",				"selected": 0 },
@@ -39,13 +38,13 @@ DECLARE @json	COMMON.json = '
 				]
 			},
 			{
-				"abbrev": "ATTR", "standout_factor": 1.2, "options": [
-					{ "l2_desc": "Ten",					"selected": 1 },
+				"abbrev": "ATTR", "standout_factor": 1.0, "options": [
+					{ "l2_desc": "Ten",					"selected": 0 },
 					{ "l2_desc": "Knockout",			"selected": 0 },
 					{ "l2_desc": "Beautiful",			"selected": 0 },
 					{ "l2_desc": "Pretty",				"selected": 0 },
 					{ "l2_desc": "Gamine",				"selected": 0 },
-					{ "l2_desc": "Girl-Next-Door",		"selected": 0 },
+					{ "l2_desc": "Girl-Next-Door",		"selected": 1 },
 					{ "l2_desc": "Cosmetic-led",		"selected": 0 },
 					{ "l2_desc": "Plain",				"selected": 0 }
 				]
@@ -53,8 +52,8 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "BILD", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Extra-Petite",		"selected": 0 },
-					{ "l2_desc": "Petite",				"selected": 1 },
-					{ "l2_desc": "Regular-Petite",		"selected": 0 },
+					{ "l2_desc": "Petite",				"selected": 0 },
+					{ "l2_desc": "Regular-Petite",		"selected": 1 },
 					{ "l2_desc": "Tall-Petite",			"selected": 0 },
 					{ "l2_desc": "Regular",				"selected": 0 },
 					{ "l2_desc": "Heavy-Regular",		"selected": 0 },
@@ -71,30 +70,30 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "BRSH", "standout_factor": 1.2, "options": [
-					{ "l2_desc": "Nubs",					"selected": 0 },
+					{ "l2_desc": "Nubs",					"selected": 1 },
 					{ "l2_desc": "Conical",					"selected": 0 },
 					{ "l2_desc": "Semi-Pendulous Globe",	"selected": 0 },
 					{ "l2_desc": "Semi-Pendulous",			"selected": 0 },
-					{ "l2_desc": "Dome",					"selected": 1 },
+					{ "l2_desc": "Dome",					"selected": 0 },
 					{ "l2_desc": "Full",					"selected": 0 },
 					{ "l2_desc": "Pendulous",				"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "BSIZ", "standout_factor": 1.0, "options": [
-					{ "l2_desc": "Small",				"selected": 0 },
+				"abbrev": "BSIZ", "standout_factor": 1.1, "options": [
+					{ "l2_desc": "Small",				"selected": 1 },
 					{ "l2_desc": "Flat",				"selected": 0 },
-					{ "l2_desc": "Medium",				"selected": 1 },
+					{ "l2_desc": "Medium",				"selected": 0 },
 					{ "l2_desc": "Large",				"selected": 0 },
 					{ "l2_desc": "Oversized",			"selected": 0 }
 				]
 			},
 			{
 				"abbrev": "CMPX", "standout_factor": 1.0, "options": [
-					{ "l2_desc": "Freckled",			"selected": 1 },
+					{ "l2_desc": "Freckled",			"selected": 0 },
 					{ "l2_desc": "Mediterranean",		"selected": 0 },
 					{ "l2_desc": "Dark",				"selected": 0 },
-					{ "l2_desc": "Fair",				"selected": 0 },
+					{ "l2_desc": "Fair",				"selected": 1 },
 					{ "l2_desc": "Asian",				"selected": 0 },
 					{ "l2_desc": "Pale",				"selected": 0 }
 				]
@@ -116,9 +115,9 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Brown",				"selected": 0 },
 					{ "l2_desc": "Deep Grey",			"selected": 0 },
 					{ "l2_desc": "Grey",				"selected": 0 },
-					{ "l2_desc": "Blue",				"selected": 0 },
+					{ "l2_desc": "Blue",				"selected": 1 },
 					{ "l2_desc": "Hazel",				"selected": 0 },
-					{ "l2_desc": "Green",				"selected": 1 },
+					{ "l2_desc": "Green",				"selected": 0 },
 					{ "l2_desc": "Pale Blue",			"selected": 0 }
 				]
 			},
@@ -126,11 +125,11 @@ DECLARE @json	COMMON.json = '
 				"abbrev": "HAIR", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Dark Brunette",		"selected": 0 },
 					{ "l2_desc": "Black",				"selected": 0 },
-					{ "l2_desc": "Brunette",			"selected": 1 }, 
+					{ "l2_desc": "Brunette",			"selected": 0 }, 
 					{ "l2_desc": "Copper Red",			"selected": 0 }, 
 					{ "l2_desc": "Fair",				"selected": 0 }, 
 					{ "l2_desc": "Ash Blonde",			"selected": 0 },
-					{ "l2_desc": "Mid Brown",			"selected": 0 },
+					{ "l2_desc": "Mid Brown",			"selected": 1 },
 					{ "l2_desc": "Deep Grey",			"selected": 0 },
 					{ "l2_desc": "Regular Blonde",		"selected": 0 },
 					{ "l2_desc": "Bright Red",			"selected": 0 },
@@ -146,9 +145,9 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Plump / Proud",			"selected": 0 },
 					{ "l2_desc": "Plump / Retreating",		"selected": 0 },
 					{ "l2_desc": "Natural / Proud",			"selected": 0 },
-					{ "l2_desc": "Natural / Retreating",	"selected": 0 },
+					{ "l2_desc": "Natural / Retreating",	"selected": 1 },
 					{ "l2_desc": "Narrow / Proud",			"selected": 0 },
-					{ "l2_desc": "Narrow / Retreating",		"selected": 1 },
+					{ "l2_desc": "Narrow / Retreating",		"selected": 0 },
 					{ "l2_desc": "Flat / Retreating",		"selected": 0 },
 					{ "l2_desc": "Unattractive",			"selected": 0 }
 				]
@@ -181,38 +180,38 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "NPCL", "standout_factor": 1.0, "options": [
-					{ "l2_desc": "Dark",				"selected": 0 },
+					{ "l2_desc": "Dark",				"selected": 1 },
 					{ "l2_desc": "Normal",				"selected": 0 },
-					{ "l2_desc": "Pale",				"selected": 1 }
+					{ "l2_desc": "Pale",				"selected": 0 }
 				]
 			},
 			{
 				"abbrev": "NPPF", "standout_factor": 1.1, "options": [
-					{ "l2_desc": "Not Puffy",			"selected": 1 },
+					{ "l2_desc": "Not Puffy",			"selected": 0 },
 					{ "l2_desc": "Slightly Puffy",		"selected": 0 },
-					{ "l2_desc": "Puffy",				"selected": 0 },
+					{ "l2_desc": "Puffy",				"selected": 1 },
 					{ "l2_desc": "Very Puffy",			"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "NPSH", "standout_factor": 1.1, "options": [
+				"abbrev": "NPSH", "standout_factor": 1.2, "options": [
 					{ "l2_desc": "Slightly Pert",		"selected": 0 },
-					{ "l2_desc": "Pert",				"selected": 1 },
-					{ "l2_desc": "Very Pert",			"selected": 0 },
+					{ "l2_desc": "Pert",				"selected": 0 },
+					{ "l2_desc": "Very Pert",			"selected": 1 },
 					{ "l2_desc": "Flat",				"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "NPSZ", "standout_factor": 1.0, "options": [
+				"abbrev": "NPSZ", "standout_factor": 1.1, "options": [
 					{ "l2_desc": "Tiny",				"selected": 0 },
-					{ "l2_desc": "Small",				"selected": 0 },
-					{ "l2_desc": "Normal",				"selected": 1 },
+					{ "l2_desc": "Small",				"selected": 1 },
+					{ "l2_desc": "Normal",				"selected": 0 },
 					{ "l2_desc": "Large",				"selected": 0 },
 					{ "l2_desc": "Very Large",			"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "PUAT", "standout_factor": 1.4, "options": [
+				"abbrev": "PUAT", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Plump No Protrusion",		"selected": 0 },
 					{ "l2_desc": "Plump Slight Protrusion",	"selected": 0 },
 					{ "l2_desc": "No Protrusion",			"selected": 0 },

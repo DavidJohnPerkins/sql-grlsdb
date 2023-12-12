@@ -29,15 +29,7 @@ BEGIN
 
 	DECLARE @cols	nvarchar(MAX),
     		@query	nvarchar(MAX)
-/*
-			@model_names		COMMON.name_add_list,
-			@sobr				GRLS.sobriquet,
-			@hquo				int,
-			@yob				int,
-			@names_json			COMMON.json,
-			@attribs_json		COMMON.json,
-			@base_attribs_json	COMMON.json
-*/
+
 	BEGIN TRY
 
 		WITH w_sobriquet AS (
@@ -115,9 +107,6 @@ BEGIN
 		DECLARE @error_message varchar(4000)
 		DECLARE @error_severity int  
 		DECLARE @error_state int
-	
-		-- IF @@TRANCOUNT != 0			-- Not required here but retain for completeness
-		-- 	ROLLBACK TRANSACTION
 
 		SELECT   
 			@error_message = ERROR_MESSAGE(),  

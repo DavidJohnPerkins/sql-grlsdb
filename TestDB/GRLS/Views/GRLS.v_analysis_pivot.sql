@@ -42,7 +42,7 @@ SET @sql = '
 			MAX(x)
 		FOR d.abbrev IN(~pivotlist)
 	) piv;'
-	SET @sql = REPLACE(@sql, '~pivotlist', GRLS.l1_abbrevs_as_string()) 
+	SET @sql = REPLACE(@sql, '~pivotlist', GRLS.l1_abbrevs_as_string('ALL')) 
 	SET @sql = REPLACE(@sql, '^', '''');
 
 	EXEC (@sql)
