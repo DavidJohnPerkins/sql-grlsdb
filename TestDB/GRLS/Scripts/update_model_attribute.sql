@@ -1,5 +1,5 @@
-DECLARE	@sobr	GRLS.sobriquet = 'FRANCESCA',
-		@abbrev	GRLS.l1_abbrev = 'ATTR'
+DECLARE	@sobr	GRLS.sobriquet = 'NENSI_B',
+		@abbrev	GRLS.l1_abbrev = 'PUAT'
 
 SELECT
 	@sobr AS 'model_sobriquet',
@@ -16,12 +16,11 @@ FOR JSON PATH
 
 declare @json COMMON.json = '[
 	{
-		"model_sobriquet": "FRANCESCA",
-		"l1_abbrev": "ATTR",
-		"l2_desc": "Ten",
-		"standout_factor": 1.25
+		"model_sobriquet": "SADE_MARE",
+		"l1_abbrev": "PUAT",
+		"l2_desc": "Noticeable Protrusion",
+		"standout_factor": 1.0
 	}
 ]
 '
 EXEC GRLS.update_model_attribute @json,1,1
-

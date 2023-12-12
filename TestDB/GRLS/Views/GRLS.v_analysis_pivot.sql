@@ -19,6 +19,7 @@ DECLARE @sql 		varchar(MAX),
 SET @sql = '
 	CREATE VIEW GRLS.v_analysis_pivot AS	
 		SELECT
+			DENSE_RANK() OVER (PARTITION BY piv.scheme_abbrev ORDER BY piv.adjusted_total DESC) AS rnk,
 			piv.*
 		FROM
 		(

@@ -44,3 +44,15 @@ BEGIN
 	PRINT '########## Column year_of_birth added to GRLS.model successfully ##########'
 END
 
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE [name] = N'for_comparison' AND [object_id] = object_id(N'GRLS.model'))
+BEGIN
+	ALTER TABLE GRLS.model  
+	ADD for_comparison bit DEFAULT 0
+	PRINT '########## Column for_comparison added to GRLS.model successfully ##########'
+END
+GO
+CREATE INDEX IDX_model_for_comparison ON GRLS.model (for_comparison) ON [PRIMARY];
+GO
+PRINT '########## Index IDX_model_for_comparison ON GRLS.model created successfully ##########'
+
+

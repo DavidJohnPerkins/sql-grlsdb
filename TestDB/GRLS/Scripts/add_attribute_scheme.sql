@@ -63,11 +63,11 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "BRSH", "attr_weight": 5, "options": [
-					{ "l2_desc": "Nubs",					"preference": 6 },
-					{ "l2_desc": "Conical",					"preference": 7 },
-					{ "l2_desc": "Semi-Pendulous Globe",	"preference": 5 },
-					{ "l2_desc": "Semi-Pendulous",			"preference": 4 },
-					{ "l2_desc": "Dome",					"preference": 3 },
+					{ "l2_desc": "Nubs",					"preference": 5 },
+					{ "l2_desc": "Conical",					"preference": 5 },
+					{ "l2_desc": "Semi-Pendulous Globe",	"preference": 4 },
+					{ "l2_desc": "Semi-Pendulous",			"preference": 3 },
+					{ "l2_desc": "Dome",					"preference": 4 },
 					{ "l2_desc": "Full",					"preference": 2 },
 					{ "l2_desc": "Pendulous",				"preference": 1 }
 				]
@@ -104,13 +104,13 @@ DECLARE @json	COMMON.json = '
 			},
 			{
 				"abbrev": "EYES", "attr_weight": 5, "options": [
-					{ "l2_desc": "Dark Brown",			"preference": 7 },
-					{ "l2_desc": "Brown",				"preference": 6 },
-					{ "l2_desc": "Deep Grey",			"preference": 5 },
-					{ "l2_desc": "Grey",				"preference": 5 },
-					{ "l2_desc": "Blue",				"preference": 4 },
+					{ "l2_desc": "Dark Brown",			"preference": 3 },
+					{ "l2_desc": "Brown",				"preference": 3 },
+					{ "l2_desc": "Deep Grey",			"preference": 3 },
+					{ "l2_desc": "Grey",				"preference": 3 },
+					{ "l2_desc": "Blue",				"preference": 2 },
 					{ "l2_desc": "Hazel",				"preference": 3 },
-					{ "l2_desc": "Green",				"preference": 2 },
+					{ "l2_desc": "Green",				"preference": 3 },
 					{ "l2_desc": "Pale Blue",			"preference": 1 }
 				]
 			},
@@ -217,12 +217,12 @@ DECLARE @json	COMMON.json = '
 				"abbrev": "YTHF", "attr_weight": 5, "options": [
 					{ "l2_desc": "Mid Teens",			"preference": 5 },
 					{ "l2_desc": "Late Teens",			"preference": 4 },
-					{ "l2_desc": "Early Twenties",		"preference": 3 }, 
-					{ "l2_desc": "Mid Twenties",		"preference": 2 }, 
-					{ "l2_desc": "Late Twenties",		"preference": 1 }
+					{ "l2_desc": "Early Twenties",		"preference": 4 }, 
+					{ "l2_desc": "Mid Twenties",		"preference": 3 }, 
+					{ "l2_desc": "Late Twenties",		"preference": 2 }
 				]
 			}
 		]
 	}
 ';
-EXEC GRLS.c_attribute_scheme @json, 1, 1
+EXEC GRLS.c_attribute_scheme @json, 0, 1
