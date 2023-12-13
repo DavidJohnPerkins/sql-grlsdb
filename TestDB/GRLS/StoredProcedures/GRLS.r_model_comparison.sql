@@ -24,28 +24,25 @@ BEGIN
 	SET NOCOUNT ON
 
 	DECLARE @models TABLE (
-		sobriquet	varchar(50)
+		sobriquet	GRLS.sobriquet
 	);
 
-	DECLARE @cols	nvarchar(MAX),
-    		@query	nvarchar(MAX)
+	DECLARE @cols			nvarchar(MAX),
+    		@query			nvarchar(MAX),
+			@scheme_abbrev	varchar(20)
 
 	BEGIN TRY
 
-		WITH w_sobriquet AS (
-			SELECT
-				c.sobriquet sobriquet
-			FROM OPENJSON (@p_input_json)
-			WITH
-			(
-				sobriquet	varchar(50)
-			) c
-		)
+		SET @scheme_abbrev = (SELECT JSON_VALUE(@p_input_json, '$."scheme_abbrev"'))
+
 		INSERT INTO @models
 		SELECT
-			w.sobriquet
-		FROM 
-			w_sobriquet w
+			c.sobriquet sobriquet
+		FROM OPENJSON(@p_input_json, '$.sobriquets')
+		WITH
+		(
+			sobriquet	GRLS.sobriquet
+		) c
 
 		UPDATE 
 			m 
@@ -74,7 +71,7 @@ BEGIN
 
 		SET @query = '
 			SELECT 
-				abbrev, ' + @cols + ' 
+				abbrev, ~cols 
 			FROM 
 				(
 					SELECT 
@@ -87,13 +84,17 @@ BEGIN
 						ON ab.model_id = m.id
 					WHERE 
 						m.for_comparison = 1 AND
-						ab.scheme_abbrev = ''SIMPLE''
+						ab.scheme_abbrev = ^~scheme^
 				) x
 			PIVOT 
 				(
 					MIN(adj_preference)
-					FOR sobriquet IN (' + @cols + ')
+					FOR sobriquet IN (~cols)
 			) p '
+
+		SET @query = REPLACE(@query, '~cols', @cols)
+		SET @query = REPLACE(@query, '~scheme', @scheme_abbrev)
+		SET @query = REPLACE(@query, '^', '''')
 
 		IF @p_debug = 1 
 			PRINT @query
