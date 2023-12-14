@@ -85,11 +85,27 @@ BEGIN
 					WHERE 
 						m.for_comparison = 1 AND
 						ab.scheme_abbrev = ^~scheme^
+					
+					UNION 
+
+					SELECT 
+						ab.sobriquet,
+						^ZTOTAL^,
+						SUM(ab.adj_preference)
+					FROM 
+						GRLS.v_analysis_base ab 
+						INNER JOIN GRLS.model m
+						ON ab.model_id = m.id
+					WHERE 
+						m.for_comparison = 1 AND
+						ab.scheme_abbrev = ^~scheme^
+					GROUP BY 
+						ab.sobriquet
 				) x
 			PIVOT 
 				(
 					MIN(adj_preference)
-					FOR sobriquet IN (~cols)
+					FOR sobriquet IN (~cols,[ZTOTAL])
 			) p '
 
 		SET @query = REPLACE(@query, '~cols', @cols)

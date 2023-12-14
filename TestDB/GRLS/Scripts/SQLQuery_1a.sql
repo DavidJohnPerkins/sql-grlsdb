@@ -15,7 +15,8 @@ DECLARE @json COMMON.json = '
 		"sobriquets": [
 			{"sobriquet": "VESELIN"},
 			{"sobriquet": "NIMFA"},
-			{"sobriquet": "ALTEA"}
+			{"sobriquet": "MIRA"},
+			{"sobriquet": "JEWEL_A"}
 		]
 	}';
 EXECUTE GRLS.r_model_comparison @json, 1, 1
@@ -33,7 +34,7 @@ DECLARE @json COMMON.json = '
 		"sobriquets": [
 			{"sobriquet": "VESELIN"},
 			{"sobriquet": "NIMFA"},
-			{"sobriquet": "ALTEA"}
+			{"sobriquet": "ALTEA"},
 		]
 	}';
 --select JSON_VALUE(@json, '$."scheme_abbrev"') AS 'Result';
@@ -52,3 +53,25 @@ DECLARE @json COMMON.json = '
 		"group_abbrev": "FACEPLUS"
 	}'
 EXECUTE GRLS.r_attribute_group_pivot @json, 1, 1
+
+
+
+DECLARE @json3	COMMON.json = '
+	{
+		"sobriquet":		"NENSI_B",
+		"model_flags": [
+			{ "flag_abbrev": "WMNCHILD"},
+			{ "flag_abbrev": "PUBEHAIR"}
+		],
+	}
+'
+SELECT 
+	--JSON_VALUE(@json3, '$."sobriquet"'),
+			c.flag_abbrev
+	FROM OPENJSON (@json3, '$.model_flags')
+	WITH
+	(
+		flag_abbrev	char(8)
+	) c
+
+
