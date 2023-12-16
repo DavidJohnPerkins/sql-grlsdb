@@ -22,7 +22,9 @@ CREATE VIEW GRLS.v_model_extended AS
 		CASE WHEN CHARINDEX('/', nm.aliases) = 0 THEN NULL ELSE SUBSTRING(nm.aliases, CHARINDEX('/', nm.aliases) + 2, 255) END AS aliases,
 		m.hotness_quotient,
 		m.year_of_birth,
-		al.l2_desc AS nationality
+		al.l2_desc AS nationality,
+		f.flags,
+		m.comment
 	FROM
 		GRLS.model m
 		OUTER APPLY (
@@ -39,6 +41,21 @@ CREATE VIEW GRLS.v_model_extended AS
 					mn.principal_name DESC,
 					mn.model_name OFFSET 0 ROWS) x
 		) nm
+		OUTER APPLY (
+			SELECT
+				STRING_AGG(x.flag_abbrev, '/') AS flags
+			FROM (
+				SELECT
+					fl.flag_abbrev
+				FROM 
+					GRLS.model_flag mf 
+					INNER JOIN GRLS.flag fl 
+					ON mf.flag_id = fl.flag_id
+				WHERE
+					mf.model_id = m.id
+				ORDER BY
+					fl.flag_abbrev OFFSET 0 ROWS) x
+		) f
 		INNER JOIN GRLS.v_attribute_list al 
 		ON m.id = al.model_id AND al.abbrev = 'NATN'
 		

@@ -50,7 +50,7 @@ BEGIN
 		
 		IF NOT @yob IS NULL
 		BEGIN
-			IF @yob != 0 AND @yob NOT BETWEEN 1985 AND 2005
+			IF @yob != 0 AND @yob NOT BETWEEN 1983 AND 2005
 	   			RAISERROR ('The yob value must be 0 or from 1985 - 2005 - operation failed.', 16, 1)
 		END
 

@@ -55,4 +55,11 @@ CREATE INDEX IDX_model_for_comparison ON GRLS.model (for_comparison) ON [PRIMARY
 GO
 PRINT '########## Index IDX_model_for_comparison ON GRLS.model created successfully ##########'
 
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE [name] = N'comment' AND [object_id] = object_id(N'GRLS.model'))
+BEGIN
+	ALTER TABLE GRLS.model  
+	ADD comment nvarchar(MAX) DEFAULT 0
+	PRINT '########## Column comment added to GRLS.model successfully ##########'
+END
+GO
 
