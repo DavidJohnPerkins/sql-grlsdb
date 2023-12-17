@@ -24,7 +24,8 @@ CREATE VIEW GRLS.v_model_extended AS
 		m.year_of_birth,
 		al.l2_desc AS nationality,
 		f.flags,
-		m.comment
+		m.comment,
+		img.image_url
 	FROM
 		GRLS.model m
 		OUTER APPLY (
@@ -56,6 +57,17 @@ CREATE VIEW GRLS.v_model_extended AS
 				ORDER BY
 					fl.flag_abbrev OFFSET 0 ROWS) x
 		) f
+		OUTER APPLY (
+			SELECT
+				i.image_url
+			FROM
+				GRLS.[image] i 
+				INNER JOIN GRLS.image_model im 
+				ON i.image_id = im.image_id
+			WHERE 
+				im.model_id = m.id AND
+				im.thumbnail_image = 1)
+		img
 		INNER JOIN GRLS.v_attribute_list al 
 		ON m.id = al.model_id AND al.abbrev = 'NATN'
 		

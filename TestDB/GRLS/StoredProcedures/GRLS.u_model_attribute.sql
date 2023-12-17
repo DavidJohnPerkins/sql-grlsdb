@@ -6,14 +6,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.update_model_attribute') AND [type] IN ('P', 'PC'))
+IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.u_model_attribute') AND [type] IN ('P', 'PC'))
 BEGIN 
-	DROP PROCEDURE GRLS.update_model_attribute
-	PRINT '########## GRLS.update_model_attribute dropped successfully ##########'
+	DROP PROCEDURE GRLS.u_model_attribute
+	PRINT '########## GRLS.u_model_attribute dropped successfully ##########'
 END
 GO
 
-CREATE PROCEDURE GRLS.update_model_attribute (
+CREATE PROCEDURE GRLS.u_model_attribute (
 	@p_input_json		COMMON.json,
 	@p_debug			bit = 0,
 	@p_execute			bit = 1
@@ -132,4 +132,4 @@ BEGIN
 	END CATCH
 END
 GO
-PRINT '########## GRLS.update_model_attribute created successfully ##########'
+PRINT '########## GRLS.u_model_attribute created successfully ##########'

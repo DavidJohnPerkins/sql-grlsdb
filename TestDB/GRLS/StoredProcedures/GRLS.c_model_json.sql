@@ -26,6 +26,7 @@ BEGIN
 	DECLARE @base_attribs		COMMON.base_attrib_add_list,
 			@attribs			COMMON.attrib_add_list,
 			@model_names		COMMON.name_add_list,
+			@model_flags		COMMON.flag_add_list,
 			@sobr				GRLS.sobriquet,
 			@hquo				int,
 			@yob				int,
@@ -59,12 +60,14 @@ BEGIN
 		SELECT
 			a.sobriquet,
 			a.hot_quotient,
-			a.yob
+			a.yob,
+			a.comment
 		FROM OPENJSON(@base_attribs_json)
 		WITH (
 			sobriquet		GRLS.sobriquet, 
 			hot_quotient 	int,
-			yob				int
+			yob				int,
+			comment			nvarchar(MAX)
 		) a
 
 		INSERT INTO @model_names
@@ -77,6 +80,16 @@ BEGIN
 			model_name		varchar(50),
 			principal_name	bit
 		) a
+
+		INSERT INTO @model_flags
+		SELECT
+			f.flag_abbrev
+		FROM 
+			OPENJSON (@p_input_json, '$.model_flags')
+			WITH
+			(
+				flag_abbrev	char(8)
+			) f
 
 		INSERT INTO @attribs
 		SELECT
@@ -98,7 +111,7 @@ BEGIN
 			selected	bit
 		) b
 
-		EXEC COMMON.c_model @base_attribs, @attribs, @model_names, @p_debug, @p_execute
+		EXEC COMMON.c_model @base_attribs, @attribs, @model_names, @model_flags, @p_debug, @p_execute
 
 	END TRY
 

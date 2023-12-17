@@ -41,6 +41,7 @@ ALTER TABLE GRLS.image_model ADD CONSTRAINT FK_image_model_model FOREIGN KEY (mo
 GO
 
 ALTER TABLE GRLS.image_model ADD reference_image bit DEFAULT 0;
+ALTER TABLE GRLS.image_model ADD thumbnail_image bit DEFAULT 0;
 
 
 PRINT '########## Table GRLS.image_model created successfully ##########'

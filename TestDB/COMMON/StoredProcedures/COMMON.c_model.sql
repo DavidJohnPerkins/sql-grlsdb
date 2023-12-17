@@ -17,6 +17,7 @@ CREATE PROCEDURE COMMON.c_model
 	@p_base_attribs	COMMON.base_attrib_add_list	READONLY,
 	@p_attribs		COMMON.attrib_add_list 		READONLY,
 	@p_model_names	COMMON.name_add_list		READONLY,
+	@p_model_flags	COMMON.flag_add_list		READONLY,
 	@p_debug		bit = 0,
 	@p_execute		bit = 1
 
@@ -29,6 +30,7 @@ BEGIN
 			@sobriquet	GRLS.sobriquet 	= (SELECT ba.sobriquet FROM @p_base_attribs ba),
 			@hq			int				= (SELECT ba.hot_quotient FROM @p_base_attribs ba),
 			@yob 		int				= (SELECT ba.yob FROM @p_base_attribs ba),
+			@comment	nvarchar(MAX)	= (SELECT ba.comment FROM @p_base_attribs ba),
 			@prin_name	varchar(50)
 
 	BEGIN TRY
@@ -61,6 +63,9 @@ BEGIN
 		IF LOWER(@sobriquet) != LOWER(REPLACE(@prin_name, ' ', '_'))
    			RAISERROR ('The principal name must match the sobriquet - operation failed.', 16, 1)
 
+		IF 	EXISTS (SELECT t.flag_abbrev FROM @p_model_flags t EXCEPT SELECT f.flag_abbrev FROM GRLS.flag f)
+				RAISERROR ('There are invalid flags in the input json - operation failed.', 16, 1)
+
 		IF 	EXISTS (SELECT a.abbrev COLLATE DATABASE_DEFAULT FROM @p_attribs a EXCEPT SELECT b.abbrev FROM GRLS.attribute_level_1 b) OR
 			EXISTS (SELECT a.abbrev FROM GRLS.attribute_level_1 a EXCEPT SELECT b.abbrev COLLATE DATABASE_DEFAULT FROM @p_attribs b)
 				RAISERROR ('There are missing or invalid attributes - operation failed.', 16, 1)
@@ -80,11 +85,12 @@ BEGIN
 
 		BEGIN TRANSACTION
 
-		INSERT INTO GRLS.model (sobriquet, hotness_quotient, year_of_birth)
+		INSERT INTO GRLS.model (sobriquet, hotness_quotient, year_of_birth, comment)
 			SELECT
 				ba.sobriquet,
 				ba.hot_quotient,
-				ba.yob
+				ba.yob,
+				ba.comment
 			FROM 
 				@p_base_attribs ba
 
@@ -109,6 +115,15 @@ BEGIN
 		FROM 
 			@p_model_names n
 			
+		INSERT INTO GRLS.model_flag(model_id, flag_id)
+		SELECT	
+			@model_id,
+			f.flag_id 
+		FROM
+			@p_model_flags fl 
+			INNER JOIN GRLS.flag f 
+			ON fl.flag_abbrev = f.flag_abbrev
+
 		IF @p_execute = 1
 		BEGIN
 			COMMIT TRANSACTION
