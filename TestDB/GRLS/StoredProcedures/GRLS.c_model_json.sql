@@ -61,13 +61,15 @@ BEGIN
 			a.sobriquet,
 			a.hot_quotient,
 			a.yob,
-			a.comment
+			a.comment,
+			a.thumbnail
 		FROM OPENJSON(@base_attribs_json)
 		WITH (
 			sobriquet		GRLS.sobriquet, 
 			hot_quotient 	int,
 			yob				int,
-			comment			nvarchar(MAX)
+			comment			nvarchar(MAX),
+			thumbnail		GRLS.image_url
 		) a
 
 		INSERT INTO @model_names

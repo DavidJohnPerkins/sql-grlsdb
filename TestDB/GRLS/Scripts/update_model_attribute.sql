@@ -1,5 +1,5 @@
-DECLARE	@sobr	GRLS.sobriquet = 'BRIONIE_W',
-		@abbrev	GRLS.l1_abbrev = 'NATN'
+DECLARE	@sobr	GRLS.sobriquet = 'ALICE_MAY',
+		@abbrev	GRLS.l1_abbrev = 'NPPF'
 
 SELECT
 	@sobr AS 'model_sobriquet',
@@ -16,10 +16,10 @@ FOR JSON PATH
 
 declare @json COMMON.json = '[
 	{
-		"model_sobriquet": "BRIONIE_W",
-		"l1_abbrev": "NATN",
-		"l2_desc": "Belgium",
-		"standout_factor": 1.0
+		"model_sobriquet": "ALICE_MAY",
+		"l1_abbrev": "NPPF",
+		"l2_desc": "Slightly Puffy",
+		"standout_factor": 1.1
 	}
 ]
 '

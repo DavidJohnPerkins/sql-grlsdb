@@ -27,10 +27,12 @@ BEGIN
 	SET NOCOUNT ON
 
 	DECLARE @model_id	int,
+			@image_id	int,
 			@sobriquet	GRLS.sobriquet 	= (SELECT ba.sobriquet FROM @p_base_attribs ba),
 			@hq			int				= (SELECT ba.hot_quotient FROM @p_base_attribs ba),
 			@yob 		int				= (SELECT ba.yob FROM @p_base_attribs ba),
 			@comment	nvarchar(MAX)	= (SELECT ba.comment FROM @p_base_attribs ba),
+			@thumbnail	GRLS.image_url 	= (SELECT ba.thumbnail FROM @p_base_attribs ba),
 			@prin_name	varchar(50)
 
 	BEGIN TRY
@@ -44,6 +46,12 @@ BEGIN
 		IF CHARINDEX(' ', @sobriquet, 0) != 0
    			RAISERROR ('The sobriquet cannot contain spaces - operation failed.', 16, 1)
 
+		IF @comment IS NULL 
+   			RAISERROR ('The comment value was not found - operation failed.', 16, 1)
+		
+		IF @thumbnail IS NULL 
+   			RAISERROR ('The thumbnail url value was not found - operation failed.', 16, 1)
+		
 		IF @hq IS NULL
    			RAISERROR ('The hot_quotient value is not found - operation failed.', 16, 1)
 
@@ -123,6 +131,14 @@ BEGIN
 			@p_model_flags fl 
 			INNER JOIN GRLS.flag f 
 			ON fl.flag_abbrev = f.flag_abbrev
+
+		INSERT INTO GRLS.[image] (image_url)
+		VALUES (@thumbnail)
+
+		SET @image_id = @@IDENTITY
+
+		INSERT INTO GRLS.image_model (image_id, model_id, reference_image, thumbnail_image)
+		VALUES (@image_id, @model_id, 0, 1)
 
 		IF @p_execute = 1
 		BEGIN
