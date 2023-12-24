@@ -1,8 +1,8 @@
 USE TestDB
 GO
 
-DECLARE @image_url	GRLS.image_url = 'images/bailey_bae_thumbnail.png',
-		@model_id	int = (SELECT m.id FROM GRLS.model m WHERE m.sobriquet = 'BAILEY_BAE'),
+DECLARE @image_url	GRLS.image_url = 'https://www.kindgirls.com/girlsp/bambi-joli.jpg',
+		@model_id	int = (SELECT m.id FROM GRLS.model m WHERE m.sobriquet = 'BAMBI_JOLI'),
 		@image_id	int
 
 INSERT INTO GRLS.[image] (image_url)
@@ -13,31 +13,31 @@ SET @image_id = @@IDENTITY
 INSERT INTO GRLS.image_model (image_id, model_id, reference_image, thumbnail_image)
 VALUES (@image_id, @model_id, 0, 1)
 
-UPDATE GRLS.model SET comment = 'Seriously hot and cool with great hair, perfect small cones with pert puffies and great PUAT.' WHERE id = @model_id
+UPDATE GRLS.model SET comment = 'Outstanding beauty, dark with absolute class - perfect tiny cones with dark highly perts, nice mons and good PUAT.' WHERE id = @model_id
 
 DECLARE @sof TABLE (
 	abbrev char(4),
 	standout_factor	float
 )
 INSERT INTO @sof VALUES
-('ASHP', 1.2),
-('ASIZ', 1.2),
+('ASHP', 1.0),
+('ASIZ', 1.0),
 ('ATTR', 1.3),
-('BILD', 1.0),
+('BILD', 1.1),
 ('BRDR', 1.2),
 ('BRSH', 1.3),
 ('BSIZ', 1.3),
-('CMPX', 1.0),
+('CMPX', 1.2),
 ('ETHN', 1.0),
 ('EYES', 1.0),
 ('HAIR', 1.2),
-('MONS', 1.2),
+('MONS', 1.0),
 ('NATN', 1.0),
-('NPCL', 1.0),
+('NPCL', 1.1),
 ('NPPF', 1.2),
 ('NPSH', 1.3),
 ('NPSZ', 1.2),
-('PUAT', 1.2),
+('PUAT', 1.0),
 ('YTHF', 1.2)
 
 UPDATE

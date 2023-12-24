@@ -49,6 +49,8 @@ BEGIN
 					m.* 
 				FROM 
 					GRLS.v_model_extended m 
+				WHERE
+					m.is_excluded = 0
 				ORDER BY
 					m.principal_name
 			END

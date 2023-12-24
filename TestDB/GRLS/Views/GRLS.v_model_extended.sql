@@ -17,6 +17,7 @@ CREATE VIEW GRLS.v_model_extended AS
 
 	SELECT 
 		m.id,
+		m.is_excluded,
 		m.sobriquet,
 		CASE WHEN CHARINDEX('/', nm.aliases) = 0 THEN nm.aliases ELSE LEFT(nm.aliases, CHARINDEX('/', nm.aliases) - 2) END AS principal_name,
 		CASE WHEN CHARINDEX('/', nm.aliases) = 0 THEN NULL ELSE SUBSTRING(nm.aliases, CHARINDEX('/', nm.aliases) + 2, 255) END AS aliases,

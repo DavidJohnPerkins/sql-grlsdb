@@ -60,8 +60,8 @@ BEGIN
 		
 		IF NOT @yob IS NULL
 		BEGIN
-			IF @yob != 0 AND @yob NOT BETWEEN 1983 AND 2005
-	   			RAISERROR ('The yob value must be 0 or from 1985 - 2005 - operation failed.', 16, 1)
+			IF @yob != 0 AND @yob NOT BETWEEN 1980 AND 2005
+	   			RAISERROR ('The yob value must be 0 or from 1980 - 2005 - operation failed.', 16, 1)
 		END
 
 		IF (SELECT COUNT(1) FROM @p_model_names mn WHERE mn.principal_name = 1) != 1

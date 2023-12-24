@@ -63,3 +63,11 @@ BEGIN
 END
 GO
 
+IF NOT EXISTS (SELECT 1 FROM sys.columns WHERE [name] = N'is_excluded' AND [object_id] = object_id(N'GRLS.model'))
+BEGIN
+	ALTER TABLE GRLS.model  
+	ADD is_excluded bit DEFAULT 0
+	PRINT '########## Column is_excluded added to GRLS.model successfully ##########'
+END
+GO
+
