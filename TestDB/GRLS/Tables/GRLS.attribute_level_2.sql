@@ -62,6 +62,7 @@ BEGIN TRY
 
 END TRY
 */
+/*
 BEGIN TRY
 
 	BEGIN TRANSACTION
@@ -80,6 +81,14 @@ BEGIN TRY
 	COMMIT TRANSACTION
 
 END TRY
+*/
+
+BEGIN TRY
+		ALTER TABLE GRLS.attribute_level_2
+		ADD l2_sort_order int
+		PRINT '########## Column l2_sort_order added to GRLS.attribute_level_2 successfully ##########'
+END TRY
+
 
 BEGIN CATCH
    SELECT  

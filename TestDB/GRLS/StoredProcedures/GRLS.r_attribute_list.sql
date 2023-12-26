@@ -46,7 +46,7 @@ BEGIN
 			WHERE
 				l1.abbrev = @abbrev
 			ORDER BY 
-				l2.l2_desc
+				l2.l2_sort_order
 		END
 	END TRY
 
