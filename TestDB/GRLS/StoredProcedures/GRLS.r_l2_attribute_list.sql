@@ -6,14 +6,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.r_attribute_list') AND [type] IN ('P', 'PC'))
+IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.r_l2_attribute_list') AND [type] IN ('P', 'PC'))
 BEGIN 
-	DROP PROCEDURE GRLS.r_attribute_list
-	PRINT '########## GRLS.r_attribute_list dropped successfully ##########'
+	DROP PROCEDURE GRLS.r_l2_attribute_list
+	PRINT '########## GRLS.r_l2_attribute_list dropped successfully ##########'
 END
 GO
 
-CREATE PROCEDURE GRLS.r_attribute_list
+CREATE PROCEDURE GRLS.r_l2_attribute_list
 	@p_input_json		COMMON.json,
 	@p_debug			bit = 0,
 	@p_execute			bit = 1
@@ -68,4 +68,4 @@ BEGIN
 
 END
 GO
-PRINT '########## GRLS.r_attribute_list created successfully ##########'
+PRINT '########## GRLS.r_l2_attribute_list created successfully ##########'
