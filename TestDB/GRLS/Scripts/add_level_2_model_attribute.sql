@@ -1,7 +1,7 @@
 DECLARE @attribs_json COMMON.json = '
 	{
 		"l1_abbrev": 	"NATN",
-		"l2_desc":		"Colombia",
+		"l2_desc":		"China",
 		"preferences": [
 			{
 				"scheme_id": 1,
