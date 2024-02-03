@@ -32,8 +32,8 @@ BEGIN
 			@hq			int				= (SELECT ba.hot_quotient FROM @p_base_attribs ba),
 			@yob 		int				= (SELECT ba.yob FROM @p_base_attribs ba),
 			@comment	nvarchar(MAX)	= (SELECT ba.comment FROM @p_base_attribs ba),
-			@thumbnail	GRLS.image_url 	= (SELECT ba.thumbnail FROM @p_base_attribs ba),
-			@prin_name	varchar(50)
+			@thumbnail	GRLS.image_url 	= (SELECT ba.thumbnail FROM @p_base_attribs ba)/*,
+			@prin_name	varchar(50)*/
 
 	BEGIN TRY
 	
@@ -67,9 +67,11 @@ BEGIN
 		IF (SELECT COUNT(1) FROM @p_model_names mn WHERE mn.principal_name = 1) != 1
    			RAISERROR ('There must be one, and only one, principal name - operation failed.', 16, 1)
 
+		/*
 		SET @prin_name = (SELECT mn.model_name FROM @p_model_names mn WHERE mn.principal_name = 1)
 		IF LOWER(@sobriquet) != LOWER(REPLACE(@prin_name, ' ', '_'))
    			RAISERROR ('The principal name must match the sobriquet - operation failed.', 16, 1)
+		*/
 
 		IF 	EXISTS (SELECT t.flag_abbrev FROM @p_model_flags t EXCEPT SELECT f.flag_abbrev FROM GRLS.flag f)
 				RAISERROR ('There are invalid flags in the input json - operation failed.', 16, 1)
