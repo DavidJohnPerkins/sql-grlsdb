@@ -1,9 +1,9 @@
 USE TestDB
 GO
 
-DECLARE @sobr GRLS.sobriquet = 'MARY_C'
+DECLARE @sobr GRLS.sobriquet = 'HELLA_G'
 
-DECLARE @image_url	GRLS.image_url = 'https://www.kindgirls.com/girlsp/mary-c.jpg',
+DECLARE @image_url	GRLS.image_url = 'https://www.kindgirls.com/girlsp/hella-g.jpg',
 		@model_id	int = (SELECT m.id FROM GRLS.model m WHERE m.sobriquet = @sobr),
 		@image_id	int
 
@@ -12,10 +12,10 @@ VALUES (@image_url)
 
 SET @image_id = @@IDENTITY
 
-INSERT INTO GRLS.image_model (image_id, model_id, reference_image, thumbnail_image)
-VALUES (@image_id, @model_id, 0, 1)
+INSERT INTO GRLS.image_model (image_id, model_id, reference_image, thumbnail_image, f_image, b_image, p_image_f, p_image_r, a_image)
+VALUES (@image_id, @model_id, 0, 1, 0, 0, 0, 0, 0)
 
-UPDATE GRLS.model SET comment = 'Stunning, tall and slim top tenner with incredible grey eyes - small domes with tiny highly perts - good mons and perfect arse.' WHERE id = @model_id
+UPDATE GRLS.model SET comment = 'Stunning, skinny blonde with amazing eyes - perfect nubs with tiny highly perts - very nice arse.' WHERE id = @model_id
 
 DECLARE @json	COMMON.json = '
 	{
@@ -38,17 +38,17 @@ INSERT INTO @sof VALUES
 ('ASHP', 1.2),
 ('ASIZ', 1.2),
 ('ATTR', 1.3),
-('BILD', 1.2),
+('BILD', 1.1),
 ('BRDR', 1.3),
 ('BRSH', 1.3),
 ('BSIZ', 1.3),
-('CMPX', 1.1),
+('CMPX', 1.0),
 ('ETHN', 1.0),
 ('EYES', 1.2),
 ('HAIR', 1.1),
-('MONS', 1.2),
+('MONS', 1.0),
 ('NATN', 1.0),
-('NPCL', 1.2),
+('NPCL', 1.1),
 ('NPPF', 1.3),
 ('NPSH', 1.3),
 ('NPSZ', 1.3),

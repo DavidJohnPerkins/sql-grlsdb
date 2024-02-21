@@ -26,7 +26,13 @@ CREATE VIEW GRLS.v_model_extended AS
 		al.l2_desc AS nationality,
 		f.flags,
 		m.comment,
-		img.image_url
+		img.thumbnail,
+		img.ref_url,
+		img.f_url,
+		img.b_url,
+		img.p1_url,
+		img.p2_url,
+		img.a_url
 	FROM
 		GRLS.model m
 		OUTER APPLY (
@@ -60,15 +66,12 @@ CREATE VIEW GRLS.v_model_extended AS
 		) f
 		OUTER APPLY (
 			SELECT
-				i.image_url
+				i.*
 			FROM
-				GRLS.[image] i 
-				INNER JOIN GRLS.image_model im 
-				ON i.image_id = im.image_id
+				GRLS.v_image_url_pivot i
 			WHERE 
-				im.model_id = m.id AND
-				im.thumbnail_image = 1)
-		img
+				i.model_id = m.id
+		) img
 		INNER JOIN GRLS.v_attribute_list al 
 		ON m.id = al.model_id AND al.abbrev = 'NATN'
 		

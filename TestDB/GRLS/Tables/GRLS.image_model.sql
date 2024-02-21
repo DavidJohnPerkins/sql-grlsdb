@@ -43,5 +43,10 @@ GO
 ALTER TABLE GRLS.image_model ADD reference_image bit DEFAULT 0;
 ALTER TABLE GRLS.image_model ADD thumbnail_image bit DEFAULT 0;
 
+ALTER TABLE GRLS.image_model ADD f_image	bit DEFAULT 0;
+ALTER TABLE GRLS.image_model ADD b_image	bit DEFAULT 0;
+ALTER TABLE GRLS.image_model ADD p_image_f	bit DEFAULT 0;
+ALTER TABLE GRLS.image_model ADD p_image_r	bit DEFAULT 0;
+ALTER TABLE GRLS.image_model ADD a_image	bit DEFAULT 0;
 
 PRINT '########## Table GRLS.image_model created successfully ##########'
