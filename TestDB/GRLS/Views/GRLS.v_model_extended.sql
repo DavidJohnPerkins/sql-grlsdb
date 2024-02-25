@@ -26,13 +26,7 @@ CREATE VIEW GRLS.v_model_extended AS
 		al.l2_desc AS nationality,
 		f.flags,
 		m.comment,
-		img.thumbnail,
-		img.ref_url,
-		img.f_url,
-		img.b_url,
-		img.p1_url,
-		img.p2_url,
-		img.a_url
+		img.*
 	FROM
 		GRLS.model m
 		OUTER APPLY (

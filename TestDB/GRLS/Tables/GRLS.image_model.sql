@@ -5,7 +5,7 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-
+/*
 IF OBJECT_ID('GRLS.image_model', 'U') IS NOT NULL
 BEGIN
 	DROP INDEX IF EXISTS U_IDX_imageid_modelid ON GRLS.image_model
@@ -50,3 +50,18 @@ ALTER TABLE GRLS.image_model ADD p_image_r	bit DEFAULT 0;
 ALTER TABLE GRLS.image_model ADD a_image	bit DEFAULT 0;
 
 PRINT '########## Table GRLS.image_model created successfully ##########'
+*/
+
+ALTER TABLE GRLS.image_model ADD image_type_id int;
+ALTER TABLE GRLS.image_model ADD CONSTRAINT FK_image_model_image_type FOREIGN KEY (image_type_id) REFERENCES GRLS.image_type(image_type_id) ON DELETE CASCADE;
+
+ALTER TABLE GRLS.image_model DROP COLUMN reference_image;
+ALTER TABLE GRLS.image_model DROP COLUMN thumbnail_image;
+ALTER TABLE GRLS.image_model DROP COLUMN f_image;
+ALTER TABLE GRLS.image_model DROP COLUMN b_image;
+ALTER TABLE GRLS.image_model DROP COLUMN p_image_f;
+ALTER TABLE GRLS.image_model DROP COLUMN p_image_r;
+ALTER TABLE GRLS.image_model DROP COLUMN a_image;
+
+GO
+PRINT '########## Table GRLS.image_model modified successfully ##########'
