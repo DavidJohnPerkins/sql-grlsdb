@@ -73,9 +73,6 @@ BEGIN
    			RAISERROR ('The principal name must match the sobriquet - operation failed.', 16, 1)
 		*/
 
-		IF 	EXISTS (SELECT t.flag_abbrev FROM @p_model_flags t EXCEPT SELECT f.flag_abbrev FROM GRLS.flag f)
-				RAISERROR ('There are invalid flags in the input json - operation failed.', 16, 1)
-
 		IF 	EXISTS (SELECT a.abbrev COLLATE DATABASE_DEFAULT FROM @p_attribs a EXCEPT SELECT b.abbrev FROM GRLS.attribute_level_1 b) OR
 			EXISTS (SELECT a.abbrev FROM GRLS.attribute_level_1 a EXCEPT SELECT b.abbrev COLLATE DATABASE_DEFAULT FROM @p_attribs b)
 				RAISERROR ('There are missing or invalid attributes - operation failed.', 16, 1)
@@ -125,14 +122,7 @@ BEGIN
 		FROM 
 			@p_model_names n
 			
-		INSERT INTO GRLS.model_flag(model_id, flag_id)
-		SELECT	
-			@model_id,
-			f.flag_id 
-		FROM
-			@p_model_flags fl 
-			INNER JOIN GRLS.flag f 
-			ON fl.flag_abbrev = f.flag_abbrev
+		EXEC COMMON.c_model_flag @p_model_flags, @sobriquet, 'C'
 
 		INSERT INTO GRLS.[image] (image_url)
 		VALUES (@thumbnail)
