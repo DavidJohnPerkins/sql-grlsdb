@@ -34,8 +34,8 @@ BEGIN
 	IF @p_update_type NOT IN ('C', 'R')
    		RAISERROR ('Update type must be C or R - operation failed.', 16, 1)
 
-	IF 	EXISTS (SELECT t.flag_abbrev /*COLLATE DATABASE_DEFAULT*/ FROM @p_flags t EXCEPT SELECT f.flag_abbrev FROM GRLS.flag f)
-		RAISERROR ('There are invalid flags in the input json - operation failed.', 16, 1)
+	IF 	EXISTS (SELECT t.flag_abbrev FROM @p_flags t EXCEPT SELECT f.flag_abbrev FROM GRLS.flag f)
+		RAISERROR ('There are invalid flags in the input data - operation failed.', 16, 1)
 
 	BEGIN TRY
 
