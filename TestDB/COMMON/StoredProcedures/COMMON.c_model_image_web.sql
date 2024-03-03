@@ -23,14 +23,12 @@ CREATE PROCEDURE COMMON.c_model_image_web
 AS
 BEGIN
 
-	SET NOCOUNT ON
+	SET NOCOUNT ON;
 
-/*
 	DECLARE @inserted TABLE (
 		image_url	GRLS.image_url,
 		image_id	int
 	)
-*/
 
 	DECLARE @work TABLE (
 		model_id		int,
@@ -54,7 +52,7 @@ BEGIN
 	IF EXISTS (SELECT t.image_type_abbrev FROM GRLS.image_type t WHERE t.image_type_abbrev != 'OT' EXCEPT SELECT i.image_type_abbrev FROM @p_images i)
 		RAISERROR ('There are missing web image abbreviations in the input data - operation failed.', 16, 1)
 
-/*
+
 	INSERT INTO @work
 	SELECT 
 		@v_model_id,
@@ -71,7 +69,7 @@ BEGIN
 		BEGIN TRANSACTION
 
 		INSERT INTO GRLS.[image] (image_url, is_monochrome)
---		OUTPUT INSERTED.image_url, INSERTED.image_id INTO @inserted
+		OUTPUT INSERTED.image_url, INSERTED.image_id INTO @inserted
 		SELECT 
 			w.image_url,
 			w.is_mono
@@ -107,7 +105,6 @@ BEGIN
 			ROLLBACK TRANSACTION
 			PRINT 'Image web insert transaction rolled back - no changes made'
 		END
-*/
 
 	END TRY
 

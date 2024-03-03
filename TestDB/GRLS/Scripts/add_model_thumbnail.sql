@@ -1,34 +1,60 @@
 USE TestDB
 GO
 
-DECLARE @sobr GRLS.sobriquet = 'HELLA_G'
+DECLARE @sobr GRLS.sobriquet = 'COLETTE'
 
-DECLARE @image_url	GRLS.image_url = 'https://www.kindgirls.com/girlsp/hella-g.jpg',
-		@model_id	int = (SELECT m.id FROM GRLS.model m WHERE m.sobriquet = @sobr),
-		@image_id	int
+DECLARE	@model_id	int = (SELECT m.id FROM GRLS.model m WHERE m.sobriquet = @sobr)
+--UPDATE GRLS.model SET comment = 'Stunning, skinny blonde with amazing eyes - perfect nubs with tiny highly perts - very nice arse.' WHERE id = @model_id
 
-INSERT INTO GRLS.[image] (image_url)
-VALUES (@image_url)
-
-SET @image_id = @@IDENTITY
-
-INSERT INTO GRLS.image_model (image_id, model_id, reference_image, thumbnail_image, f_image, b_image, p_image_f, p_image_r, a_image)
-VALUES (@image_id, @model_id, 0, 1, 0, 0, 0, 0, 0)
-
-UPDATE GRLS.model SET comment = 'Stunning, skinny blonde with amazing eyes - perfect nubs with tiny highly perts - very nice arse.' WHERE id = @model_id
-
-DECLARE @json	COMMON.json = '
+DECLARE @images_json	COMMON.json = '
 	{
 		"sobriquet":	"~sobr",
-		"update_type":	"add",
-		"model_flags": [
-			{ "flag_abbrev": "EXCEPTNL"}
+		"update_type":	"C",
+		"images": [
+			{
+				"image_url":	"https://www.kindgirls.com/girlsp/colette.jpg",
+				"image_type_abbrev":	"TH"
+			},
+			{
+				"image_url":	"https://gals.kindgirls.com/d009/roberta_berti_40011/roberta_berti_40011_6.jpg",
+				"image_type_abbrev":	"RF"
+			},
+			{
+				"image_url":	"https://gals.kindgirls.com/d009/roberta_berti_99905/m6/roberta_berti_99905_9.jpg",
+				"image_type_abbrev":	"FA"
+			},
+			{
+				"image_url":	"https://gals.kindgirls.com/d009/roberta_berti_49902/roberta_berti_49902_11.jpg",
+				"image_type_abbrev":	"BR"
+			},
+			{
+				"image_url":	"https://gals.kindgirls.com/d009/roberta_berti_26577/roberta_berti_26577_12.jpg",
+				"image_type_abbrev":	"PF"
+			},
+			{
+				"image_url":	"https://gals.kindgirls.com/d009/kari_88883/kari_88883_4.jpg",
+				"image_type_abbrev":	"PR"
+			},
+			{
+				"image_url":	"https://gals.kindgirls.com/d009/kari_88883/kari_88883_10.jpg",
+				"image_type_abbrev":	"AR"
+			}
 		]
 	}
 '
-SET @json = REPLACE(@json, '~sobr', @sobr)
-EXEC GRLS.c_model_flag_json @json, 0, 1
+SET @images_json = REPLACE(@images_json, '~sobr', @sobr)
 
+DECLARE @flags_json	COMMON.json = '
+	{
+		"sobriquet":	"~sobr",
+		"update_type":	"C",
+		"model_flags": [
+			{ "flag_abbrev": "EXCEPTNL"},
+			{ "flag_abbrev": "WMNCHILD"}
+		]
+	}
+'
+SET @flags_json = REPLACE(@flags_json, '~sobr', @sobr)
 
 DECLARE @sof TABLE (
 	abbrev char(4),
@@ -45,26 +71,56 @@ INSERT INTO @sof VALUES
 ('CMPX', 1.0),
 ('ETHN', 1.0),
 ('EYES', 1.2),
-('HAIR', 1.1),
-('MONS', 1.0),
+('HAIR', 1.0),
+('MONS', 1.2),
 ('NATN', 1.0),
 ('NPCL', 1.1),
-('NPPF', 1.3),
-('NPSH', 1.3),
-('NPSZ', 1.3),
-('PUAT', 1.0),
-('YTHF', 1.1)
+('NPPF', 1.1),
+('NPSH', 1.1),
+('NPSZ', 1.1),
+('PUAT', 1.2),
+('YTHF', 1.2)
 
-UPDATE
-	ma 
-	SET standout_factor = s.standout_factor
-FROM 
-	GRLS.model_attribute ma 
-	INNER JOIN GRLS.attribute_level_2 l2 
-		INNER JOIN GRLS.attribute_level_1 l1 
-			INNER JOIN @sof s 
-			ON l1.abbrev = s.abbrev COLLATE database_default
-		ON l2.l1_id = l1.l1_id
-	ON ma.attribute_id = l2.l2_id 
-WHERE 
-	ma.model_id = @model_id
+BEGIN TRY 
+
+	BEGIN TRANSACTION
+		
+	EXEC GRLS.c_model_image_web_json @images_json, 0, 1
+/*
+	EXEC GRLS.c_model_flag_json @flags_json, 0, 1
+
+	UPDATE
+		ma 
+		SET standout_factor = s.standout_factor
+	FROM 
+		GRLS.model_attribute ma 
+		INNER JOIN GRLS.attribute_level_2 l2 
+			INNER JOIN GRLS.attribute_level_1 l1 
+				INNER JOIN @sof s 
+				ON l1.abbrev = s.abbrev COLLATE database_default
+			ON l2.l1_id = l1.l1_id
+		ON ma.attribute_id = l2.l2_id 
+	WHERE 
+		ma.model_id = @model_id
+*/
+	COMMIT TRANSACTION
+END TRY
+BEGIN CATCH
+		DECLARE @error_message varchar(4000)
+		DECLARE @error_severity int  
+		DECLARE @error_state int
+	
+		 IF @@TRANCOUNT != 0
+		 	ROLLBACK TRANSACTION
+
+		SELECT   
+			@error_message = ERROR_MESSAGE(),  
+			@error_severity = ERROR_SEVERITY(),  
+			@error_state = ERROR_STATE();  
+
+		RAISERROR (@error_message,
+				@error_severity,
+				@error_state
+				)
+END CATCH
+--ROLLBACK TRANSACTION;

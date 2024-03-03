@@ -45,7 +45,7 @@ BEGIN
 				is_mono				bit
 			) i
 
-	EXEC COMMON.c_model_image_web @v_images, @v_model_sobriquet
+	EXEC COMMON.c_model_image_web @v_images, @v_model_sobriquet, @v_update_type
 
 	END TRY
 
