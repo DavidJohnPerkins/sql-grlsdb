@@ -1,10 +1,9 @@
 USE TestDB
 GO
 
-DECLARE @sobr GRLS.sobriquet = 'COLETTE'
+DECLARE @sobr GRLS.sobriquet = 'NATANIA'
 
 DECLARE	@model_id	int = (SELECT m.id FROM GRLS.model m WHERE m.sobriquet = @sobr)
---UPDATE GRLS.model SET comment = 'Stunning, skinny blonde with amazing eyes - perfect nubs with tiny highly perts - very nice arse.' WHERE id = @model_id
 
 DECLARE @images_json	COMMON.json = '
 	{
@@ -12,31 +11,31 @@ DECLARE @images_json	COMMON.json = '
 		"update_type":	"C",
 		"images": [
 			{
-				"image_url":	"https://www.kindgirls.com/girlsp/colette.jpg",
+				"image_url":	"https://www.kindgirls.com/girlsp/natania.jpg",
 				"image_type_abbrev":	"TH"
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/roberta_berti_40011/roberta_berti_40011_6.jpg",
+				"image_url":	"https://gals.kindgirls.com/d009/natania_50393/natania_50393_3.jpg",
 				"image_type_abbrev":	"RF"
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/roberta_berti_99905/m6/roberta_berti_99905_9.jpg",
+				"image_url":	"https://gals.kindgirls.com/d009/natania_50393/natania_50393_1.jpg",
 				"image_type_abbrev":	"FA"
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/roberta_berti_49902/roberta_berti_49902_11.jpg",
+				"image_url":	"https://gals.kindgirls.com/d009/natania_50393/natania_50393_5.jpg",
 				"image_type_abbrev":	"BR"
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/roberta_berti_26577/roberta_berti_26577_12.jpg",
+				"image_url":	"https://gals.kindgirls.com/d009/natalia_a_48883/natalia_a_48883_9.jpg",
 				"image_type_abbrev":	"PF"
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/kari_88883/kari_88883_4.jpg",
+				"image_url":	"https://gals.kindgirls.com/d009/natania_50393/natania_50393_12.jpg",
 				"image_type_abbrev":	"PR"
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/kari_88883/kari_88883_10.jpg",
+				"image_url":	"https://gals.kindgirls.com/d009/natalia_a_02198/natalia_a_02198_9.jpg",
 				"image_type_abbrev":	"AR"
 			}
 		]
@@ -49,8 +48,7 @@ DECLARE @flags_json	COMMON.json = '
 		"sobriquet":	"~sobr",
 		"update_type":	"C",
 		"model_flags": [
-			{ "flag_abbrev": "EXCEPTNL"},
-			{ "flag_abbrev": "WMNCHILD"}
+			{ "flag_abbrev": "EXCEPTNL"}
 		]
 	}
 '
@@ -61,32 +59,34 @@ DECLARE @sof TABLE (
 	standout_factor	float
 )
 INSERT INTO @sof VALUES
-('ASHP', 1.2),
-('ASIZ', 1.2),
-('ATTR', 1.3),
-('BILD', 1.1),
-('BRDR', 1.3),
-('BRSH', 1.3),
-('BSIZ', 1.3),
-('CMPX', 1.0),
+('ASHP', 1.1),
+('ASIZ', 1.1),
+('ATTR', 1.2),
+('BILD', 1.0),
+('BRDR', 1.1),
+('BRSH', 1.2),
+('BSIZ', 1.2),
+('CMPX', 1.1),
 ('ETHN', 1.0),
 ('EYES', 1.2),
 ('HAIR', 1.0),
-('MONS', 1.2),
+('MONS', 1.3),
 ('NATN', 1.0),
 ('NPCL', 1.1),
 ('NPPF', 1.1),
 ('NPSH', 1.1),
 ('NPSZ', 1.1),
-('PUAT', 1.2),
-('YTHF', 1.2)
+('PUAT', 1.3),
+('YTHF', 1.1)
 
 BEGIN TRY 
 
 	BEGIN TRANSACTION
+
+	UPDATE GRLS.model SET comment = 'Asian, sultry beauty - lovely semi-pend domes with puffy slightly perts - astonishing PUAT and nice arse.' WHERE id = @model_id
 		
 	EXEC GRLS.c_model_image_web_json @images_json, 0, 1
-/*
+
 	EXEC GRLS.c_model_flag_json @flags_json, 0, 1
 
 	UPDATE
@@ -102,7 +102,7 @@ BEGIN TRY
 		ON ma.attribute_id = l2.l2_id 
 	WHERE 
 		ma.model_id = @model_id
-*/
+
 	COMMIT TRANSACTION
 END TRY
 BEGIN CATCH

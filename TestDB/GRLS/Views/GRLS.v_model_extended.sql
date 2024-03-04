@@ -60,7 +60,13 @@ CREATE VIEW GRLS.v_model_extended AS
 		) f
 		OUTER APPLY (
 			SELECT
-				i.*
+				i.TH_url,
+				i.RF_url,
+				i.FA_url,
+				i.BR_url,
+				i.PF_url,
+				i.PR_url,
+				i.AR_url
 			FROM
 				GRLS.v_image_url_pivot i
 			WHERE 
