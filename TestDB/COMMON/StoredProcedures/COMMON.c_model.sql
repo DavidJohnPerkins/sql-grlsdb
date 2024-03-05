@@ -17,6 +17,7 @@ CREATE PROCEDURE COMMON.c_model
 	@p_base_attribs	COMMON.base_attrib_add_list	READONLY,
 	@p_attribs		COMMON.attrib_add_list 		READONLY,
 	@p_model_names	COMMON.name_add_list		READONLY,
+	@p_model_images	COMMON.web_image_add_list	READONLY,
 	@p_model_flags	COMMON.flag_add_list		READONLY,
 	@p_debug		bit = 0,
 	@p_execute		bit = 1
@@ -28,12 +29,10 @@ BEGIN
 
 	DECLARE @model_id	int,
 			@image_id	int,
-			@sobriquet	GRLS.sobriquet 	= (SELECT ba.sobriquet FROM @p_base_attribs ba),
-			@hq			int				= (SELECT ba.hot_quotient FROM @p_base_attribs ba),
-			@yob 		int				= (SELECT ba.yob FROM @p_base_attribs ba),
-			@comment	nvarchar(MAX)	= (SELECT ba.comment FROM @p_base_attribs ba),
-			@thumbnail	GRLS.image_url 	= (SELECT ba.thumbnail FROM @p_base_attribs ba)/*,
-			@prin_name	varchar(50)*/
+			@sobriquet	GRLS.sobriquet 		= (SELECT ba.sobriquet FROM @p_base_attribs ba),
+			@hq			int					= (SELECT ba.hot_quotient FROM @p_base_attribs ba),
+			@yob 		int					= (SELECT ba.yob FROM @p_base_attribs ba),
+			@comment	nvarchar(MAX)		= (SELECT ba.comment FROM @p_base_attribs ba)
 
 	BEGIN TRY
 	
@@ -49,9 +48,6 @@ BEGIN
 		IF @comment IS NULL 
    			RAISERROR ('The comment value was not found - operation failed.', 16, 1)
 		
-		IF @thumbnail IS NULL 
-   			RAISERROR ('The thumbnail url value was not found - operation failed.', 16, 1)
-		
 		IF @hq IS NULL
    			RAISERROR ('The hot_quotient value is not found - operation failed.', 16, 1)
 
@@ -66,12 +62,6 @@ BEGIN
 
 		IF (SELECT COUNT(1) FROM @p_model_names mn WHERE mn.principal_name = 1) != 1
    			RAISERROR ('There must be one, and only one, principal name - operation failed.', 16, 1)
-
-		/*
-		SET @prin_name = (SELECT mn.model_name FROM @p_model_names mn WHERE mn.principal_name = 1)
-		IF LOWER(@sobriquet) != LOWER(REPLACE(@prin_name, ' ', '_'))
-   			RAISERROR ('The principal name must match the sobriquet - operation failed.', 16, 1)
-		*/
 
 		IF 	EXISTS (SELECT a.abbrev COLLATE DATABASE_DEFAULT FROM @p_attribs a EXCEPT SELECT b.abbrev FROM GRLS.attribute_level_1 b) OR
 			EXISTS (SELECT a.abbrev FROM GRLS.attribute_level_1 a EXCEPT SELECT b.abbrev COLLATE DATABASE_DEFAULT FROM @p_attribs b)
@@ -123,14 +113,7 @@ BEGIN
 			@p_model_names n
 			
 		EXEC COMMON.c_model_flag @p_model_flags, @sobriquet, 'C'
-
-		INSERT INTO GRLS.[image] (image_url)
-		VALUES (@thumbnail)
-
-		SET @image_id = @@IDENTITY
-
-		INSERT INTO GRLS.image_model (image_id, model_id, reference_image, thumbnail_image)
-		VALUES (@image_id, @model_id, 0, 1)
+		EXEC COMMON.c_model_image_web @p_model_images, @sobriquet, 'C'
 
 		IF @p_execute = 1
 		BEGIN

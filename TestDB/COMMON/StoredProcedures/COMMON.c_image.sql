@@ -26,8 +26,8 @@ BEGIN
 	SET NOCOUNT ON
 
 	DECLARE @image_id		int,
-			@image_url		GRLS.image_url 	= (SELECT ba.image_url FROM @p_base_attribs ba),
-			@is_monochrome	bit				= (SELECT ba.is_monochrome FROM @p_base_attribs ba)
+			@image_url		COMMON.image_url 	= (SELECT ba.image_url FROM @p_base_attribs ba),
+			@is_monochrome	bit					= (SELECT ba.is_monochrome FROM @p_base_attribs ba)
 
 	BEGIN TRY
 	

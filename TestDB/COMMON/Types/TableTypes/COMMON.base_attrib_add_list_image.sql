@@ -15,7 +15,7 @@ GO
 
 CREATE TYPE COMMON.base_attrib_add_list_image AS TABLE   
 (
-	image_url		GRLS.image_url,
+	image_url		COMMON.image_url,
 	is_monochrome	bit
 )
 GO  

@@ -1,7 +1,7 @@
 USE TestDB
 GO
 
-DECLARE @sobr GRLS.sobriquet = 'NATANIA'
+DECLARE @sobr GRLS.sobriquet = 'MALENA'
 
 DECLARE	@model_id	int = (SELECT m.id FROM GRLS.model m WHERE m.sobriquet = @sobr)
 
@@ -11,32 +11,39 @@ DECLARE @images_json	COMMON.json = '
 		"update_type":	"C",
 		"images": [
 			{
-				"image_url":	"https://www.kindgirls.com/girlsp/natania.jpg",
 				"image_type_abbrev":	"TH"
+				"is_mono":				0,
+				"image_url":			"https://www.kindgirls.com/girlsp/malena-f.jpg",
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/natania_50393/natania_50393_3.jpg",
 				"image_type_abbrev":	"RF"
+				"is_mono":				0,
+				"image_url":			"https://gals.kindgirls.com/d009/malena_10298/malena_10298_1.jpg",
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/natania_50393/natania_50393_1.jpg",
 				"image_type_abbrev":	"FA"
+				"is_mono":				0,
+				"image_url":			"https://gals.kindgirls.com/d009/malena_49995/malena_49995_1.jpg",
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/natania_50393/natania_50393_5.jpg",
 				"image_type_abbrev":	"BR"
+				"is_mono":				0,
+				"image_url":			"https://gals.kindgirls.com/d009/malena_49995/malena_49995_6.jpg",
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/natalia_a_48883/natalia_a_48883_9.jpg",
 				"image_type_abbrev":	"PF"
+				"is_mono":				0,
+				"image_url":			"https://gals.kindgirls.com/d009/malena_09998/malena_09998_8.jpg",
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/natania_50393/natania_50393_12.jpg",
 				"image_type_abbrev":	"PR"
+				"is_mono":				0,
+				"image_url":			"https://gals.kindgirls.com/d009/malena_12988/malena_12988_7.jpg",
 			},
 			{
-				"image_url":	"https://gals.kindgirls.com/d009/natalia_a_02198/natalia_a_02198_9.jpg",
 				"image_type_abbrev":	"AR"
+				"is_mono":				0,
+				"image_url":			"https://gals.kindgirls.com/d009/malena_12988/malena_12988_8.jpg",
 			}
 		]
 	}

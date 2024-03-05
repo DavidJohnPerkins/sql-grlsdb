@@ -40,7 +40,7 @@ BEGIN
 			OPENJSON (@p_input_json, '$.images')
 			WITH
 			(
-				image_url			GRLS.image_url, 
+				image_url			COMMON.image_url, 
 				image_type_abbrev	char(2),
 				is_mono				bit
 			) i

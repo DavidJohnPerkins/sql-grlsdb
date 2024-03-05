@@ -26,13 +26,13 @@ BEGIN
 	SET NOCOUNT ON;
 
 	DECLARE @inserted TABLE (
-		image_url	GRLS.image_url,
+		image_url	COMMON.image_url,
 		image_id	int
 	)
 
 	DECLARE @work TABLE (
 		model_id		int,
-		image_url		GRLS.image_url,
+		image_url		COMMON.image_url,
 		image_type_id	int,
 		is_mono			bit
 	)

@@ -15,9 +15,9 @@ GO
 
 CREATE TYPE COMMON.web_image_add_list AS TABLE   
 (
-	image_url			GRLS.image_url,
 	image_type_abbrev	char(2),
-	is_mono				bit
+	is_mono				bit,
+	image_url			COMMON.image_url
 )
 GO  
 PRINT '########## COMMON.web_image_add_list created successfully ##########'

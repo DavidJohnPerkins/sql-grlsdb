@@ -18,8 +18,7 @@ CREATE TYPE COMMON.base_attrib_add_list AS TABLE
 	sobriquet		GRLS.sobriquet,
 	hot_quotient	int,
 	yob				int,
-	comment			nvarchar(MAX),
-	thumbnail		GRLS.image_url
+	comment			nvarchar(MAX)
 )
 GO  
 PRINT '########## COMMON.base_attrib_add_list created successfully ##########'
