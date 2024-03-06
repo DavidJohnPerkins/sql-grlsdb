@@ -64,9 +64,24 @@ BEGIN
 		INNER JOIN GRLS.image_type t 
 		ON p.image_type_abbrev = t.image_type_abbrev
 
+	IF @p_debug = 1
+		SELECT * FROM @work;
+
 	BEGIN TRY
 
 		BEGIN TRANSACTION
+
+		IF @p_update_type = 'C'
+		BEGIN 
+			DELETE 
+				i 
+			FROM 
+				GRLS.[image] i
+				INNER JOIN GRLS.image_model im 
+				ON i.image_id = im.image_id
+			WHERE 
+				im.model_id = @v_model_id 
+		END 
 
 		INSERT INTO GRLS.[image] (image_url, is_monochrome)
 		OUTPUT INSERTED.image_url, INSERTED.image_id INTO @inserted

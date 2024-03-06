@@ -55,13 +55,5 @@ PRINT '########## Table GRLS.image_model created successfully ##########'
 ALTER TABLE GRLS.image_model ADD image_type_id int;
 ALTER TABLE GRLS.image_model ADD CONSTRAINT FK_image_model_image_type FOREIGN KEY (image_type_id) REFERENCES GRLS.image_type(image_type_id) ON DELETE CASCADE;
 
-ALTER TABLE GRLS.image_model DROP COLUMN reference_image;
-ALTER TABLE GRLS.image_model DROP COLUMN thumbnail_image;
-ALTER TABLE GRLS.image_model DROP COLUMN f_image;
-ALTER TABLE GRLS.image_model DROP COLUMN b_image;
-ALTER TABLE GRLS.image_model DROP COLUMN p_image_f;
-ALTER TABLE GRLS.image_model DROP COLUMN p_image_r;
-ALTER TABLE GRLS.image_model DROP COLUMN a_image;
-
 GO
 PRINT '########## Table GRLS.image_model modified successfully ##########'

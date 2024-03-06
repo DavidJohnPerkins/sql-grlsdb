@@ -45,7 +45,10 @@ BEGIN
 				is_mono				bit
 			) i
 
-	EXEC COMMON.c_model_image_web @v_images, @v_model_sobriquet, @v_update_type
+	IF @p_debug = 1 
+		SELECT * FROM @v_images;
+		
+	EXEC COMMON.c_model_image_web @v_images, @v_model_sobriquet, @v_update_type, @p_debug, @p_execute
 
 	END TRY
 
