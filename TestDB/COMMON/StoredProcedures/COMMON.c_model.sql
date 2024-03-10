@@ -45,7 +45,7 @@ BEGIN
 		IF CHARINDEX(' ', @sobriquet, 0) != 0
    			RAISERROR ('The sobriquet cannot contain spaces - operation failed.', 16, 1)
 
-		IF @comment IS NULL 
+		IF ISNULL(@comment, '') = '' 
    			RAISERROR ('The comment value was not found - operation failed.', 16, 1)
 		
 		IF @hq IS NULL
