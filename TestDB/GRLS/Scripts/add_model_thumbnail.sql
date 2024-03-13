@@ -62,6 +62,7 @@ DECLARE @flags_json	COMMON.json = '
 '
 SET @flags_json = REPLACE(@flags_json, '~sobr', @sobr)
 
+/*
 DECLARE @sof TABLE (
 	abbrev char(4),
 	standout_factor	float
@@ -86,11 +87,13 @@ INSERT INTO @sof VALUES
 ('NPSZ', 1.),
 ('PUAT', 1.),
 ('YTHF', 1.)
+*/
 
 BEGIN TRY 
 
 	BEGIN TRANSACTION
 
+/*
 	UPDATE 
 		m 
 	SET 	
@@ -100,11 +103,12 @@ BEGIN TRY
 		GRLS.model m
 	WHERE 
 		m.id = @model_id
-		
+*/		
 	EXEC GRLS.c_model_image_web_json @images_json, 0, 1
 
 	EXEC GRLS.c_model_flag_json @flags_json, 0, 1
 
+/*
 	UPDATE
 		ma 
 		SET standout_factor = s.standout_factor
@@ -118,6 +122,7 @@ BEGIN TRY
 		ON ma.attribute_id = l2.l2_id 
 	WHERE 
 		ma.model_id = @model_id
+*/
 
 	COMMIT TRANSACTION
 END TRY

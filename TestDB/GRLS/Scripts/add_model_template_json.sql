@@ -1,31 +1,30 @@
 USE TestDB
 GO
+--			{ "flag_abbrev": "WMNCHILD"}
 
 DECLARE @json	COMMON.json = '
 	{
 		"base_attribs": 
 		{
-			"sobriquet":		"MALENA",
-		 	"hot_quotient":		8,	
-			"yob":				0,
-			"comment":			"Pretty oriental womanchild - small semi-pend globes with slightly puffy perts - great PUAT and nice arse."
+			"sobriquet":		"",
+		 	"hot_quotient":		,	
+			"yob":				,
+			"comment":			""
 		},
 		"model_names": [
-			{ "model_name": "Malena",	"principal_name": 1 },
-			{ "model_name": "Malena F",	"principal_name": 0 },
-			{ "model_name": "Malena Fendi",	"principal_name": 0 }
+			{ "model_name": "",	"principal_name": 1 },
+			{ "model_name": "",	"principal_name": 0 }
 		],
 		"model_images": [
-				{"image_type_abbrev":	"TH",	"is_mono":	0,	"image_url":	"https://www.kindgirls.com/girlsp/malena-f.jpg" },
-				{"image_type_abbrev":	"RF",	"is_mono":	0,	"image_url":	"https://gals.kindgirls.com/d009/malena_10298/malena_10298_1.jpg" },
-				{"image_type_abbrev":	"FA",	"is_mono":	0,	"image_url":	"https://gals.kindgirls.com/d009/malena_49995/malena_49995_1.jpg" },
-				{"image_type_abbrev":	"BR",	"is_mono":	0,	"image_url":	"https://gals.kindgirls.com/d009/malena_49995/malena_49995_6.jpg" },
-				{"image_type_abbrev":	"PF", 	"is_mono":	0,	"image_url":	"https://gals.kindgirls.com/d009/malena_09998/malena_09998_8.jpg" },
-				{"image_type_abbrev":	"PR",	"is_mono":	0,	"image_url":	"https://gals.kindgirls.com/d009/malena_12988/malena_12988_7.jpg" },
-				{"image_type_abbrev":	"AR",	"is_mono":	0,	"image_url":	"https://gals.kindgirls.com/d009/malena_12988/malena_12988_8.jpg" }
+				{"image_type_abbrev":	"TH",	"is_mono":	0,	"image_url":	"" },
+				{"image_type_abbrev":	"RF",	"is_mono":	0,	"image_url":	"" },
+				{"image_type_abbrev":	"FA",	"is_mono":	0,	"image_url":	"" },
+				{"image_type_abbrev":	"BR",	"is_mono":	0,	"image_url":	"" },
+				{"image_type_abbrev":	"PF", 	"is_mono":	0,	"image_url":	"" },
+				{"image_type_abbrev":	"PR",	"is_mono":	0,	"image_url":	"" },
+				{"image_type_abbrev":	"AR",	"is_mono":	0,	"image_url":	"" }
 		],
 		"model_flags": [
-			{ "flag_abbrev": "WMNCHILD"}
 		],
 		"attribs": [
 			{
@@ -34,7 +33,7 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Boyish",				"selected": 0 },
 					{ "l2_desc": "Peach",				"selected": 0 },
 					{ "l2_desc": "Flat",				"selected": 0 },
-					{ "l2_desc": "Slight Lower Sag",	"selected": 1 },
+					{ "l2_desc": "Slight Lower Sag",	"selected": 0 },
 					{ "l2_desc": "Heavy Lower Sag",		"selected": 0 }
 				]
 			},
@@ -42,18 +41,18 @@ DECLARE @json	COMMON.json = '
 				"abbrev": "ASIZ", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Petite",				"selected": 0 },
 					{ "l2_desc": "Small / Flat",		"selected": 0 },
-					{ "l2_desc": "Medium",				"selected": 1 },
+					{ "l2_desc": "Medium",				"selected": 0 },
 					{ "l2_desc": "Large",				"selected": 0 },
 					{ "l2_desc": "Heavy",				"selected": 0 },
 					{ "l2_desc": "Oversize",			"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "ATTR", "standout_factor": 1.2, "options": [
+				"abbrev": "ATTR", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Ten",					"selected": 0 },
 					{ "l2_desc": "Knockout",			"selected": 0 },
 					{ "l2_desc": "Beautiful",			"selected": 0 },
-					{ "l2_desc": "Pretty",				"selected": 1 },
+					{ "l2_desc": "Pretty",				"selected": 0 },
 					{ "l2_desc": "Gamine",				"selected": 0 },
 					{ "l2_desc": "Girl-Next-Door",		"selected": 0 },
 					{ "l2_desc": "Cosmetic-led",		"selected": 0 },
@@ -61,9 +60,9 @@ DECLARE @json	COMMON.json = '
 				]
 			},
 			{
-				"abbrev": "BILD", "standout_factor": 1.1, "options": [
+				"abbrev": "BILD", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Extra-Petite",		"selected": 0 },
-					{ "l2_desc": "Petite",				"selected": 1 },
+					{ "l2_desc": "Petite",				"selected": 0 },
 					{ "l2_desc": "Regular-Petite",		"selected": 0 },
 					{ "l2_desc": "Tall-Petite",			"selected": 0 },
 					{ "l2_desc": "Regular",				"selected": 0 },
@@ -74,16 +73,16 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "BRDR", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "None",				"selected": 0 },
-					{ "l2_desc": "Slight",				"selected": 1 },
+					{ "l2_desc": "Slight",				"selected": 0 },
 					{ "l2_desc": "Moderate",			"selected": 0 },
 					{ "l2_desc": "Heavy",				"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "BRSH", "standout_factor": 1.1, "options": [
+				"abbrev": "BRSH", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Nubs",					"selected": 0 },
 					{ "l2_desc": "Conical",					"selected": 0 },
-					{ "l2_desc": "Semi-Pendulous Globe",	"selected": 1 },
+					{ "l2_desc": "Semi-Pendulous Globe",	"selected": 0 },
 					{ "l2_desc": "Semi-Pendulous",			"selected": 0 },
 					{ "l2_desc": "Dome",					"selected": 0 },
 					{ "l2_desc": "Full",					"selected": 0 },
@@ -91,21 +90,21 @@ DECLARE @json	COMMON.json = '
 				]
 			},
 			{
-				"abbrev": "BSIZ", "standout_factor": 1.1, "options": [
+				"abbrev": "BSIZ", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Flat",				"selected": 0 },
-					{ "l2_desc": "Small",				"selected": 1 },
+					{ "l2_desc": "Small",				"selected": 0 },
 					{ "l2_desc": "Medium",				"selected": 0 },
 					{ "l2_desc": "Large",				"selected": 0 },
 					{ "l2_desc": "Oversized",			"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "CMPX", "standout_factor": 1.1, "options": [
+				"abbrev": "CMPX", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Freckled",			"selected": 0 },
 					{ "l2_desc": "Mediterranean",		"selected": 0 },
 					{ "l2_desc": "Dark",				"selected": 0 },
 					{ "l2_desc": "Fair",				"selected": 0 },
-					{ "l2_desc": "Asian",				"selected": 1 },
+					{ "l2_desc": "Asian",				"selected": 0 },
 					{ "l2_desc": "Pale",				"selected": 0 }
 				]
 			},
@@ -116,13 +115,13 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Indian Asian",		"selected": 0 },
 					{ "l2_desc": "Indonesian",			"selected": 0 },
 					{ "l2_desc": "Japanese",			"selected": 0 },
-					{ "l2_desc": "Chinese",				"selected": 1 },
+					{ "l2_desc": "Chinese",				"selected": 0 },
 					{ "l2_desc": "Afro-Caribbean",		"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "EYES", "standout_factor": 1.1, "options": [
-					{ "l2_desc": "Dark Brown",			"selected": 1 },
+				"abbrev": "EYES", "standout_factor": 1.0, "options": [
+					{ "l2_desc": "Dark Brown",			"selected": 0 },
 					{ "l2_desc": "Brown",				"selected": 0 },
 					{ "l2_desc": "Deep Grey",			"selected": 0 },
 					{ "l2_desc": "Grey",				"selected": 0 },
@@ -135,7 +134,7 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "HAIR", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Dark Brunette",		"selected": 0 },
-					{ "l2_desc": "Black",				"selected": 1 },
+					{ "l2_desc": "Black",				"selected": 0 },
 					{ "l2_desc": "Brunette",			"selected": 0 }, 
 					{ "l2_desc": "Copper Red",			"selected": 0 }, 
 					{ "l2_desc": "Fair",				"selected": 0 }, 
@@ -152,10 +151,10 @@ DECLARE @json	COMMON.json = '
 				]
 			},
 			{
-				"abbrev": "MONS", "standout_factor": 1.1, "options": [
+				"abbrev": "MONS", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Plump / Proud",			"selected": 0 },
 					{ "l2_desc": "Plump / Retreating",		"selected": 0 },
-					{ "l2_desc": "Natural / Proud",			"selected": 1 },
+					{ "l2_desc": "Natural / Proud",			"selected": 0 },
 					{ "l2_desc": "Natural / Retreating",	"selected": 0 },
 					{ "l2_desc": "Narrow / Proud",			"selected": 0 },
 					{ "l2_desc": "Narrow / Retreating",		"selected": 0 },
@@ -187,7 +186,7 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Slovenia",			"selected": 0 },
 					{ "l2_desc": "Spain",				"selected": 0 },
 					{ "l2_desc": "Thailand",			"selected": 0 },
-					{ "l2_desc": "Ukraine",				"selected": 1 },
+					{ "l2_desc": "Ukraine",				"selected": 0 },
 					{ "l2_desc": "United Kingdom",		"selected": 0 },
 					{ "l2_desc": "USA",					"selected": 0 },
 					{ "l2_desc": "Venezuela",			"selected": 0 }
@@ -196,23 +195,23 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "NPCL", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Dark",				"selected": 0 },
-					{ "l2_desc": "Normal",				"selected": 1 },
+					{ "l2_desc": "Normal",				"selected": 0 },
 					{ "l2_desc": "Pale",				"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "NPPF", "standout_factor": 1.1, "options": [
+				"abbrev": "NPPF", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Not Puffy",			"selected": 0 },
-					{ "l2_desc": "Slightly Puffy",		"selected": 1 },
+					{ "l2_desc": "Slightly Puffy",		"selected": 0 },
 					{ "l2_desc": "Puffy",				"selected": 0 },
 					{ "l2_desc": "Very Puffy",			"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "NPSH", "standout_factor": 1.1, "options": [
+				"abbrev": "NPSH", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Flat",				"selected": 0 },
 					{ "l2_desc": "Slightly Pert",		"selected": 0 },
-					{ "l2_desc": "Pert",				"selected": 1 },
+					{ "l2_desc": "Pert",				"selected": 0 },
 					{ "l2_desc": "Very Pert",			"selected": 0 }
 				]
 			},
@@ -221,13 +220,13 @@ DECLARE @json	COMMON.json = '
 					{ "l2_desc": "Tiny",				"selected": 0 },
 					{ "l2_desc": "Small",				"selected": 0 },
 					{ "l2_desc": "Normal",				"selected": 0 },
-					{ "l2_desc": "Large",				"selected": 1 },
+					{ "l2_desc": "Large",				"selected": 0 },
 					{ "l2_desc": "Very Large",			"selected": 0 }
 				]
 			},
 			{
-				"abbrev": "PUAT", "standout_factor": 1.2, "options": [
-					{ "l2_desc": "Plump No Protrusion",		"selected": 1 },
+				"abbrev": "PUAT", "standout_factor": 1.0, "options": [
+					{ "l2_desc": "Plump No Protrusion",		"selected": 0 },
 					{ "l2_desc": "Plump Slight Protrusion",	"selected": 0 },
 					{ "l2_desc": "No Protrusion",			"selected": 0 },
 					{ "l2_desc": "Slight Protrusion",		"selected": 0 },
@@ -236,9 +235,9 @@ DECLARE @json	COMMON.json = '
 				] 	
 			},
 			{
-				"abbrev": "YTHF", "standout_factor": 1.1, "options": [
+				"abbrev": "YTHF", "standout_factor": 1.0, "options": [
 					{ "l2_desc": "Mid Teens",			"selected": 0 },
-					{ "l2_desc": "Late Teens",			"selected": 1 },
+					{ "l2_desc": "Late Teens",			"selected": 0 },
 					{ "l2_desc": "Early Twenties",		"selected": 0 }, 
 					{ "l2_desc": "Mid Twenties",		"selected": 0 }, 
 					{ "l2_desc": "Late Twenties",		"selected": 0 }
