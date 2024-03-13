@@ -1,10 +1,7 @@
-USE TestDB
-GO
-
 DECLARE @attribs_json COMMON.json = '
 	{
 		"l1_abbrev": 	"NATN",
-		"l2_desc":		"Greece",
+		"l2_desc":		"China",
 		"preferences": [
 			{
 				"scheme_id": 1,
@@ -16,6 +13,14 @@ DECLARE @attribs_json COMMON.json = '
 			},
 			{
 				"scheme_id": 3,
+				"l2_preference": 1
+			},
+			{
+				"scheme_id": 1002,
+				"l2_preference": 1
+			},
+			{
+				"scheme_id": 1009,
 				"l2_preference": 1
 			}
 		]

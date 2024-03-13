@@ -15,9 +15,10 @@ GO
 
 CREATE TYPE COMMON.base_attrib_add_list AS TABLE   
 (
-	sobriquet		varchar(50),
+	sobriquet		GRLS.sobriquet,
 	hot_quotient	int,
-	yob				int
+	yob				int,
+	comment			nvarchar(MAX)
 )
 GO  
 PRINT '########## COMMON.base_attrib_add_list created successfully ##########'

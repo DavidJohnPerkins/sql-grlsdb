@@ -11,7 +11,7 @@ PRINT 'EXECUTING SCRIPTS...'
 :ON ERROR EXIT
 
 -- Types
---:r "TestDB/GRLS/Types/DataTypes/GRLS.image_url.sql"
+--:r "TestDB/GRLS/Types/DataTypes/COMMON.image_url.sql"
 :r "TestDB/COMMON/Types/TableTypes/COMMON.base_attrib_add_list_image.sql"
 :r "TestDB/COMMON/Types/TableTypes/COMMON.image_model_add_list.sql"
 

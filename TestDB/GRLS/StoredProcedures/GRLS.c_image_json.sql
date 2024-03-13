@@ -26,7 +26,7 @@ BEGIN
 	DECLARE @base_attribs		COMMON.base_attrib_add_list_image,
 			@models				COMMON.image_model_add_list,
 			@attribs			COMMON.attrib_add_list,
-			@image_url			GRLS.image_url,
+			@image_url			COMMON.image_url,
 			@is_monochrome		bit,
 			@base_attribs_json	COMMON.json,
 			@models_json		COMMON.json,
@@ -60,7 +60,7 @@ BEGIN
 			a.is_monochrome
 		FROM OPENJSON(@base_attribs_json)
 		WITH (
-			image_url		GRLS.image_url, 
+			image_url		COMMON.image_url, 
 			is_monochrome	bit
 		) a
 

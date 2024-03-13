@@ -6,7 +6,11 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-DROP VIEW IF EXISTS GRLS.v_attribute_list
+IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.v_attribute_list') AND [type] IN ('V'))
+BEGIN 
+	DROP VIEW GRLS.v_attribute_list
+	PRINT '########## GRLS.v_attribute_list dropped successfully ##########'
+END
 GO
 
 CREATE VIEW GRLS.v_attribute_list AS
@@ -19,7 +23,8 @@ CREATE VIEW GRLS.v_attribute_list AS
 		al1.abbrev,
 		al1.l1_desc,
 		al2.l2_id,
-		al2.l2_desc
+		al2.l2_desc,
+		ma.standout_factor
 	FROM
 		GRLS.model m
 		INNER JOIN GRLS.model_attribute ma
@@ -28,3 +33,5 @@ CREATE VIEW GRLS.v_attribute_list AS
 				ON al2.l1_id = al1.l1_id
 			ON ma.attribute_id = al2.l2_id
 		ON m.id = ma.model_id
+GO
+PRINT '########## GRLS.v_attribute_list created successfully ##########'

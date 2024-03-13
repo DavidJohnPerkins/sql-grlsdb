@@ -17,6 +17,8 @@ CREATE PROCEDURE COMMON.c_model
 	@p_base_attribs	COMMON.base_attrib_add_list	READONLY,
 	@p_attribs		COMMON.attrib_add_list 		READONLY,
 	@p_model_names	COMMON.name_add_list		READONLY,
+	@p_model_images	COMMON.web_image_add_list	READONLY,
+	@p_model_flags	COMMON.flag_add_list		READONLY,
 	@p_debug		bit = 0,
 	@p_execute		bit = 1
 
@@ -26,17 +28,26 @@ BEGIN
 	SET NOCOUNT ON
 
 	DECLARE @model_id	int,
-			@hq 		int = (SELECT ba.hot_quotient FROM @p_base_attribs ba),
-			@yob 		int = (SELECT ba.yob FROM @p_base_attribs ba)
+			@image_id	int,
+			@sobriquet	GRLS.sobriquet 		= (SELECT ba.sobriquet FROM @p_base_attribs ba),
+			@hq			int					= (SELECT ba.hot_quotient FROM @p_base_attribs ba),
+			@yob 		int					= (SELECT ba.yob FROM @p_base_attribs ba),
+			@comment	nvarchar(MAX)		= (SELECT ba.comment FROM @p_base_attribs ba)
 
 	BEGIN TRY
 	
 		IF @p_debug = 1
 			SELECT * FROM @p_attribs
 
-		IF (SELECT ba.sobriquet FROM @p_base_attribs ba) IS NULL
+		IF @sobriquet IS NULL
    			RAISERROR ('The sobriquet value is not found - operation failed.', 16, 1)
 
+		IF CHARINDEX(' ', @sobriquet, 0) != 0
+   			RAISERROR ('The sobriquet cannot contain spaces - operation failed.', 16, 1)
+
+		IF ISNULL(@comment, '') = '' 
+   			RAISERROR ('The comment value was not found - operation failed.', 16, 1)
+		
 		IF @hq IS NULL
    			RAISERROR ('The hot_quotient value is not found - operation failed.', 16, 1)
 
@@ -45,8 +56,8 @@ BEGIN
 		
 		IF NOT @yob IS NULL
 		BEGIN
-			IF @yob != 0 AND @yob NOT BETWEEN 1985 AND 2005
-	   			RAISERROR ('The yob value must be 0 or from 1985 - 2005 - operation failed.', 16, 1)
+			IF @yob != 0 AND @yob NOT BETWEEN 1980 AND 2005
+	   			RAISERROR ('The yob value must be 0 or from 1980 - 2005 - operation failed.', 16, 1)
 		END
 
 		IF (SELECT COUNT(1) FROM @p_model_names mn WHERE mn.principal_name = 1) != 1
@@ -71,20 +82,22 @@ BEGIN
 
 		BEGIN TRANSACTION
 
-		INSERT INTO GRLS.model (sobriquet, hotness_quotient, year_of_birth)
+		INSERT INTO GRLS.model (sobriquet, hotness_quotient, year_of_birth, comment)
 			SELECT
 				ba.sobriquet,
 				ba.hot_quotient,
-				ba.yob
+				ba.yob,
+				ba.comment
 			FROM 
 				@p_base_attribs ba
 
 			SET @model_id = @@IDENTITY
 
-		INSERT INTO GRLS.model_attribute (model_id, attribute_id)
+		INSERT INTO GRLS.model_attribute (model_id, attribute_id, standout_factor)
 		SELECT
 			@model_id ,
-			av.l2_id
+			av.l2_id ,
+			a.standout_factor
 		FROM
 			@p_attribs a
 			CROSS APPLY GRLS.attribute_values(a.abbrev, a.l2_desc) av
@@ -99,6 +112,9 @@ BEGIN
 		FROM 
 			@p_model_names n
 			
+		EXEC COMMON.c_model_flag @p_model_flags, @sobriquet, 'C'
+		EXEC COMMON.c_model_image_web @p_model_images, @sobriquet, 'C'
+
 		IF @p_execute = 1
 		BEGIN
 			COMMIT TRANSACTION

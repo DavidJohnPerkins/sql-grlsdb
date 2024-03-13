@@ -26,10 +26,11 @@ BEGIN
 	DECLARE @base_attribs		COMMON.base_attrib_add_list,
 			@attribs			COMMON.attrib_add_list,
 			@model_names		COMMON.name_add_list,
+			@model_images		COMMON.web_image_add_list,
+			@model_flags		COMMON.flag_add_list,
 			@sobr				GRLS.sobriquet,
 			@hquo				int,
 			@yob				int,
-			@names_json			COMMON.json,
 			@attribs_json		COMMON.json,
 			@base_attribs_json	COMMON.json
 
@@ -38,19 +39,16 @@ BEGIN
 		;WITH w_top_level AS (
 			SELECT
 				c.base_attribs	AS base_attribs,
-				c.model_names	AS model_names,
 				c.attribs 		AS attribs
 			FROM OPENJSON (@p_input_json)
 			WITH
 			(
 				base_attribs	COMMON.json AS JSON,
-				model_names 	COMMON.json AS JSON,
 				attribs 		COMMON.json AS JSON
 			) c
 		)
 		SELECT
 			@base_attribs_json	= w.base_attribs,
-			@names_json			= w.model_names,
 			@attribs_json		= w.attribs
 		FROM 
 			w_top_level w
@@ -59,35 +57,64 @@ BEGIN
 		SELECT
 			a.sobriquet,
 			a.hot_quotient,
-			a.yob
+			a.yob,
+			a.comment
 		FROM OPENJSON(@base_attribs_json)
 		WITH (
 			sobriquet		GRLS.sobriquet, 
 			hot_quotient 	int,
-			yob				int
+			yob				int,
+			comment			nvarchar(MAX)
 		) a
 
 		INSERT INTO @model_names
 		SELECT
 			a.model_name,
 			a.principal_name
-		FROM OPENJSON (@names_json)
+		FROM
+			OPENJSON (@p_input_json, '$.model_names')
 		WITH
 		(
 			model_name		varchar(50),
 			principal_name	bit
 		) a
 
+		INSERT INTO @model_images
+		SELECT
+			i.image_type_abbrev,
+			i.is_mono,
+			i.image_url
+		FROM
+			OPENJSON (@p_input_json, '$.model_images')
+		WITH
+		(
+			image_type_abbrev	char(2),
+			is_mono				bit,
+			image_url			COMMON.image_url			
+		) i
+
+		INSERT INTO @model_flags
+		SELECT
+			f.flag_abbrev
+		FROM 
+			OPENJSON (@p_input_json, '$.model_flags')
+			WITH
+			(
+				flag_abbrev	char(8)
+			) f
+
 		INSERT INTO @attribs
 		SELECT
 			a.abbrev,
+			a.standout_factor,
 			b.l2_desc,
 			b.selected
 		FROM OPENJSON (@attribs_json)
 		WITH
 		(
-			abbrev	GRLS.l1_abbrev,
-			options	COMMON.json AS JSON
+			abbrev				GRLS.l1_abbrev,
+			standout_factor 	float,
+			options				COMMON.json AS JSON
 		) a
 		CROSS APPLY OPENJSON (a.options)
 		WITH
@@ -96,7 +123,7 @@ BEGIN
 			selected	bit
 		) b
 
-		EXEC COMMON.c_model @base_attribs, @attribs, @model_names, @p_debug, @p_execute
+		EXEC COMMON.c_model @base_attribs, @attribs, @model_names, @model_images, @model_flags, @p_debug, @p_execute
 
 	END TRY
 

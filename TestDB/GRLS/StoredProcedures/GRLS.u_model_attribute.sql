@@ -6,14 +6,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.update_model_attribute') AND [type] IN ('P', 'PC'))
+IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.u_model_attribute') AND [type] IN ('P', 'PC'))
 BEGIN 
-	DROP PROCEDURE GRLS.update_model_attribute
-	PRINT '########## GRLS.update_model_attribute dropped successfully ##########'
+	DROP PROCEDURE GRLS.u_model_attribute
+	PRINT '########## GRLS.u_model_attribute dropped successfully ##########'
 END
 GO
 
-CREATE PROCEDURE GRLS.update_model_attribute (
+CREATE PROCEDURE GRLS.u_model_attribute (
 	@p_input_json		COMMON.json,
 	@p_debug			bit = 0,
 	@p_execute			bit = 1
@@ -23,20 +23,23 @@ BEGIN
 
 	DECLARE @v_model_sobriquet	GRLS.sobriquet,
 			@v_l1_abbrev		GRLS.l1_abbrev,
-			@v_l2_desc			GRLS.l2_desc
+			@v_l2_desc			GRLS.l2_desc,
+			@v_standout_factor	float
 
 	BEGIN TRY
 		
 		SELECT
 			@v_model_sobriquet	= c.model_sobriquet,
 			@v_l1_abbrev		= c.l1_abbrev,
-			@v_l2_desc			= c.l2_desc
+			@v_l2_desc			= c.l2_desc,
+			@v_standout_factor	= c.standout_factor
 		FROM OPENJSON (@p_input_json)
 		WITH
 		(
 			model_sobriquet		GRLS.sobriquet,
 			l1_abbrev			GRLS.l1_abbrev,
-			l2_desc				GRLS.l2_desc
+			l2_desc				GRLS.l2_desc,
+			standout_factor		float
 		) c
 
 		IF NOT EXISTS (SELECT 1 FROM GRLS.model m WHERE m.sobriquet = @v_model_sobriquet)
@@ -69,20 +72,25 @@ BEGIN
 				att.sobriquet = @v_model_sobriquet AND
 				att.abbrev = @v_l1_abbrev
 		)	
-		DELETE
+		UPDATE
 			ma
+		SET 
+			ma.valid_to = GETDATE()
 		FROM
 			GRLS.model_attribute ma
 			INNER JOIN w_ma_id w 
 			ON ma.id = w.id
 
 		IF @p_debug = 1
-			PRINT 'DELETIONS COMPLETE'
+			PRINT 'ROW UPDATE COMPLETE'
 
 		INSERT INTO GRLS.model_attribute
 			SELECT
 				m.id,
-				l2.l2_id
+				l2.l2_id,
+				@v_standout_factor,
+				GETDATE(),
+				NULL
 			FROM
 				GRLS.v_attribute_level_2 l2,
 				GRLS.model m
@@ -124,4 +132,4 @@ BEGIN
 	END CATCH
 END
 GO
-PRINT '########## GRLS.update_model_attribute created successfully ##########'
+PRINT '########## GRLS.u_model_attribute created successfully ##########'

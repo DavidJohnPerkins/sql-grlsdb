@@ -17,7 +17,7 @@ CREATE VIEW GRLS.v_attribute_group_analysis AS
 
 	WITH w_main AS (
 		SELECT 
-			ba.scheme_id,
+			ba.scheme_abbrev,
 			gl.l1_group_abbrev,
 			ba.sobriquet,
 			ba.abbrev,
@@ -30,14 +30,14 @@ CREATE VIEW GRLS.v_attribute_group_analysis AS
 	),
 	w_total AS (
 		SELECT
-			w.scheme_id,
+			w.scheme_abbrev,
 			w.l1_group_abbrev,
 			w.sobriquet,
 			SUM(w.adj_preference) AS adj_total
 		FROM 
 			w_main w
 		GROUP BY 
-			w.scheme_id,
+			w.scheme_abbrev,
 			w.l1_group_abbrev,
 			w.sobriquet
 	)
@@ -47,7 +47,7 @@ CREATE VIEW GRLS.v_attribute_group_analysis AS
 	FROM 
 		w_main m 
 		INNER JOIN w_total t 
-		ON m.scheme_id = t.scheme_id AND m.l1_group_abbrev = t.l1_group_abbrev AND m.sobriquet = t.sobriquet
+		ON m.scheme_abbrev = t.scheme_abbrev AND m.l1_group_abbrev = t.l1_group_abbrev AND m.sobriquet = t.sobriquet
 
 GO
 PRINT '########## GRLS.v_attribute_group_analysis created successfully ##########'
