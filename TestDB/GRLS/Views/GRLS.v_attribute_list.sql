@@ -33,5 +33,7 @@ CREATE VIEW GRLS.v_attribute_list AS
 				ON al2.l1_id = al1.l1_id
 			ON ma.attribute_id = al2.l2_id
 		ON m.id = ma.model_id
+	WHERE 
+		ma.valid_to IS NULL
 GO
 PRINT '########## GRLS.v_attribute_list created successfully ##########'

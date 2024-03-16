@@ -17,23 +17,25 @@ RETURN (
 	SELECT
 		@model_id AS model_id , 
 		[NAME] ,
-		EYES ,
-		HAIR ,
-		NATN ,
+		ASHP ,
+		ASIZ ,
+		ATTR ,
+		BILD ,
 		BRDR ,
 		BRSH ,
 		BSIZ ,
-		BILD ,
-		ATTR ,
-		YTHF ,
 		CMPX ,
-		MONS ,
-		ASHP ,
-		ASIZ ,
 		ETHN ,
+		EYES ,
+		HAIR ,
+		MONS ,
+		NATN ,
 		NPCL ,
 		NPSH ,
-		NPSZ
+		NPSZ ,
+		NPPF ,
+		PUAT ,
+		YTHF 
 	FROM (
 		SELECT
 			x.model_id ,
@@ -51,7 +53,8 @@ RETURN (
 					ON al2.l1_id = al1.l1_id
 				ON ma.attribute_id = al2.l2_id
 			WHERE
-				ma.model_id = @model_id
+				ma.model_id = @model_id AND 
+				ma.valid_to IS NULL
 			
 			UNION
 		
@@ -66,23 +69,25 @@ RETURN (
 	) up 
 	PIVOT (MAX(l2_desc) FOR abbrev IN (
 			[NAME] ,
-			EYES ,
-			HAIR ,
-			NATN ,
+			ASHP ,
+			ASIZ ,
+			ATTR ,
+			BILD ,
 			BRDR ,
 			BRSH ,
 			BSIZ ,
-			BILD ,
-			ATTR ,
-			YTHF ,
 			CMPX ,
-			MONS ,
-			ASHP ,
-			ASIZ ,
 			ETHN ,
+			EYES ,
+			HAIR ,
+			MONS ,
+			NATN ,
 			NPCL ,
 			NPSH ,
-			NPSZ)
+			NPSZ ,
+			NPPF ,
+			PUAT ,
+			YTHF)
 	) AS pvt 
 )
 

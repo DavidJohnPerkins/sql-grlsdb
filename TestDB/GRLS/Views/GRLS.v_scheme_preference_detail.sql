@@ -17,20 +17,25 @@ CREATE VIEW GRLS.v_scheme_preference_detail AS
 	FROM 
 		(
 			SELECT 
-				'X' + CONVERT(char(1), l2d.scheme_id) AS scheme,
+				s2.scheme_abbrev AS scheme,
 				l2d.abbrev,
+				s1.scheme_abbrev AS l1_scheme,
 				l1d.attr_weight AS l1_attr_weight,
 				l2d.l2_desc,
 				l2d.l2_preference x
 			FROM 
 				GRLS.v_attribute_level_2_detail l2d
+				INNER JOIN GRLS.attribute_scheme s2
+				ON l2d.scheme_id = s2.scheme_id
 				INNER JOIN GRLS.attribute_level_1_detail l1d 
+					INNER JOIN GRLS.attribute_scheme s1 
+					ON l1d.scheme_id = s1.scheme_id
 				ON l2d.l1_id = l1d.l1_id
 			) d
 		PIVOT
 		(
 			MAX(x)
-			FOR d.scheme IN (X1, X2, X3)
+			FOR d.scheme IN (LATEADOL, FULLERFIGURE, LATEADOLLEVEL, NOPREF, SIMPLE)
 		) piv
 
 GO
