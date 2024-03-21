@@ -6,14 +6,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.v_model_rank_by_scheme_group_pivot') AND [type] IN ('V'))
+IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.pv_model_rank_by_scheme_group_pivot') AND [type] IN ('V'))
 BEGIN 
-	DROP VIEW GRLS.v_model_rank_by_scheme_group_pivot
-	PRINT '########## GRLS.v_model_rank_by_scheme_group_pivot dropped successfully ##########'
+	DROP VIEW GRLS.pv_model_rank_by_scheme_group_pivot
+	PRINT '########## GRLS.pv_model_rank_by_scheme_group_pivot dropped successfully ##########'
 END
 GO
 
-CREATE VIEW GRLS.v_model_rank_by_scheme_group_pivot AS
+CREATE VIEW GRLS.pv_model_rank_by_scheme_group_pivot AS
 
 	SELECT
 		piv.* 
@@ -27,9 +27,9 @@ CREATE VIEW GRLS.v_model_rank_by_scheme_group_pivot AS
 				mn.model_name,
 				r.rank
 			FROM 
-				GRLS.v_model_rank_by_scheme_group r
+				GRLS.dv_model_rank_by_scheme_group r
 				INNER JOIN GRLS.attribute_scheme s
-				ON r.scheme_id = s.scheme_id
+				ON r.scheme_id_l1 = s.scheme_id
 				INNER JOIN GRLS.attribute_level_1_group g 
 				ON r.l1_group_id = g.l1_group_id
 				INNER JOIN GRLS.model m 
@@ -46,4 +46,4 @@ CREATE VIEW GRLS.v_model_rank_by_scheme_group_pivot AS
 		) piv
 		
 GO
-PRINT '########## GRLS.v_model_rank_by_scheme_group_pivot created successfully ##########'
+PRINT '########## GRLS.pv_model_rank_by_scheme_group_pivot created successfully ##########'

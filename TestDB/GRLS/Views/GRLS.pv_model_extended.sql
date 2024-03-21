@@ -6,14 +6,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.v_model_extended') AND [type] IN ('V'))
+IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.pv_model_extended') AND [type] IN ('V'))
 BEGIN 
-	DROP VIEW GRLS.v_model_extended
-	PRINT '########## GRLS.v_model_extended dropped successfully ##########'
+	DROP VIEW GRLS.pv_model_extended
+	PRINT '########## GRLS.pv_model_extended dropped successfully ##########'
 END
 GO
 
-CREATE VIEW GRLS.v_model_extended AS
+CREATE VIEW GRLS.pv_model_extended AS
 
 	SELECT 
 		m.id,
@@ -72,8 +72,8 @@ CREATE VIEW GRLS.v_model_extended AS
 			WHERE 
 				i.model_id = m.id
 		) img
-		INNER JOIN GRLS.v_attribute_list al 
+		INNER JOIN GRLS.bv_model_attribute_simple al
 		ON m.id = al.model_id AND al.abbrev = 'NATN'
 		
 GO
-PRINT '########## GRLS.v_model_extended created successfully ##########'
+PRINT '########## GRLS.pv_model_extended created successfully ##########'
