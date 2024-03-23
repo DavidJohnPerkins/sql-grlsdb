@@ -27,13 +27,13 @@ BEGIN
 		sobriquet	GRLS.sobriquet
 	);
 
-	DECLARE @cols			nvarchar(MAX),
-    		@query			nvarchar(MAX),
-			@scheme_abbrev	varchar(20)
+	DECLARE @cols		nvarchar(MAX),
+    		@query		nvarchar(MAX),
+			@scheme_id	int
 
 	BEGIN TRY
 
-		SET @scheme_abbrev = (SELECT JSON_VALUE(@p_input_json, '$."scheme_abbrev"'))
+		SET @scheme_id = (SELECT s.scheme_id FROM GRLS.attribute_scheme s WHERE s.scheme_abbrev = (SELECT JSON_VALUE(@p_input_json, '$."scheme_abbrev"')))
 
 		INSERT INTO @models
 		SELECT
@@ -74,42 +74,44 @@ BEGIN
 				abbrev, ~cols 
 			FROM 
 				(
-					SELECT 
-						ab.sobriquet,
-						ab.abbrev,
-						ab.adj_preference
-					FROM 
-						GRLS.v_analysis_base ab 
+					SELECT
+						m.sobriquet,
+						l1.abbrev,
+						att.adj_preference
+					FROM  						
+						GRLS.dv_model_attribute_list att
 						INNER JOIN GRLS.model m
-						ON ab.model_id = m.id
-					WHERE 
+						ON att.model_id = m.id
+						INNER JOIN GRLS.attribute_level_1 l1
+						ON att.l1_id = l1.l1_id
+					WHERE
 						m.for_comparison = 1 AND
-						ab.scheme_abbrev = ^~scheme^
+						ab.scheme_abbrev = ^~scheme_id^
 					
 					UNION 
 
-					SELECT 
-						ab.sobriquet,
+					SELECT  						
+						m.sobriquet,
 						^ZTOTAL^,
-						SUM(ab.adj_preference)
-					FROM 
-						GRLS.v_analysis_base ab 
+						SUM(att.adj_preference)
+					FROM
+						GRLS.dv_model_attribute_list att
 						INNER JOIN GRLS.model m
-						ON ab.model_id = m.id
-					WHERE 
+						ON att.model_id = m.id
+					WHERE
 						m.for_comparison = 1 AND
-						ab.scheme_abbrev = ^~scheme^
+						ab.scheme_abbrev = ^~scheme_id^
 					GROUP BY 
-						ab.sobriquet
+						m.sobriquet
 				) x
 			PIVOT 
 				(
-					MIN(adj_preference)
+					MIN(x.adj_preference)
 					FOR sobriquet IN (~cols,[ZTOTAL])
 			) p '
 
 		SET @query = REPLACE(@query, '~cols', @cols)
-		SET @query = REPLACE(@query, '~scheme', @scheme_abbrev)
+		SET @query = REPLACE(@query, '~scheme_id', @scheme_id)
 		SET @query = REPLACE(@query, '^', '''')
 
 		IF @p_debug = 1 
