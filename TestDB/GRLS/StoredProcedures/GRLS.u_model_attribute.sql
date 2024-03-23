@@ -21,32 +21,22 @@ CREATE PROCEDURE GRLS.u_model_attribute (
 AS
 BEGIN 
 
-	DECLARE @v_model_sobriquet	GRLS.sobriquet,
-			@v_l1_abbrev		GRLS.l1_abbrev,
-			@v_l2_desc			GRLS.l2_desc,
-			@v_standout_factor	float
+	DECLARE @v_sobr			GRLS.sobriquet 	= (SELECT JSON_VALUE(@p_input_json, '$."model_sobriquet"')),
+			@v_l1_abbrev	GRLS.l1_abbrev	= (SELECT JSON_VALUE(@p_input_json, '$."l1_abbrev"')),
+			@v_l2_desc		varchar(50)		= (SELECT JSON_VALUE(@p_input_json, '$."l2_desc"')),
+			@v_sof			float			= (SELECT JSON_VALUE(@p_input_json, '$."standout_factor"'))
+
+	DECLARE @v_model_id	int 	= (SELECT m.id FROM GRLS.model m WHERE m.sobriquet = @v_sobr),
+			@v_l1_id	int 	= (SELECT l1.l1_id FROM GRLS.attribute_level_1 l1 WHERE l1.abbrev = @v_l1_abbrev),
+			@v_l2_id	int 	= (SELECT l2.l2_id FROM GRLS.attribute_level_2 l2 WHERE l2.l2_desc = @v_l2_desc)
 
 	BEGIN TRY
 		
-		SELECT
-			@v_model_sobriquet	= c.model_sobriquet,
-			@v_l1_abbrev		= c.l1_abbrev,
-			@v_l2_desc			= c.l2_desc,
-			@v_standout_factor	= c.standout_factor
-		FROM OPENJSON (@p_input_json)
-		WITH
-		(
-			model_sobriquet		GRLS.sobriquet,
-			l1_abbrev			GRLS.l1_abbrev,
-			l2_desc				GRLS.l2_desc,
-			standout_factor		float
-		) c
+		IF @v_model_id IS NULL
+			RAISERROR ('Model with sobriquet %s not found.', 16, 1, @v_sobr)
 
-		IF NOT EXISTS (SELECT 1 FROM GRLS.model m WHERE m.sobriquet = @v_model_sobriquet)
-			RAISERROR ('Model with sobriquet %s not found.', 16, 1, @v_model_sobriquet)
-
-		IF NOT EXISTS (SELECT 1 FROM GRLS.attribute_level_1 l1 WHERE l1.abbrev = @v_l1_abbrev)
-			RAISERROR ('Level 1 attribute %s not found.', 16, 1, @v_l1_abbrev)
+		IF @v_l1_id IS NULL
+			RAISERROR ('Level 1 attribute with abbrev %s not found.', 16, 1, @v_l1_abbrev)
 
 		IF NOT EXISTS (
 			SELECT
@@ -56,21 +46,26 @@ BEGIN
 				INNER JOIN GRLS.attribute_level_1 l1
 				ON l2.l1_id = l1.l1_id
 			WHERE
-				l2.l2_desc = @v_l2_desc AND
-				l1.abbrev = @v_l1_abbrev
+				l2.l2_id = @v_l2_id AND
+				l1.l1_id = @v_l1_id
 			)
-			RAISERROR ('Level 2 attribute %s not found for level 1 attribute %s.', 16, 1, @v_l2_desc, @v_l1_abbrev)
+			RAISERROR ('Level 2 attribute with desc %s not found for level 1 attribute with abbrev %s.', 16, 1, @v_l2_desc, @v_l1_abbrev)
 
 		BEGIN TRANSACTION
 
 		;WITH w_ma_id AS (
 			SELECT
-				att.id
+				ma.*
 			FROM
-				GRLS.v_attribute_list att 
+				GRLS.model_attribute ma 
+				INNER JOIN GRLS.attribute_level_2 l2 
+					INNER JOIN GRLS.attribute_level_1 l1 
+					ON l2.l1_id = l1.l1_id
+				ON ma.attribute_id = l2.l2_id
 			WHERE 
-				att.sobriquet = @v_model_sobriquet AND
-				att.abbrev = @v_l1_abbrev
+				ma.model_id = @v_model_id AND
+				l1.l1_id = @v_l1_id AND 
+				ma.valid_to IS NULL
 		)	
 		UPDATE
 			ma
@@ -84,20 +79,8 @@ BEGIN
 		IF @p_debug = 1
 			PRINT 'ROW UPDATE COMPLETE'
 
-		INSERT INTO GRLS.model_attribute
-			SELECT
-				m.id,
-				l2.l2_id,
-				@v_standout_factor,
-				GETDATE(),
-				NULL
-			FROM
-				GRLS.v_attribute_level_2 l2,
-				GRLS.model m
-			WHERE 
-				m.sobriquet = @v_model_sobriquet AND
-				l2.abbrev = @v_l1_abbrev AND
-				l2.l2_desc = @v_l2_desc
+		INSERT INTO GRLS.model_attribute (model_id, attribute_id, standout_factor, valid_from, valid_to)
+		 VALUES (@v_model_id, @v_l2_id, @v_sof, GETDATE(), NULL)
 
 		IF @p_debug = 1
 			PRINT 'INSERTIONS COMPLETE'

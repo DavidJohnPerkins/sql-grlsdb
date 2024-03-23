@@ -18,7 +18,8 @@ CREATE VIEW GRLS.bv_model_attribute_simple AS
 
 	SELECT
 		ma.model_id,
-		l2d.l1_id,
+		ma.id,
+		l1.l1_id,
 		l1.abbrev,
 		l2.l2_id,
 		l2.l2_desc

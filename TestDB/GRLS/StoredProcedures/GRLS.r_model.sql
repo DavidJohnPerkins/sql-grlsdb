@@ -39,7 +39,7 @@ BEGIN
 				SELECT
 					m.* 
 				FROM 
-					GRLS.v_model_extended m 
+					GRLS.pv_model_extended m 
 				WHERE 
 					m.id = @model_id
 			END
@@ -48,7 +48,7 @@ BEGIN
 				SELECT
 					m.* 
 				FROM 
-					GRLS.v_model_extended m 
+					GRLS.pv_model_extended m 
 				WHERE
 					m.is_excluded = 0
 				ORDER BY

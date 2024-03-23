@@ -68,7 +68,7 @@ CREATE VIEW GRLS.pv_model_extended AS
 				i.PR_url,
 				i.AR_url
 			FROM
-				GRLS.v_image_url_pivot i
+				GRLS.pv_image_url_pivot i
 			WHERE 
 				i.model_id = m.id
 		) img

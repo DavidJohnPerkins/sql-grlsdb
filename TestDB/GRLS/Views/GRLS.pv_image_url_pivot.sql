@@ -6,14 +6,14 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 
-IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.v_image_url_pivot') AND [type] IN ('V'))
+IF EXISTS (SELECT 1 FROM sys.objects WHERE object_id = OBJECT_ID(N'GRLS.pv_image_url_pivot') AND [type] IN ('V'))
 BEGIN 
-	DROP VIEW GRLS.v_image_url_pivot
-	PRINT '########## GRLS.v_image_url_pivot dropped successfully ##########'
+	DROP VIEW GRLS.pv_image_url_pivot
+	PRINT '########## GRLS.pv_image_url_pivot dropped successfully ##########'
 END
 GO
 
-CREATE VIEW GRLS.v_image_url_pivot AS
+CREATE VIEW GRLS.pv_image_url_pivot AS
 	SELECT
 		piv.*
 	FROM
@@ -35,4 +35,4 @@ CREATE VIEW GRLS.v_image_url_pivot AS
 		FOR d.i_desc IN (TH_url, RF_url, FA_url, BR_url, PF_url, PR_url, AR_url)
 ) piv;
 GO
-PRINT '########## GRLS.v_image_url_pivot created successfully ##########'
+PRINT '########## GRLS.pv_image_url_pivot created successfully ##########'
