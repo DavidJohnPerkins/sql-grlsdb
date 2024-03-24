@@ -55,16 +55,14 @@ BEGIN
 
 		;WITH w_ma_id AS (
 			SELECT
-				ma.*
+				ma.id
 			FROM
 				GRLS.model_attribute ma 
-				INNER JOIN GRLS.attribute_level_2 l2 
-					INNER JOIN GRLS.attribute_level_1 l1 
-					ON l2.l1_id = l1.l1_id
-				ON ma.attribute_id = l2.l2_id
+				INNER JOIN GRLS.bv_model_attribute_simple att
+				ON ma.model_id = att.model_id AND ma.attribute_id = att.l2_id
 			WHERE 
 				ma.model_id = @v_model_id AND
-				l1.l1_id = @v_l1_id AND 
+				att.l1_id = @v_l1_id AND 
 				ma.valid_to IS NULL
 		)	
 		UPDATE
@@ -80,7 +78,7 @@ BEGIN
 			PRINT 'ROW UPDATE COMPLETE'
 
 		INSERT INTO GRLS.model_attribute (model_id, attribute_id, standout_factor, valid_from, valid_to)
-		 VALUES (@v_model_id, @v_l2_id, @v_sof, GETDATE(), NULL)
+		VALUES (@v_model_id, @v_l2_id, @v_sof, GETDATE(), NULL)
 
 		IF @p_debug = 1
 			PRINT 'INSERTIONS COMPLETE'
