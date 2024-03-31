@@ -32,7 +32,8 @@ CREATE VIEW GRLS.bv_model_attribute_simple AS
 			ON l2d.l2_id = l2.l2_id
 		ON ma.attribute_id = l2d.l2_id
 	WHERE 
-		l2d.scheme_id = (SELECT MIN(s.scheme_id) FROM GRLS.attribute_scheme s)
+		l2d.scheme_id = (SELECT MIN(s.scheme_id) FROM GRLS.attribute_scheme s) AND 
+		ma.valid_to IS NULL
 		
 GO
 PRINT '########## GRLS.bv_model_attribute_simple created successfully ##########'
