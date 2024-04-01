@@ -50,8 +50,8 @@ BEGIN
 	FROM 
 		w_level_1 w
 	WHERE 
-		(w.score != 0 AND @mode = 'ANY') OR 
-		(w.score = (SELECT COUNT(1) FROM w_search_attribs) AND @mode = 'ALL') 
+		((w.score != 0 AND @mode = 'ANY') OR 
+		(w.score = (SELECT COUNT(DISTINCT abbrev) FROM w_search_attribs) AND @mode = 'ALL'))
 
 	RETURN
 END
