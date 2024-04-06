@@ -1,10 +1,8 @@
 DECLARE @p_input_json COMMON.json = '
 	{
-		"search_mode_flag":		"ALL",
+		"search_mode_flag":		"ANY",
 		"search_mode_attrib":	"ALL",
 		"search_flags": [
-			{"flag_abbrev":	"EXCEPTNL"},
-			{"flag_abbrev":	"WMNCHILD"}
 		],
 		"search_attribs": [
 			{"abbrev":	"ATTR", "attrib_value": "Ten"},
@@ -15,17 +13,46 @@ DECLARE @p_input_json COMMON.json = '
 		]
 	}
 '
+	DECLARE @mode char(3) = JSON_VALUE(@p_input_json, '$."search_mode_attrib"');
 
---select * from GRLS.attrib_search(@p_input_json) a
---select * from GRLS.flag_search(@p_input_json) a
+	WITH w_search_attribs AS (
+		SELECT
+			sa.abbrev AS abbrev,
+			sa.attrib_value AS attrib_value
+		FROM 
+			OPENJSON (@p_input_json, '$.search_attribs')
+			WITH
+			(
+				abbrev			GRLS.l1_abbrev,
+				attrib_value	varchar(50)
+			) sa
+	),
+	w_level_1 AS (
+		SELECT  
+			ma.model_id,
+			SUM(CASE WHEN ma.l2_desc = w.attrib_value THEN 1 ELSE 0 END) AS score
+		FROM 
+			GRLS.bv_model_attribute_simple ma 
+			LEFT OUTER JOIN	w_search_attribs w
+			ON ma.abbrev = w.abbrev
+		GROUP BY  
+			ma.model_id
+	) select * from w_level_1 order by 1,
+	w_level_2 AS 
+	(
+		SELECT  
+		w.model_id 
+	FROM 
+		w_level_1 w
+	WHERE 
+		((w.score != 0 AND @mode = 'ANY') OR 
+		(w.score = (SELECT COUNT(DISTINCT abbrev) FROM w_search_attribs) AND @mode = 'ALL'))
+	)
 select 
 	p.* 
 from
 	GRLS.pv_analysis_pivot p
- 	INNER JOIN GRLS.attrib_search(@p_input_json) a
---		INNER JOIN (
---			SELECT model_id FROM GRLS.flag_search(@p_input_json)) f
---		ON a.model_id = f.model_id
+ 	LEFT OUTER JOIN w_level_2 a
 	ON p.model_id = a.model_id 
 WHERE 
 	p.scheme_abbrev = 'SIMPLE'
@@ -95,3 +122,5 @@ w_match AS (
 		ma.model_id
 )
 */
+
+--select count(1) FROM GRLS.pv_analysis_pivot where scheme_abbrev='SIMPLE'
