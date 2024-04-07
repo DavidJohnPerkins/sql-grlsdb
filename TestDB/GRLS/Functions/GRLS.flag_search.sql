@@ -45,13 +45,14 @@ BEGIN
 		m.id 
 	FROM 
 		w_searchsum w,
-		GRLS.bv_model_flagsum fs
-		INNER JOIN GRLS.model m
-		ON fs.model_id = m.id
+		GRLS.model m
+		LEFT OUTER JOIN GRLS.bv_model_flagsum fs
+		ON m.id = fs.model_id
 	WHERE 
-		(fs.flag_sum & w.srchsum != 0 AND @mode = 'ANY') OR 
-		(fs.flag_sum & w.srchsum = w.srchsum AND @mode = 'ALL') 
-
+		((fs.flag_sum & w.srchsum != 0 AND @mode = 'ANY') OR 
+		(fs.flag_sum & w.srchsum = w.srchsum AND @mode = 'ALL')) OR 
+		((SELECT COUNT(1) FROM w_flags) = 0)
+ 
 	RETURN
 END
 GO

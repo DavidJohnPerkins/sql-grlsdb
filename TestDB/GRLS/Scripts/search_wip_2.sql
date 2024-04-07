@@ -1,126 +1,90 @@
+/*
+			{"abbrev":	"ASIZ", "attrib_value": "Petite"},
+			{"abbrev":	"ASIZ", "attrib_value": "Medium"},
+			{"abbrev":	"ASIZ", "attrib_value": "Small / Flat"},
+			{"abbrev":	"ATTR", "attrib_value": "Knockout"},
+			{"abbrev":	"ATTR", "attrib_value": "Pretty"},
+			{"abbrev":	"ATTR", "attrib_value": "Ten"},
+			{"abbrev":	"BRSH", "attrib_value": "Nubs"},
+			{"abbrev":	"BRSH", "attrib_value": "Conical"},
+			{"abbrev":	"BRSH", "attrib_value": "Dome"},
+			{"abbrev":	"NPSZ", "attrib_value": "Small"},
+			{"abbrev":	"NPSZ", "attrib_value": "Large"},
+			{"abbrev":	"YTHF", "attrib_value": "Mid Teens"}
+*/
+
 DECLARE @p_input_json COMMON.json = '
 	{
 		"search_mode_flag":		"ANY",
 		"search_mode_attrib":	"ALL",
 		"search_flags": [
+			{ "flag_abbrev": "WMNCHILD" },
+			{ "flag_abbrev": "EXCEPTNL" }
 		],
 		"search_attribs": [
-			{"abbrev":	"ATTR", "attrib_value": "Ten"},
-			{"abbrev":	"ASHP", "attrib_value": "Boyish"},
-			{"abbrev":	"ASHP", "attrib_value": "Balanced"},
+			{"abbrev":	"ASIZ", "attrib_value": "Petite"},
+			{"abbrev":	"ASIZ", "attrib_value": "Medium"},
+			{"abbrev":	"ASIZ", "attrib_value": "Small / Flat"},
+			{"abbrev":	"BRSH", "attrib_value": "Nubs"},
 			{"abbrev":	"BRSH", "attrib_value": "Conical"},
-			{"abbrev":	"BRSH", "attrib_value": "Dome"}
+			{"abbrev":	"BRSH", "attrib_value": "Dome"},
+			{"abbrev":	"NPSZ", "attrib_value": "Large"},
+			{"abbrev":	"ATTR", "attrib_value": "Knockout"},
+			{"abbrev":	"ATTR", "attrib_value": "Pretty"},
+			{"abbrev":	"ATTR", "attrib_value": "Ten"},
+			{"abbrev":	"NPPF", "attrib_value": "Very Puffy"},
+			{"abbrev":	"YTHF", "attrib_value": "Mid Teens"}
 		]
 	}
 '
-	DECLARE @mode char(3) = JSON_VALUE(@p_input_json, '$."search_mode_attrib"');
-
-	WITH w_search_attribs AS (
-		SELECT
-			sa.abbrev AS abbrev,
-			sa.attrib_value AS attrib_value
-		FROM 
-			OPENJSON (@p_input_json, '$.search_attribs')
-			WITH
-			(
-				abbrev			GRLS.l1_abbrev,
-				attrib_value	varchar(50)
-			) sa
-	),
-	w_level_1 AS (
-		SELECT  
-			ma.model_id,
-			SUM(CASE WHEN ma.l2_desc = w.attrib_value THEN 1 ELSE 0 END) AS score
-		FROM 
-			GRLS.bv_model_attribute_simple ma 
-			LEFT OUTER JOIN	w_search_attribs w
-			ON ma.abbrev = w.abbrev
-		GROUP BY  
-			ma.model_id
-	) select * from w_level_1 order by 1,
-	w_level_2 AS 
-	(
-		SELECT  
-		w.model_id 
-	FROM 
-		w_level_1 w
-	WHERE 
-		((w.score != 0 AND @mode = 'ANY') OR 
-		(w.score = (SELECT COUNT(DISTINCT abbrev) FROM w_search_attribs) AND @mode = 'ALL'))
-	)
 select 
 	p.* 
 from
 	GRLS.pv_analysis_pivot p
- 	LEFT OUTER JOIN w_level_2 a
-	ON p.model_id = a.model_id 
-WHERE 
-	p.scheme_abbrev = 'SIMPLE'
+	inner join GRLS.attrib_search(@p_input_json) att
+		inner join GRLS.flag_search(@p_input_json) fs 
+		ON att.model_id = fs.model_id
+	ON p.model_id = att.model_id
+where 
+	scheme_abbrev='SIMPLE'
+order by 
+	p.model_name
 
 /*
-DECLARE @mode char(3) = JSON_VALUE(@p_input_json, '$."search_mode"');
+	DECLARE @mode char(3) = JSON_VALUE(@p_input_json, '$."search_mode_flag"');
 
-WITH w_flags AS (
-	SELECT
-		f.flag_abbrev AS flag_abbrev
-	FROM 
-		OPENJSON (@p_input_json, '$.search_flags')
-		WITH
-		(
-			flag_abbrev	char(8)
-		) f
-),
-w_searchsum AS (
+	WITH w_flags AS (
+		SELECT
+			f.flag_abbrev AS flag_abbrev
+		FROM 
+			OPENJSON (@p_input_json, '$.search_flags')
+			WITH
+			(
+				flag_abbrev	char(8)
+			) f
+	),
+	w_searchsum AS (
+		SELECT 
+			SUM(fb.bin_val) AS srchsum
+		FROM 
+			GRLS.bv_flag_binary fb
+			INNER JOIN GRLS.flag f
+				INNER JOIN w_flags i 
+				ON f.flag_abbrev = i.flag_abbrev
+			ON fb.flag_abbrev = f.flag_abbrev
+	)
 	SELECT 
-		SUM(fb.bin_val) AS srchsum
+		m.id 
 	FROM 
-		GRLS.bv_flag_binary fb
-		INNER JOIN GRLS.flag f
-			INNER JOIN w_flags i 
-			ON f.flag_abbrev = i.flag_abbrev
-		ON fb.flag_abbrev = f.flag_abbrev
-)
-SELECT 
-	m.id AS model_id,
-	m.sobriquet,
-	fs.flag_sum
-FROM 
-	w_searchsum w,
-	GRLS.bv_model_flagsum fs
-	INNER JOIN GRLS.model m
-	ON fs.model_id = m.id
-WHERE 
-	(fs.flag_sum & w.srchsum != 0 AND @mode = 'ANY') OR 
-	(fs.flag_sum & w.srchsum = w.srchsum AND @mode = 'ALL') 
-
-UNION
-
-WITH w_search_attribs AS (
-	SELECT
-		sa.abbrev AS abbrev,
-		sa.attrib_value AS attrib_value
-	FROM 
-		OPENJSON (@p_input_json, '$.search_attribs')
-		WITH
-		(
-			abbrev			GRLS.l1_abbrev,
-			attrib_value	varchar(50)
-
-		) sa
-),
-w_match AS (
-	SELECT  
-		ma.model_id,
-		--ma.abbrev,
-		--ma.l2_desc,
-		SUM(CASE WHEN ma.l2_desc = w.attrib_value THEN 1 ELSE 0 END) AS score
-	FROM 
-		GRLS.bv_model_attribute_simple ma 
-		LEFT OUTER JOIN	w_search_attribs w
-		ON ma.abbrev = w.abbrev
-	GROUP BY  
-		ma.model_id
-)
+		w_searchsum w,
+		GRLS.model m
+		LEFT OUTER JOIN GRLS.bv_model_flagsum fs
+		ON m.id = fs.model_id
+	WHERE 
+		(fs.flag_sum & w.srchsum != 0 AND @mode = 'ANY') OR 
+		(fs.flag_sum & w.srchsum = w.srchsum AND @mode = 'ALL') OR 
+		((SELECT COUNT(1) FROM w_flags) = 0)--select * FROM GRLS.pv_analysis_pivot where scheme_abbrev='SIMPLE' and model_name='Carla B'
 */
-
---select count(1) FROM GRLS.pv_analysis_pivot where scheme_abbrev='SIMPLE'
+--select distinct model_id from GRLS.model_flag WHERE flag_id=4
+--SELECT * FROM GRLS.flag
+--select * from GRLS.pv_analysis_pivot where model_name = 'Lukki Lima'
