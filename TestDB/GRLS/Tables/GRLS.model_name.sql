@@ -34,3 +34,4 @@ CREATE UNIQUE CLUSTERED INDEX U_IDX_modelid_nameid ON GRLS.model_name (model_id,
 GO
 ALTER TABLE GRLS.model_name ADD CONSTRAINT FK_model_name_model FOREIGN KEY (model_id) REFERENCES GRLS.model(id) ON DELETE CASCADE;
 GO
+EXEC sp_rename 'GRLS.model_name.principal_name' , 'is_principal_name', 'COLUMN'

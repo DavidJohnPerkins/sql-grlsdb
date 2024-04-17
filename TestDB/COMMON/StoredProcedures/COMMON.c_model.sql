@@ -60,7 +60,7 @@ BEGIN
 	   			RAISERROR ('The yob value must be 0 or from 1980 - 2005 - operation failed.', 16, 1)
 		END
 
-		IF (SELECT COUNT(1) FROM @p_model_names mn WHERE mn.principal_name = 1) != 1
+		IF (SELECT COUNT(1) FROM @p_model_names mn WHERE mn.is_principal_name = 1) != 1
    			RAISERROR ('There must be one, and only one, principal name - operation failed.', 16, 1)
 
 		IF 	EXISTS (SELECT a.abbrev COLLATE DATABASE_DEFAULT FROM @p_attribs a EXCEPT SELECT b.abbrev FROM GRLS.attribute_level_1 b) OR
@@ -108,7 +108,7 @@ BEGIN
 		SELECT
 			@model_id ,
 			n.model_name ,
-			n.principal_name
+			n.is_principal_name
 		FROM 
 			@p_model_names n
 			

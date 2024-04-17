@@ -27,7 +27,7 @@ CREATE VIEW GRLS.pv_model_short AS
 	FROM
 		GRLS.model m
 		INNER JOIN GRLS.model_name mn
-		ON m.id = mn.model_id AND mn.principal_name = 1
+		ON m.id = mn.model_id AND mn.is_principal_name = 1
 		OUTER APPLY (
 			SELECT
 				STRING_AGG(x.flag_abbrev, '/') AS flags

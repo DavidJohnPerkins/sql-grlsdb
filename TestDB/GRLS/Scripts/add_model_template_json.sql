@@ -12,8 +12,8 @@ DECLARE @json	COMMON.json = '
 			"comment":			""
 		},
 		"model_names": [
-			{ "model_name": "",	"principal_name": 1 },
-			{ "model_name": "",	"principal_name": 0 }
+			{ "model_name": "",	"is_principal_name": 1 },
+			{ "model_name": "",	"is_principal_name": 0 }
 		],
 		"model_images": [
 				{"image_type_abbrev":	"TH",	"is_mono":	0,	"image_url":	"" },
