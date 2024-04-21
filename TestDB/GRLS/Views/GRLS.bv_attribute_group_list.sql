@@ -25,4 +25,11 @@ CREATE VIEW GRLS.bv_attribute_group_list AS
 		ON ag.l1_group_id = agd.l1_group_id
 
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Base view returning level 1 attribute group membership.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'bv_attribute_group_list';
+GO
+
 PRINT '########## GRLS.bv_attribute_group_list created successfully ##########'

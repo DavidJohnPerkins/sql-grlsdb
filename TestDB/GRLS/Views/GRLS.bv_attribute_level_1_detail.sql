@@ -30,4 +30,11 @@ FROM
 	ON l1.l1_id = l1d.l1_id
 		
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Base view returning level 1 attribute details by scheme.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'bv_attribute_level_1_detail';
+GO
+
 PRINT '########## GRLS.bv_attribute_level_1_detail created successfully ##########'

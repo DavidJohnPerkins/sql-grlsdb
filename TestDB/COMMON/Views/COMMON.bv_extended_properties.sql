@@ -54,16 +54,23 @@ CREATE VIEW COMMON.bv_extended_properties AS
 		ELSE 
 			OBJECT_SCHEMA_NAME(obj_id) + '.' + obj_name 
 		END 									AS object_name,
-		CASE WHEN objcol.obj_type LIKE '%char' COLLATE Latin1_General_CI_AS_KS_WS THEN 
+		CASE WHEN objcol.obj_type LIKE '%char' COLLATE DATABASE_DEFAULT THEN 
 			objcol.obj_type + COMMON.paren(objcol.maxlen)
 		ELSE 
 			objcol.obj_type 
-		END	COLLATE Latin1_General_CI_AS_KS_WS	AS object_type,
-		COALESCE(ep_value, '')					AS property_value
+		END	COLLATE DATABASE_DEFAULT	AS object_type,
+		COALESCE(ep_value, '')			AS property_value
 	FROM
 		w_props objcol
 	WHERE 
-		objcol.obj_type NOT LIKE '%CONSTRAINT' COLLATE Latin1_General_CI_AS_KS_WS 
+		objcol.obj_type NOT LIKE '%CONSTRAINT' COLLATE DATABASE_DEFAULT
 
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Base view showing extended properties for all database objects.',
+    @level0type = 'SCHEMA', @level0name = N'COMMON',
+    @level1type = 'VIEW', @level1name = N'bv_extended_properties';
+GO
+
 PRINT '########## COMMON.bv_extended_properties created successfully ##########'
