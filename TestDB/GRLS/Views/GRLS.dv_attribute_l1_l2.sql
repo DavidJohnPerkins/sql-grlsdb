@@ -32,4 +32,11 @@ CREATE VIEW GRLS.dv_attribute_l1_l2 AS
 		ON al2.l1_id = al1.l1_id AND al1.scheme_id = al2.scheme_id
 
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Derived view returning extended level 1 and 2 attribute ids and values.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'dv_attribute_l1_l2';
+GO
+
 PRINT '########## GRLS.dv_attribute_l1_l2 created successfully ##########'
