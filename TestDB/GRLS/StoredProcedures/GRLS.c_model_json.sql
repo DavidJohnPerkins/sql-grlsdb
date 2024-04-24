@@ -70,13 +70,13 @@ BEGIN
 		INSERT INTO @model_names
 		SELECT
 			a.model_name,
-			a.principal_name
+			a.is_principal_name
 		FROM
 			OPENJSON (@p_input_json, '$.model_names')
 		WITH
 		(
 			model_name		varchar(50),
-			principal_name	bit
+			is_principal_name	bit
 		) a
 
 		INSERT INTO @model_images

@@ -15,8 +15,8 @@ GO
 
 CREATE TYPE COMMON.name_add_list AS TABLE   
 (
-	model_name		varchar(50),
-	principal_name	bit
+	model_name			varchar(50),
+	is_principal_name	bit
 )
 GO  
 PRINT '########## COMMON.name_add_list created successfully ##########'

@@ -13,8 +13,7 @@ BEGIN
 END
 GO
 
-DECLARE @sql 		varchar(MAX),
-		@pivotlist 	varchar(MAX)
+DECLARE @sql 	varchar(MAX)
 
 SET @sql = '
 	CREATE VIEW GRLS.pv_analysis_pivot AS	
@@ -22,14 +21,12 @@ SET @sql = '
 			DENSE_RANK() OVER (PARTITION BY piv.scheme_abbrev ORDER BY piv.adjusted_total DESC) AS rnk,
 			piv.*
 		FROM
-		GRLS.dv_analysis_pivot_base b
+			GRLS.dv_analysis_pivot_base b
 		PIVOT
 		(
 			MAX(x)
 			FOR b.l1_abbrev IN (ASHP,ASIZ,ATTR,BILD,BRDR,BRSH,BSIZ,CMPX,ETHN,EYES,HAIR,MONS,NPCL,NPPF,NPSH,NPSZ,PUAT,YTHF)
 		) piv;'
-	SET @sql = REPLACE(@sql, '~pivotlist', GRLS.l1_abbrevs_as_string('ALL')) 
-	SET @sql = REPLACE(@sql, '^', '''');
 
 	EXEC (@sql)
 GO

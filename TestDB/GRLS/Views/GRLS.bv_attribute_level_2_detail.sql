@@ -18,7 +18,6 @@ CREATE VIEW GRLS.bv_attribute_level_2_detail AS
 SELECT
 	l2.l2_id,
 	l2.l1_id,
-	--l2.l2_desc,
 	l2d.l2_preference,
 	l2d.scheme_id,
 	l2d.l2_det_id
@@ -27,4 +26,11 @@ FROM
 	INNER JOIN GRLS.attribute_level_2_detail l2d
 	ON l2.l2_id = l2d.l2_id
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Base view returning level 2 attribute with preference by scheme.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'bv_attribute_level_2_detail';
+GO
+
 PRINT '########## GRLS.bv_attribute_level_2_detail created successfully ##########'

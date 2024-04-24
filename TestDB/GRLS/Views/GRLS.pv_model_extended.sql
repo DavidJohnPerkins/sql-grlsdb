@@ -19,7 +19,7 @@ CREATE VIEW GRLS.pv_model_extended AS
 		m.id,
 		m.is_excluded,
 		m.sobriquet,
-		CASE WHEN CHARINDEX('/', nm.aliases) = 0 THEN nm.aliases ELSE LEFT(nm.aliases, CHARINDEX('/', nm.aliases) - 2) END AS principal_name,
+		CONVERT(varchar(50), CASE WHEN CHARINDEX('/', nm.aliases) = 0 THEN nm.aliases ELSE LEFT(nm.aliases, CHARINDEX('/', nm.aliases) - 2) END) AS principal_name,
 		CASE WHEN CHARINDEX('/', nm.aliases) = 0 THEN NULL ELSE SUBSTRING(nm.aliases, CHARINDEX('/', nm.aliases) + 2, 255) END AS aliases,
 		m.hotness_quotient,
 		m.year_of_birth,
@@ -40,7 +40,7 @@ CREATE VIEW GRLS.pv_model_extended AS
 				WHERE
 					mn.model_id = m.id
 				ORDER BY
-					mn.principal_name DESC,
+					mn.is_principal_name DESC,
 					mn.model_name OFFSET 0 ROWS) x
 		) nm
 		OUTER APPLY (
@@ -68,7 +68,7 @@ CREATE VIEW GRLS.pv_model_extended AS
 				i.PR_url,
 				i.AR_url
 			FROM
-				GRLS.v_image_url_pivot i
+				GRLS.pv_image_url_pivot i
 			WHERE 
 				i.model_id = m.id
 		) img

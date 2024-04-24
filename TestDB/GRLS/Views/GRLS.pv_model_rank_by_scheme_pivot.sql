@@ -31,7 +31,7 @@ CREATE VIEW GRLS.pv_model_rank_by_scheme_pivot AS
 				ON r.scheme_id_l1 = s.scheme_id
 				INNER JOIN GRLS.model m 
 					INNER JOIN GRLS.model_name mn 
-					ON m.id = mn.model_id AND mn.principal_name = 1
+					ON m.id = mn.model_id AND mn.is_principal_name = 1
 				ON r.model_id = m.id
 			WHERE 
 				m.is_excluded = 0

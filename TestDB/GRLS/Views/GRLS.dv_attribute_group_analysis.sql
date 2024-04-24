@@ -55,4 +55,11 @@ CREATE VIEW GRLS.dv_attribute_group_analysis AS
 		ON m.scheme_abbrev = t.scheme_abbrev AND m.l1_group_abbrev = t.l1_group_abbrev AND m.model_id = t.model_id
 
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Derived view returning model adjusted preference aggregated by attribute scheme and level 1 attribute group.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'dv_attribute_group_analysis';
+GO
+
 PRINT '########## GRLS.dv_attribute_group_analysis created successfully ##########'

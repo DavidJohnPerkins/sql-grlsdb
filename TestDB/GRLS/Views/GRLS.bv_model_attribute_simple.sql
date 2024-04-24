@@ -18,7 +18,8 @@ CREATE VIEW GRLS.bv_model_attribute_simple AS
 
 	SELECT
 		ma.model_id,
-		l2d.l1_id,
+		ma.id,
+		l1.l1_id,
 		l1.abbrev,
 		l2.l2_id,
 		l2.l2_desc
@@ -31,7 +32,15 @@ CREATE VIEW GRLS.bv_model_attribute_simple AS
 			ON l2d.l2_id = l2.l2_id
 		ON ma.attribute_id = l2d.l2_id
 	WHERE 
-		l2d.scheme_id = (SELECT MIN(s.scheme_id) FROM GRLS.attribute_scheme s)
+		l2d.scheme_id = (SELECT MIN(s.scheme_id) FROM GRLS.attribute_scheme s) AND 
+		ma.valid_to IS NULL
 		
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Base view level 1 and level attribute ids and values.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'bv_model_attribute_simple';
+GO
+
 PRINT '########## GRLS.bv_model_attribute_simple created successfully ##########'
