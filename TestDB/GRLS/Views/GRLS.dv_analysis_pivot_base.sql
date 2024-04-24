@@ -22,7 +22,10 @@ CREATE VIEW GRLS.dv_analysis_pivot_base AS
 		n.nationality,
 		adj.adjusted_total,
 		l1.abbrev AS l1_abbrev,
-		CONVERT(varchar(255), l2.l2_desc + ' ' + COMMON.paren(CONVERT(varchar, ma.adj_preference) + GRLS.format_standout_factor(ma.standout_factor))) AS x
+		CONVERT(varchar(255), 
+			l2.l2_desc + ' ' + 
+			COMMON.paren(CONVERT(varchar, ma.adj_preference) +
+			GRLS.format_standout_factor(ma.standout_factor))) AS x
 	FROM
 		GRLS.dv_model_attribute_list ma 
 		INNER JOIN GRLS.dv_model_adjusted_total adj
@@ -61,4 +64,11 @@ CREATE VIEW GRLS.dv_analysis_pivot_base AS
 		l1.for_aggregation = 1
 
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Derived view returning model analysis data for subsequent pivoting.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'dv_analysis_pivot_base';
+GO
+
 PRINT '########## GRLS.dv_analysis_pivot_base created successfully ##########'

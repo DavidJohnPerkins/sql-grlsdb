@@ -36,4 +36,11 @@ CREATE VIEW GRLS.bv_model_attribute_simple AS
 		ma.valid_to IS NULL
 		
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Base view level 1 and level attribute ids and values.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'bv_model_attribute_simple';
+GO
+
 PRINT '########## GRLS.bv_model_attribute_simple created successfully ##########'

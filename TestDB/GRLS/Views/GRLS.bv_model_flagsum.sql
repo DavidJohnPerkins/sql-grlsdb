@@ -30,4 +30,11 @@ CREATE VIEW GRLS.bv_model_flagsum AS
 		m.id
 
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Base view returning model and sum of flag binary values (ie. unique to each flag combination.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'bv_model_flagsum';
+GO
+
 PRINT '########## GRLS.bv_model_flagsum created successfully ##########'

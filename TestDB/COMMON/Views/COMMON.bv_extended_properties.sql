@@ -17,7 +17,7 @@ CREATE VIEW COMMON.bv_extended_properties AS
 
 	WITH w_props (obj_type, ep_value, obj_id, par_obj_id, obj_name, maxlen) AS (
 		SELECT 
-			obj.type_desc,
+			obj.type_desc COLLATE DATABASE_DEFAULT,
 			ep.[value],
 			obj.object_id,
 			obj.parent_object_id,
@@ -33,7 +33,7 @@ CREATE VIEW COMMON.bv_extended_properties AS
 		UNION ALL  
 
 		SELECT  
-			t.name,
+			t.name COLLATE DATABASE_DEFAULT,
 			epc.[value],
 			0,
 			col.object_id,
@@ -54,16 +54,16 @@ CREATE VIEW COMMON.bv_extended_properties AS
 		ELSE 
 			OBJECT_SCHEMA_NAME(obj_id) + '.' + obj_name 
 		END 									AS object_name,
-		CASE WHEN objcol.obj_type LIKE '%char' COLLATE DATABASE_DEFAULT THEN 
+		CASE WHEN objcol.obj_type LIKE '%char' THEN 
 			objcol.obj_type + COMMON.paren(objcol.maxlen)
 		ELSE 
 			objcol.obj_type 
-		END	COLLATE DATABASE_DEFAULT	AS object_type,
-		COALESCE(ep_value, '')			AS property_value
+		END						AS object_type,
+		COALESCE(ep_value, '')	AS property_value
 	FROM
 		w_props objcol
 	WHERE 
-		objcol.obj_type NOT LIKE '%CONSTRAINT' COLLATE DATABASE_DEFAULT
+		objcol.obj_type NOT LIKE '%CONSTRAINT'
 
 GO
 

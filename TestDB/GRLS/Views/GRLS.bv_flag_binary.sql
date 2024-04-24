@@ -32,4 +32,11 @@ CREATE VIEW GRLS.bv_flag_binary AS
 		w1.rn = seq.ord_val
 
 GO
+
+EXEC sys.sp_addextendedproperty @name = N'MS_Description',
+    @value = N'Base view returning model flag and ascending binary column header.',
+    @level0type = 'SCHEMA', @level0name = N'GRLS',
+    @level1type = 'VIEW', @level1name = N'bv_flag_binary';
+GO
+
 PRINT '########## GRLS.bv_flag_binary created successfully ##########'
