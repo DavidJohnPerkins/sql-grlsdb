@@ -24,7 +24,8 @@ BEGIN
 	SET NOCOUNT ON
 
 	BEGIN TRY 
-		DECLARE @model_id	int = (SELECT JSON_VALUE(@p_input_json, '$."model_id"'))
+		DECLARE @model_id		int = (SELECT JSON_VALUE(@p_input_json, '$."model_id"')),
+				@show_excluded	bit = (SELECT e.show_excluded FROM COMMON.bv_environment e)
 
 		IF ISNULL(@model_id, '') = ''
    			RAISERROR ('The model_id attribute is not present - operation failed.', 16, 1)
@@ -39,7 +40,7 @@ BEGIN
 				SELECT
 					m.* 
 				FROM 
-					GRLS.pv_model_extended m 
+					GRLS.pv_model_extended m
 				WHERE 
 					m.id = @model_id
 			END
@@ -50,7 +51,7 @@ BEGIN
 				FROM 
 					GRLS.pv_model_extended m 
 				WHERE
-					m.is_excluded = 0
+					(m.is_excluded = 0 OR m.is_excluded = @show_excluded)
 				ORDER BY
 					m.principal_name
 			END

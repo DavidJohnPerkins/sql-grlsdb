@@ -35,9 +35,10 @@ CREATE VIEW GRLS.pv_model_rank_by_scheme_group_pivot AS
 				INNER JOIN GRLS.model m 
 					INNER JOIN GRLS.model_name mn 
 					ON m.id = mn.model_id AND mn.is_principal_name = 1
-				ON r.model_id = m.id
+				ON r.model_id = m.id,
+				COMMON.bv_environment env
 			WHERE 
-				m.is_excluded = 0
+				(m.is_excluded = 0 OR m.is_excluded = env.show_excluded)
 			) d
 		PIVOT
 		(

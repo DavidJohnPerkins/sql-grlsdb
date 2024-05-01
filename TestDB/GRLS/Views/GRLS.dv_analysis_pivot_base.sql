@@ -17,7 +17,7 @@ CREATE VIEW GRLS.dv_analysis_pivot_base AS
 
 	SELECT
 		s.scheme_abbrev,
-		ma.model_id,--,
+		ma.model_id,
 		nm.model_name,
 		n.nationality,
 		adj.adjusted_total,
@@ -60,7 +60,6 @@ CREATE VIEW GRLS.dv_analysis_pivot_base AS
 				l11.abbrev = 'NATN'
 		) n
 	WHERE
-		ma.is_excluded = 0 AND
 		l1.for_aggregation = 1
 
 GO
