@@ -22,13 +22,17 @@ BEGIN
 
 	WITH w_flags AS (
 		SELECT
-			f.flag_abbrev AS flag_abbrev
+			f.flag_abbrev	AS flag_abbrev,
+			f.selected		AS bit
 		FROM 
 			OPENJSON (@p_input_json, '$.search_flags')
 			WITH
 			(
-				flag_abbrev	char(8)
+				flag_abbrev	char(8),
+				selected	bit
 			) f
+		WHERE
+			f.selected = 1
 	),
 	w_searchsum AS (
 		SELECT 
@@ -36,13 +40,13 @@ BEGIN
 		FROM 
 			GRLS.bv_flag_binary fb
 			INNER JOIN GRLS.flag f
-				INNER JOIN w_flags i 
+				INNER JOIN w_flags i
 				ON f.flag_abbrev = i.flag_abbrev
 			ON fb.flag_abbrev = f.flag_abbrev
-	)
+	)	
 	INSERT @result 
 	SELECT 
-		m.id 
+		m.id
 	FROM 
 		w_searchsum w,
 		GRLS.model m
@@ -51,8 +55,8 @@ BEGIN
 	WHERE 
 		((fs.flag_sum & w.srchsum != 0 AND @mode = 'ANY') OR 
 		(fs.flag_sum & w.srchsum = w.srchsum AND @mode = 'ALL')) OR 
-		((SELECT COUNT(1) FROM w_flags) = 0)
- 
+		w.srchsum IS NULL
+
 	RETURN
 END
 GO

@@ -22,16 +22,19 @@ BEGIN
 
 	WITH w_search_attribs AS (
 		SELECT
-			sa.abbrev AS abbrev,
-			sa.attrib_value AS attrib_value
+			sa.abbrev 		AS abbrev,
+			sa.attrib_value AS attrib_value,
+			sa.selected		AS selected
 		FROM 
 			OPENJSON (@p_input_json, '$.search_attribs')
 			WITH
 			(
 				abbrev			GRLS.l1_abbrev,
-				attrib_value	varchar(50)
-
+				attrib_value	varchar(50),
+				selected		bit
 			) sa
+		WHERE
+			sa.selected = 1
 	),
 	w_level_1 AS (
 		SELECT  
