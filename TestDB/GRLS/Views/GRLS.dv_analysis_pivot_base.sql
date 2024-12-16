@@ -20,6 +20,7 @@ CREATE VIEW GRLS.dv_analysis_pivot_base AS
 		ma.model_id,
 		nm.model_name,
 		n.nationality,
+		ISNULL(f.flags, '') AS flags,
 		adj.adjusted_total,
 		l1.abbrev AS l1_abbrev,
 		CONVERT(varchar(255), 
@@ -59,6 +60,21 @@ CREATE VIEW GRLS.dv_analysis_pivot_base AS
 				ma.model_id = ma1.model_id AND
 				l11.abbrev = 'NATN'
 		) n
+		OUTER APPLY (
+			SELECT
+				STRING_AGG(x.flag_letter, '') AS flags
+			FROM (
+				SELECT
+					fl.flag_letter
+				FROM 
+					GRLS.model_flag mf 
+					INNER JOIN GRLS.flag fl 
+					ON mf.flag_id = fl.flag_id
+				WHERE
+					mf.model_id = ma.model_id
+				ORDER BY
+					fl.flag_letter OFFSET 0 ROWS) x
+		) f
 	WHERE
 		l1.for_aggregation = 1
 
