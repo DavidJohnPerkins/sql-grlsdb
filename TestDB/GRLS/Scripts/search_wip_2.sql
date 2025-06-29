@@ -1,14 +1,14 @@
 DECLARE @mode char(3)='ALL'
 DECLARE @p_input_json COMMON.json = '
 	{
-		"search_mode_flag":		"ALL",
+		"search_mode_flag":		"ANY",
 		"search_mode_attrib":	"ALL",
 		"search_flags": [
 			{ "flag_abbrev": "WMNCHILD", "selected": 0 },
 			{ "flag_abbrev": "NPPIERCE", "selected": 0 },
 			{ "flag_abbrev": "GNPIERCE", "selected": 0 },
 			{ "flag_abbrev": "WMNCHILD", "selected": 0 },
-			{ "flag_abbrev": "HTROPORN", "selected": 0 },
+			{ "flag_abbrev": "HTROPORN", "selected": 1 },
 			{ "flag_abbrev": "LSBNPORN", "selected": 0 },
 			{ "flag_abbrev": "EXCEPTNL", "selected": 0 },
 			{ "flag_abbrev": "LRGBRSTS", "selected": 0 },
@@ -94,7 +94,7 @@ DECLARE @p_input_json COMMON.json = '
 			{ "abbrev": "HAIR", "attrib_value": "Brunette",					"selected": 0 }, 
 			{ "abbrev": "HAIR", "attrib_value": "Copper Red",				"selected": 0 }, 
 			{ "abbrev": "HAIR", "attrib_value": "Fair",						"selected": 0 }, 
-			{ "abbrev": "HAIR", "attrib_value": "Ash Blonde",				"selected": 1 },
+			{ "abbrev": "HAIR", "attrib_value": "Ash Blonde",				"selected": 0 },
 			{ "abbrev": "HAIR", "attrib_value": "Mid Brown",				"selected": 0 },
 			{ "abbrev": "HAIR", "attrib_value": "Deep Grey",				"selected": 0 },
 			{ "abbrev": "HAIR", "attrib_value": "Regular Blonde",			"selected": 0 },
