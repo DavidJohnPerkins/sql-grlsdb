@@ -29,14 +29,14 @@ CREATE VIEW GRLS.dv_model_rank_by_scheme AS
 			GRLS.model m
 			INNER JOIN GRLS.model_attribute ma
 				INNER JOIN GRLS.dv_attribute_l1_l2 att
-					INNER JOIN GRLS.attribute_scheme s 
+					INNER JOIN GRLS.attribute_scheme s
 					ON att.scheme_id_l1 = s.scheme_id
 				ON ma.attribute_id = att.l2_id
 			ON m.id = ma.model_id,
 			w_env w
 		WHERE
-			att.for_aggregation = 1 AND 
-			s.active = 1 AND 
+			att.for_aggregation = 1 AND
+			s.active = 1 AND
 			ma.valid_to IS NULL
 	),
 	w_level2 AS (
@@ -45,7 +45,7 @@ CREATE VIEW GRLS.dv_model_rank_by_scheme AS
 			w1.model_id,
 			w1.hotness_quotient,
 			CONVERT(decimal(8, 2), SUM(w1.adj_preference * w1.standout_factor) OVER (PARTITION BY w1.scheme_id_l1, w1.model_id)) AS total1
-		FROM 
+		FROM
 			w_level1 w1
 	),
 	w_level3 AS (
@@ -53,15 +53,23 @@ CREATE VIEW GRLS.dv_model_rank_by_scheme AS
 			w2.scheme_id_l1,
 			w2.model_id,
 			ROUND(w2.total1 * (1 + (CONVERT(float, w2.hotness_quotient) / 100)), 2) AS adjusted_total
-		FROM 
+		FROM
 			w_level2 w2
-	)
-	SELECT
-		w3.scheme_id_l1,
-		w3.model_id,
-		DENSE_RANK() OVER (PARTITION BY w3.scheme_id_l1 ORDER BY w3.scheme_id_l1, w3.adjusted_total DESC) AS rank
-	FROM 
-		w_level3 w3
-		
+	),
+	w_rank1 AS (
+        SELECT
+            w3.scheme_id_l1,
+            w3.model_id,
+            DENSE_RANK() OVER (PARTITION BY w3.scheme_id_l1 ORDER BY w3.scheme_id_l1, w3.adjusted_total DESC) AS rank
+        FROM
+            w_level3 w3
+    )
+    SELECT
+            w4.scheme_id_l1,
+            w4.model_id,
+            w4.rank,
+            MAX(w4.rank) OVER (PARTITION BY w4.scheme_id_l1 ORDER BY w4.scheme_id_l1) AS scheme_max_rank
+    FROM
+        w_rank1 w4
 GO
 PRINT '########## GRLS.dv_model_rank_by_scheme created successfully ##########'

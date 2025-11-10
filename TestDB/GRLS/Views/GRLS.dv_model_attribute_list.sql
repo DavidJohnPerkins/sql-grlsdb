@@ -18,6 +18,7 @@ CREATE VIEW GRLS.dv_model_attribute_list AS
 	SELECT
 		ma.model_id,
 		m.is_excluded,
+		m.hotness_quotient,
 		ma.standout_factor,
 		att.scheme_id_l1,
 		att.active,

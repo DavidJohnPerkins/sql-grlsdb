@@ -15,13 +15,14 @@ GO
 
 CREATE VIEW GRLS.pv_model_extended AS
 
-	SELECT 
+	SELECT
 		m.id,
 		m.is_excluded,
 		m.sobriquet,
 		CONVERT(varchar(50), CASE WHEN CHARINDEX('/', nm.aliases) = 0 THEN nm.aliases ELSE LEFT(nm.aliases, CHARINDEX('/', nm.aliases) - 2) END) AS principal_name,
 		CASE WHEN CHARINDEX('/', nm.aliases) = 0 THEN NULL ELSE SUBSTRING(nm.aliases, CHARINDEX('/', nm.aliases) + 2, 255) END AS aliases,
 		m.hotness_quotient,
+		rnk.ranking,
 		m.year_of_birth,
 		al.l2_desc AS nationality,
 		f.flags,
@@ -31,11 +32,11 @@ CREATE VIEW GRLS.pv_model_extended AS
 		GRLS.model m
 		OUTER APPLY (
 			SELECT
-				STRING_AGG(x.model_name, ' / ') AS aliases 
+				STRING_AGG(x.model_name, ' / ') AS aliases
 			FROM (
 				SELECT
 					mn.model_name
-				FROM 
+				FROM
 					GRLS.model_name mn
 				WHERE
 					mn.model_id = m.id
@@ -49,9 +50,9 @@ CREATE VIEW GRLS.pv_model_extended AS
 			FROM (
 				SELECT
 					fl.flag_abbrev
-				FROM 
-					GRLS.model_flag mf 
-					INNER JOIN GRLS.flag fl 
+				FROM
+					GRLS.model_flag mf
+					INNER JOIN GRLS.flag fl
 					ON mf.flag_id = fl.flag_id
 				WHERE
 					mf.model_id = m.id
@@ -69,9 +70,20 @@ CREATE VIEW GRLS.pv_model_extended AS
 				i.AR_url
 			FROM
 				GRLS.pv_image_url_pivot i
-			WHERE 
+			WHERE
 				i.model_id = m.id
 		) img
+		OUTER APPLY (
+			SELECT
+				CONVERT(varchar, mr.rank) + '/' + CONVERT(varchar, mr.scheme_max_rank) AS ranking
+			FROM
+				GRLS.dv_model_rank_by_scheme mr
+				INNER JOIN GRLS.attribute_scheme s
+				ON mr.scheme_id_l1 = s.scheme_id
+			WHERE
+				mr.model_id = m.id AND
+				s.scheme_abbrev = 'SIMPLE'
+		) rnk
 		INNER JOIN GRLS.bv_model_attribute_simple al
 		ON m.id = al.model_id AND al.abbrev = 'NATN'
 		
