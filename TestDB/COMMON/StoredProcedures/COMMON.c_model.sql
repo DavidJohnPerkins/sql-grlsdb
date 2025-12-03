@@ -20,7 +20,8 @@ CREATE PROCEDURE COMMON.c_model
 	@p_model_images	COMMON.web_image_add_list	READONLY,
 	@p_model_flags	COMMON.flag_add_list		READONLY,
 	@p_debug		bit = 0,
-	@p_execute		bit = 1
+	@p_execute		bit = 1,
+	@r_model_id		int OUTPUT
 
 AS
 BEGIN
@@ -125,6 +126,8 @@ BEGIN
 			PRINT 'Transaction rolled back - no changes made'
 		END
 
+		SELECT @r_model_id = @model_id
+		
 	END TRY
 
 	BEGIN CATCH  

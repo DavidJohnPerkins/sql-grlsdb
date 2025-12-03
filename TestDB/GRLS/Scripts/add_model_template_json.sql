@@ -12,7 +12,7 @@ DECLARE @json	COMMON.json = '
 			"comment":			""
 		},
 		"model_names": [
-			{ "model_name": "",	"is_principal_name": 0 },
+			{ "model_name": "",	"is_principal_name": 1 },
 			{ "model_name": "",	"is_principal_name": 0 }
 		],
 		"model_images": [
@@ -30,6 +30,7 @@ DECLARE @json	COMMON.json = '
 			{
 				"abbrev": "ASHP", "standout_factor": 1, "options": [
 					{ "l2_desc": "Balanced", 			"selected": 0 },
+					{ "l2_desc": "Rounded", 			"selected": 0 },
 					{ "l2_desc": "Boyish",				"selected": 0 },
 					{ "l2_desc": "Peach",				"selected": 0 },
 					{ "l2_desc": "Flat",				"selected": 0 },

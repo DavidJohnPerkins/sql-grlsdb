@@ -1,7 +1,7 @@
 DECLARE @attribs_json COMMON.json = '
 	{
-		"l1_abbrev": 	"NATN",
-		"l2_desc":		"China",
+		"l1_abbrev": 	"ASHP",
+		"l2_desc":		"Rounded",
 		"preferences": [
 			{
 				"scheme_id": 1,
@@ -27,5 +27,3 @@ DECLARE @attribs_json COMMON.json = '
 	}
 '
 EXEC GRLS.add_level_2_model_attribute @attribs_json, 0,1
-
---select * from GRLS.v_attribute_level_2_detail where abbrev='NATN' order by abbrev,l2_desc

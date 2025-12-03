@@ -1,21 +1,21 @@
 DECLARE @mode char(3)='ALL'
 DECLARE @p_input_json COMMON.json = '
 	{
-		"search_mode_flag":		"ANY",
+		"search_mode_flag":		"ALL",
 		"search_mode_attrib":	"ALL",
 		"search_flags": [
-			{ "flag_abbrev": "WMNCHILD", "selected": 0 },
+			{ "flag_abbrev": "WMNCHILD", "selected": 1 },
 			{ "flag_abbrev": "NPPIERCE", "selected": 0 },
 			{ "flag_abbrev": "GNPIERCE", "selected": 0 },
-			{ "flag_abbrev": "WMNCHILD", "selected": 0 },
-			{ "flag_abbrev": "HTROPORN", "selected": 1 },
-			{ "flag_abbrev": "LSBNPORN", "selected": 0 },
-			{ "flag_abbrev": "EXCEPTNL", "selected": 0 },
+			{ "flag_abbrev": "HTROPORN", "selected": 0 },
+			{ "flag_abbrev": "LSBNPORN", "selected": 1 },
+			{ "flag_abbrev": "EXCEPTNL", "selected": 1 },
 			{ "flag_abbrev": "LRGBRSTS", "selected": 0 },
 			{ "flag_abbrev": "PUBEHAIR", "selected": 0 }
 		],
 		"search_attribs": [
 			{ "abbrev": "ASHP", "attrib_value": "Balanced", 				"selected": 0 },
+			{ "abbrev": "ASHP", "attrib_value": "Rounded", 					"selected": 0 },
 			{ "abbrev": "ASHP", "attrib_value": "Boyish",					"selected": 0 },
 			{ "abbrev": "ASHP", "attrib_value": "Peach",					"selected": 0 },
 			{ "abbrev": "ASHP", "attrib_value": "Flat",						"selected": 0 },

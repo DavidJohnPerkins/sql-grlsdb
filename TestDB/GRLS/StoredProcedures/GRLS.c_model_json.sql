@@ -123,6 +123,15 @@ BEGIN
 			selected	bit
 		) b
 
+		IF @p_debug = 1
+		BEGIN
+			SELECT * FROM @base_attribs
+			SELECT * FROM @attribs
+			SELECT * FROM @model_names
+			SELECT * FROM @model_images
+			SELECT * FROM @model_flags
+		END
+		
 		EXEC COMMON.c_model @base_attribs, @attribs, @model_names, @model_images, @model_flags, @p_debug, @p_execute
 
 	END TRY

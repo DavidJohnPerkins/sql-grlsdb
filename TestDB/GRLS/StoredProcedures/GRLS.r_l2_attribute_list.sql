@@ -38,11 +38,18 @@ BEGIN
 		IF @p_execute = 1
 		BEGIN
 			SELECT
-				l2.l2_desc
+				l2.l2_desc + CONVERT(varchar(10), x.so) COLLATE DATABASE_DEFAULT AS l2_desc
 			FROM
 				GRLS.attribute_level_2 l2 
 				INNER JOIN GRLS.attribute_level_1 l1 
 				ON l2.l1_id = l1.l1_id 
+				CROSS APPLY (VALUES 
+						(' (1.0)'),
+						(' (1.1)'),
+						(' (1.2)'),
+						(' (1.3)'),
+						(' (1.4)')
+				) x (so)
 			WHERE
 				l1.abbrev = @abbrev
 			ORDER BY 

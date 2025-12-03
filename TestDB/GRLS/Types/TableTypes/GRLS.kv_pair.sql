@@ -12,6 +12,6 @@ GO
 CREATE TYPE GRLS.kv_pair AS TABLE   
 (
 	key_value			varchar(50) ,
-	data_value			varchar(50)
+	data_value			nvarchar(MAX)
 )
 GO  

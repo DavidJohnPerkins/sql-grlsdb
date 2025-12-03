@@ -3,10 +3,10 @@ GO
 
 DECLARE @json	COMMON.json = '
 	{
-		"sobriquet":	"KATY_N",
+		"sobriquet":	"MICHELLE_H",
 		"update_type":	"C",
 		"model_flags": [
-			{ "flag_abbrev": "EXCEPTNL"}
+			{ "flag_abbrev": "HTROPORN"}
 		]
 	}
 '
