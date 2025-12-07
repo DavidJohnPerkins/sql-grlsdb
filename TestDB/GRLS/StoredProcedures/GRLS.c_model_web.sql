@@ -83,7 +83,7 @@ BEGIN
 
 		EXEC COMMON.c_model @base_attribs, @attribs, @model_names, @model_images, @model_flags, @p_debug, @p_execute, @r_model_id = @model_id OUTPUT
 
-		SELECT @model_id
+		SELECT @model_id AS model_id
 
 	END TRY
 
