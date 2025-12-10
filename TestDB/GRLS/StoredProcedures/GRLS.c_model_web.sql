@@ -16,7 +16,8 @@ GO
 CREATE PROCEDURE GRLS.c_model_web
 	@p_input_json		COMMON.json,
 	@p_debug			bit = 0,
-	@p_execute			bit = 1
+	@p_execute			bit = 1,
+	@model_id			int = NULL OUTPUT
 
 AS
 BEGIN
@@ -27,8 +28,7 @@ BEGIN
 			@model_names		COMMON.name_add_list,
 			@model_images		COMMON.web_image_add_list,
 			@model_flags		COMMON.flag_add_list,
-			@a					GRLS.kv_pair,
-			@model_id			int
+			@a					GRLS.kv_pair
 
 	BEGIN TRY
 
