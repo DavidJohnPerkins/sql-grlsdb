@@ -43,12 +43,11 @@ BEGIN
 				GRLS.attribute_level_2 l2 
 				INNER JOIN GRLS.attribute_level_1 l1 
 				ON l2.l1_id = l1.l1_id 
-				CROSS APPLY (VALUES 
-						(' (1.0)'),
-						(' (1.1)'),
-						(' (1.2)'),
-						(' (1.3)'),
-						(' (1.4)')
+				CROSS APPLY (
+                    SELECT 
+                        ' (1.' + CONVERT(varchar,([value])) + ')' 
+                    from 
+                        GENERATE_SERIES(0, CASE WHEN l1.for_aggregation = 1 THEN 4 ELSE 0 END, 1) 
 				) x (so)
 			WHERE
 				l1.abbrev = @abbrev
