@@ -8,8 +8,9 @@ DECLARE @p_input_json COMMON.json = '
 			{ "flag_abbrev": "NPPIERCE", "selected": 0 },
 			{ "flag_abbrev": "GNPIERCE", "selected": 0 },
 			{ "flag_abbrev": "HTROPORN", "selected": 0 },
-			{ "flag_abbrev": "LSBNPORN", "selected": 1 },
-			{ "flag_abbrev": "EXCEPTNL", "selected": 1 },
+			{ "flag_abbrev": "ANALPORN", "selected": 1 },
+			{ "flag_abbrev": "LSBNPORN", "selected": 0 },
+			{ "flag_abbrev": "EXCEPTNL", "selected": 0 },
 			{ "flag_abbrev": "LRGBRSTS", "selected": 0 },
 			{ "flag_abbrev": "PUBEHAIR", "selected": 0 }
 		],
