@@ -42,15 +42,24 @@ BEGIN
 
 		IF @p_execute = 1
 		BEGIN
-            SELECT
-                m.*
-            FROM
-                GRLS.pv_model_extended m
-            WHERE
-                (m.is_excluded = 0 OR m.is_excluded = @show_excluded) AND
-				m.principal_name LIKE @search_term
-            ORDER BY
-                m.principal_name
+			WITH w_id AS (
+				SELECT
+					n.model_id
+				FROM
+					GRLS.model_name n
+				WHERE
+					n.is_principal_name = 1 AND
+					n.model_name LIKE @search_term
+			)
+			SELECT
+				m.*
+			FROM
+				GRLS.pv_model_extended m
+				inner join w_id w on m.id = w.model_id
+			WHERE
+				(m.is_excluded = 0 OR m.is_excluded = @show_excluded)
+			ORDER BY
+				m.principal_name
 		END
 
 	END TRY

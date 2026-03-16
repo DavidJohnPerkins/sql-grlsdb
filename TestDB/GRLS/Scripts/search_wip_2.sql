@@ -1,14 +1,15 @@
 DECLARE @mode char(3)='ALL'
 DECLARE @p_input_json COMMON.json = '
 	{
+		"name_search_term":		"%",
 		"search_mode_flag":		"ALL",
 		"search_mode_attrib":	"ALL",
 		"search_flags": [
-			{ "flag_abbrev": "WMNCHILD", "selected": 1 },
-			{ "flag_abbrev": "NPPIERCE", "selected": 0 },
-			{ "flag_abbrev": "GNPIERCE", "selected": 0 },
+			{ "flag_abbrev": "WMNCHILD", "selected": 0 },
+			{ "flag_abbrev": "NPPIERCE", "selected": 1 },
+			{ "flag_abbrev": "GNPIERCE", "selected": 1 },
 			{ "flag_abbrev": "HTROPORN", "selected": 0 },
-			{ "flag_abbrev": "ANALPORN", "selected": 1 },
+			{ "flag_abbrev": "ANALPORN", "selected": 0 },
 			{ "flag_abbrev": "LSBNPORN", "selected": 0 },
 			{ "flag_abbrev": "EXCEPTNL", "selected": 0 },
 			{ "flag_abbrev": "LRGBRSTS", "selected": 0 },
@@ -225,7 +226,15 @@ DECLARE @p_input_json COMMON.json = '
 		w.srchsum IS NULL
 		--((SELECT COUNT(1) FROM w_searchsum2) = 0 AND fs.model_id IS NULL)
 */
-	
+;WITH w_id AS (
+	SELECT
+		n.model_id
+	FROM
+		GRLS.model_name n
+	WHERE
+		n.is_principal_name = 1 AND
+		n.model_name LIKE JSON_VALUE(@p_input_json, '$."name_search_term"')
+)
 select 
 	p.* 
 from
@@ -234,6 +243,8 @@ from
 		inner join GRLS.flag_search(@p_input_json) fs 
 		ON att.model_id = fs.model_id
 	ON p.model_id = att.model_id
+	INNER JOIN w_id w 
+	on p.model_id = w.model_id
 where 
 	scheme_abbrev='SIMPLE'
 order by 
