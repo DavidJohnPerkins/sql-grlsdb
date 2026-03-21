@@ -6,10 +6,10 @@ DECLARE @p_input_json COMMON.json = '
 		"search_mode_attrib":	"ALL",
 		"search_flags": [
 			{ "flag_abbrev": "WMNCHILD", "selected": 0 },
-			{ "flag_abbrev": "NPPIERCE", "selected": 1 },
-			{ "flag_abbrev": "GNPIERCE", "selected": 1 },
+			{ "flag_abbrev": "NPPIERCE", "selected": 0 },
+			{ "flag_abbrev": "GNPIERCE", "selected": 0 },
 			{ "flag_abbrev": "HTROPORN", "selected": 0 },
-			{ "flag_abbrev": "ANALPORN", "selected": 0 },
+			{ "flag_abbrev": "ANALPORN", "selected": 1 },
 			{ "flag_abbrev": "LSBNPORN", "selected": 0 },
 			{ "flag_abbrev": "EXCEPTNL", "selected": 0 },
 			{ "flag_abbrev": "LRGBRSTS", "selected": 0 },
@@ -177,55 +177,7 @@ DECLARE @p_input_json COMMON.json = '
 			{ "abbrev": "YTHF", "attrib_value": "Late Twenties",			"selected": 0 }
 		]
 	}'
-/*	;WITH w_flags AS (
-		SELECT
-			f.flag_abbrev	AS flag_abbrev,
-			f.selected		AS bit
-		FROM 
-			OPENJSON (@p_input_json, '$.search_flags')
-			WITH
-			(
-				flag_abbrev	char(8),
-				selected	bit
-			) f
-		WHERE
-			f.selected = 1
-	),
-	w_searchsum AS (
-		SELECT 
-			SUM(fb.bin_val) AS srchsum
-		FROM 
-			GRLS.bv_flag_binary fb
-			INNER JOIN GRLS.flag f
-				INNER JOIN w_flags i
-				ON f.flag_abbrev = i.flag_abbrev
-			ON fb.flag_abbrev = f.flag_abbrev
-	) /*,
-	w_searchsum2 AS (
-		SELECT
-			w.srchsum
-		FROM
-			w_searchsum w
-		WHERE 
-			w.srchsum IS NOT NULL
-	)	*/
-	SELECT 
-		m.id,
-		m.sobriquet,
-		fs.model_id,
-		fs.flag_sum,
-		w.srchsum
-	FROM 
-		w_searchsum w,
-		GRLS.model m
-		LEFT OUTER JOIN GRLS.bv_model_flagsum fs
-		ON m.id = fs.model_id
-	WHERE 
-		((fs.flag_sum & w.srchsum != 0 AND @mode = 'ANY') OR 
-		(fs.flag_sum & w.srchsum = w.srchsum AND @mode = 'ALL')) OR 
-		w.srchsum IS NULL
-		--((SELECT COUNT(1) FROM w_searchsum2) = 0 AND fs.model_id IS NULL)
-*/
+
 ;WITH w_id AS (
 	SELECT
 		n.model_id
@@ -249,44 +201,3 @@ where
 	scheme_abbrev='SIMPLE'
 order by 
 	p.model_name
-
-/*
-	DECLARE @mode char(3) = JSON_VALUE(@p_input_json, '$."search_mode_flag"');
-
-	WITH w_flags AS (
-		SELECT
-			f.flag_abbrev AS flag_abbrev
-		FROM 
-			OPENJSON (@p_input_json, '$.search_flags')
-			WITH
-			(
-				flag_abbrev	char(8)
-			) f
-	),
-	w_searchsum AS (
-		SELECT 
-			SUM(fb.bin_val) AS srchsum
-		FROM 
-			GRLS.bv_flag_binary fb
-			INNER JOIN GRLS.flag f
-				INNER JOIN w_flags i 
-				ON f.flag_abbrev = i.flag_abbrev
-			ON fb.flag_abbrev = f.flag_abbrev
-	)
-	SELECT 
-		m.id 
-	FROM 
-		w_searchsum w,
-		GRLS.model m
-		LEFT OUTER JOIN GRLS.bv_model_flagsum fs
-		ON m.id = fs.model_id
-	WHERE 
-		(fs.flag_sum & w.srchsum != 0 AND @mode = 'ANY') OR 
-		(fs.flag_sum & w.srchsum = w.srchsum AND @mode = 'ALL') OR 
-		((SELECT COUNT(1) FROM w_flags) = 0)--select * FROM GRLS.pv_analysis_pivot where scheme_abbrev='SIMPLE' and model_name='Carla B'
-*/
---select distinct model_id from GRLS.model_flag WHERE flag_id=4
---SELECT * FROM GRLS.flag
---select * from GRLS.pv_analysis_pivot where ATTR LIKE 'Gam%'
-
---select m.* from GRLS.model m left outer join  GRLS.bv_model_flagsum fs on m.id = fs.model_id where m.is_excluded = 0

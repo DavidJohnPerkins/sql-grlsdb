@@ -12,6 +12,3 @@ DECLARE @json	COMMON.json = '
 	}
 '
 EXEC GRLS.c_model_flag_json @json, 0, 1
-
---rollback TRANSACTION
---select * from GRLS.flag

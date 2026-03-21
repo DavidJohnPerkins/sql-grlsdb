@@ -20,14 +20,14 @@ CREATE VIEW GRLS.bv_flag_binary AS
 			ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rn,
 			f.flag_abbrev
 		FROM 
-			GRLS.flag f
+			GRLS.fv_model_flag f
 	)
 	SELECT 
 		w1.*,
 		seq.bin_val
 	FROM
 		w_level_1 w1
-		CROSS APPLY COMMON.get_binary_sequence((SELECT COUNT(1) FROM GRLS.flag)) seq
+		CROSS APPLY COMMON.get_binary_sequence((SELECT COUNT(1) FROM GRLS.fv_model_flag)) seq
 	WHERE 
 		w1.rn = seq.ord_val
 

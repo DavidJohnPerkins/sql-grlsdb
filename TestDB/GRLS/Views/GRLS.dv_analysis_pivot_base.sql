@@ -69,7 +69,7 @@ CREATE VIEW GRLS.dv_analysis_pivot_base AS
 					fl.flag_letter
 				FROM 
 					GRLS.model_flag mf 
-					INNER JOIN GRLS.flag fl 
+					INNER JOIN GRLS.fv_model_flag fl 
 					ON mf.flag_id = fl.flag_id
 				WHERE
 					mf.model_id = ma.model_id

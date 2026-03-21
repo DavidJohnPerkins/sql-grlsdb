@@ -21,7 +21,7 @@ CREATE VIEW GRLS.bv_model_flagsum AS
 	FROM 
 		GRLS.model m 
 		INNER JOIN GRLS.model_flag mf 
-			INNER JOIN GRLS.flag f 
+			INNER JOIN GRLS.fv_model_flag f 
 				INNER JOIN GRLS.bv_flag_binary fb 
 				ON f.flag_abbrev = fb.flag_abbrev
 			ON mf.flag_id = f.flag_id

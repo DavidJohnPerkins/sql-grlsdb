@@ -34,7 +34,7 @@ BEGIN
 	IF @p_update_type NOT IN ('C', 'R')
    		RAISERROR ('Update type must be C or R - operation failed.', 16, 1)
 
-	IF 	EXISTS (SELECT t.flag_abbrev FROM @p_flags t EXCEPT SELECT f.flag_abbrev FROM GRLS.flag f)
+	IF 	EXISTS (SELECT t.flag_abbrev FROM @p_flags t EXCEPT SELECT f.flag_abbrev FROM GRLS.fv_model_flag f)
 		RAISERROR ('There are invalid flags in the input data - operation failed.', 16, 1)
 
 	BEGIN TRY
@@ -55,7 +55,7 @@ BEGIN
 			f.flag_id 
 		FROM
 			@p_flags fl 
-			LEFT OUTER JOIN GRLS.flag f 
+			LEFT OUTER JOIN GRLS.fv_model_flag f 
 			ON fl.flag_abbrev = f.flag_abbrev
 			LEFT OUTER JOIN GRLS.model_flag mf 
 			ON @v_model_id = mf.model_id AND f.flag_id = mf.flag_id

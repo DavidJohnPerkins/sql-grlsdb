@@ -25,7 +25,7 @@ SET @p_input_json = (
 				f.flag_abbrev
 			FROM 
 				GRLS.model_flag mf 
-				INNER JOIN GRLS.flag f 
+				INNER JOIN GRLS.fv_model_flag f 
 				ON mf.flag_id = f.flag_id
 			WHERE 
 				mf.model_id = m.id

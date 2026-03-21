@@ -39,7 +39,7 @@ BEGIN
 			SUM(fb.bin_val) AS srchsum
 		FROM 
 			GRLS.bv_flag_binary fb
-			INNER JOIN GRLS.flag f
+			INNER JOIN GRLS.fv_model_flag f
 				INNER JOIN w_flags i
 				ON f.flag_abbrev = i.flag_abbrev
 			ON fb.flag_abbrev = f.flag_abbrev

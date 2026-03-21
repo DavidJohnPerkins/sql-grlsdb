@@ -52,7 +52,7 @@ CREATE VIEW GRLS.pv_model_extended AS
 					fl.flag_abbrev
 				FROM
 					GRLS.model_flag mf
-					INNER JOIN GRLS.flag fl
+					INNER JOIN GRLS.fv_model_flag fl
 					ON mf.flag_id = fl.flag_id
 				WHERE
 					mf.model_id = m.id
