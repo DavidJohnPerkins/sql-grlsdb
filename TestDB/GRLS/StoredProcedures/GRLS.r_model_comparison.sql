@@ -34,7 +34,7 @@ BEGIN
 	BEGIN TRY
 
 		SET @scheme_id = (SELECT s.scheme_id FROM GRLS.attribute_scheme s WHERE s.scheme_abbrev = (SELECT JSON_VALUE(@p_input_json, '$."scheme_abbrev"')))
-
+		
 		INSERT INTO @models
 		SELECT
 			c.sobriquet sobriquet
@@ -86,7 +86,7 @@ BEGIN
 						ON att.l1_id = l1.l1_id
 					WHERE
 						m.for_comparison = 1 AND
-						ab.scheme_abbrev = ^~scheme_id^
+						att.scheme_id_l1 = ^~scheme_id^
 					
 					UNION 
 
@@ -100,7 +100,7 @@ BEGIN
 						ON att.model_id = m.id
 					WHERE
 						m.for_comparison = 1 AND
-						ab.scheme_abbrev = ^~scheme_id^
+						att.scheme_id_l1 = ^~scheme_id^
 					GROUP BY 
 						m.sobriquet
 				) x
