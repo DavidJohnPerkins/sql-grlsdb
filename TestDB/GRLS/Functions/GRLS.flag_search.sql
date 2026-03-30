@@ -11,14 +11,15 @@ IF OBJECT_ID ('GRLS.flag_search', 'TF') IS NOT NULL
 	PRINT '########## GRLS.flag_search dropped successfully ##########'
 GO  
 
-CREATE FUNCTION GRLS.flag_search(@p_input_json COMMON.json)
+CREATE FUNCTION GRLS.flag_search(@p_input_json COMMON.json, @flagsum GRLS.kv_pair_int READONLY)
 RETURNS 
 @result TABLE (
-	model_id int
+	object_id int
 )
 AS 
 BEGIN 
-	DECLARE @mode char(3) = JSON_VALUE(@p_input_json, '$."search_mode_flag"');
+	DECLARE @mode		char(3) = JSON_VALUE(@p_input_json, '$."search_mode_flag"'),
+			@flag_type	char(3) = JSON_VALUE(@p_input_json, '$."flag_type"');
 
 	WITH w_flags AS (
 		SELECT
@@ -33,31 +34,37 @@ BEGIN
 			) f
 		WHERE
 			f.selected = 1
-	),
+	), --select * from w_flags,
 	w_searchsum AS (
 		SELECT 
 			SUM(fb.bin_val) AS srchsum
 		FROM 
 			GRLS.bv_flag_binary fb
-			INNER JOIN GRLS.fv_model_flag f
+			INNER JOIN GRLS.flag f
+				INNER JOIN GRLS.flag_type ft
+				ON f.flag_type = ft.id
 				INNER JOIN w_flags i
 				ON f.flag_abbrev = i.flag_abbrev
 			ON fb.flag_abbrev = f.flag_abbrev
-	)	
+		WHERE
+			ft.flag_type_abbrev = @flag_type AND 
+			fb.flag_type_abbrev = @flag_type
+	) --select * from w_searchsum
 	INSERT @result 
 	SELECT 
-		m.id
+		fs.key_value
 	FROM 
 		w_searchsum w,
-		GRLS.model m
-		LEFT OUTER JOIN GRLS.bv_model_flagsum fs
-		ON m.id = fs.model_id
+		@flagsum fs
+		--LEFT OUTER JOIN @flagsum fs
+		--ON m.id = fs.key_value
 	WHERE 
-		((fs.flag_sum & w.srchsum != 0 AND @mode = 'ANY') OR 
-		(fs.flag_sum & w.srchsum = w.srchsum AND @mode = 'ALL')) OR 
+		((fs.data_value & w.srchsum != 0 AND @mode = 'ANY') OR 
+		(fs.data_value & w.srchsum = w.srchsum AND @mode = 'ALL')) OR 
 		w.srchsum IS NULL
 
 	RETURN
+
 END
 GO
 PRINT '########## GRLS.flag_search dropped successfully ##########'

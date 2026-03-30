@@ -16,18 +16,34 @@ GO
 CREATE VIEW GRLS.bv_flag_binary AS
 
 	WITH w_level_1 AS (
-		SELECT 
-			ROW_NUMBER() OVER(ORDER BY (SELECT 1)) AS rn,
+		SELECT
+			f.flag_id,
+			ft.flag_type_abbrev,			
+			ROW_NUMBER() OVER(PARTITION BY ft.flag_type_abbrev ORDER BY (SELECT 1)) AS rn,
 			f.flag_abbrev
 		FROM 
-			GRLS.fv_model_flag f
-	)
+			GRLS.flag f
+			INNER JOIN GRLS.flag_type ft
+			ON f.flag_type = ft.id
+	),
+	w_level_2 AS (
+		SELECT
+			l1.flag_type_abbrev,
+			--l1.flag_type_abbrev,
+			COUNT(1) AS abbrev_count
+		FROM 
+			w_level_1 l1 
+		GROUP BY 
+			l1.flag_type_abbrev
+	)	--select * from w_level_2
 	SELECT 
 		w1.*,
 		seq.bin_val
 	FROM
 		w_level_1 w1
-		CROSS APPLY COMMON.get_binary_sequence((SELECT COUNT(1) FROM GRLS.fv_model_flag)) seq
+		INNER JOIN w_level_2 w2
+		ON w1.flag_type_abbrev = w2.flag_type_abbrev
+		CROSS APPLY COMMON.get_binary_sequence((w2.abbrev_count)) seq
 	WHERE 
 		w1.rn = seq.ord_val
 

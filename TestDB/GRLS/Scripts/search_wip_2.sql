@@ -1,15 +1,16 @@
 DECLARE @mode char(3)='ALL'
 DECLARE @p_input_json COMMON.json = '
 	{
-		"name_search_term":		"%",
-		"search_mode_flag":		"ALL",
+		"name_search_term":		"%%",
+		"search_mode_flag":		"ANY",
 		"search_mode_attrib":	"ALL",
+		"flag_type":			"MOD",
 		"search_flags": [
 			{ "flag_abbrev": "WMNCHILD", "selected": 0 },
-			{ "flag_abbrev": "NPPIERCE", "selected": 0 },
-			{ "flag_abbrev": "GNPIERCE", "selected": 0 },
+			{ "flag_abbrev": "NPPIERCE", "selected": 1 },
+			{ "flag_abbrev": "GNPIERCE", "selected": 1 },
 			{ "flag_abbrev": "HTROPORN", "selected": 0 },
-			{ "flag_abbrev": "ANALPORN", "selected": 1 },
+			{ "flag_abbrev": "ANALPORN", "selected": 0 },
 			{ "flag_abbrev": "LSBNPORN", "selected": 0 },
 			{ "flag_abbrev": "EXCEPTNL", "selected": 0 },
 			{ "flag_abbrev": "LRGBRSTS", "selected": 0 },
@@ -177,7 +178,7 @@ DECLARE @p_input_json COMMON.json = '
 			{ "abbrev": "YTHF", "attrib_value": "Late Twenties",			"selected": 0 }
 		]
 	}'
-
+/*
 ;WITH w_id AS (
 	SELECT
 		n.model_id
@@ -187,16 +188,35 @@ DECLARE @p_input_json COMMON.json = '
 		n.is_principal_name = 1 AND
 		n.model_name LIKE JSON_VALUE(@p_input_json, '$."name_search_term"')
 )
+*/
+DECLARE @flagsum GRLS.kv_pair_int
+INSERT INTO @flagsum
+SELECT 
+	n.model_id,
+	SUM(fb.bin_val) AS flag_sum
+FROM 
+	GRLS.model_name n
+	INNER JOIN GRLS.model_flag mf
+		INNER JOIN GRLS.bv_flag_binary fb 
+		ON mf.flag_id = fb.flag_id
+	ON n.model_id = mf.model_id
+WHERE
+	n.is_principal_name = 1 AND
+	n.model_name LIKE JSON_VALUE(@p_input_json, '$."name_search_term"')
+GROUP BY 
+	n.model_id
+	--select * from @flagsum
+
 select 
 	p.* 
 from
 	GRLS.pv_analysis_pivot p
 	inner join GRLS.attrib_search(@p_input_json) att
-		inner join GRLS.flag_search(@p_input_json) fs 
-		ON att.model_id = fs.model_id
+		inner join GRLS.flag_search(@p_input_json, @flagsum) fs 
+		ON att.model_id = fs.object_id
 	ON p.model_id = att.model_id
-	INNER JOIN w_id w 
-	on p.model_id = w.model_id
+--	INNER JOIN w_id w 
+--	on p.model_id = w.model_id
 where 
 	scheme_abbrev='SIMPLE'
 order by 
