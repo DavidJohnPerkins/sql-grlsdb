@@ -15,6 +15,40 @@ GO
 
 CREATE VIEW GRLS.pv_model_extended AS
 
+	WITH w_movie_count AS (
+		SELECT
+			mm.model_id,
+			COUNT(1) AS movie_count
+		FROM
+			GRLS.movie_model mm
+		GROUP BY
+			mm.model_id
+	),
+	w_model AS (
+		SELECT
+			m1.id,
+			m1.is_excluded,
+			m1.sobriquet,
+			m1.hotness_quotient,
+			m1.year_of_birth,
+			m1.comment,
+			ISNULL(mc.movie_count, 0) AS movie_count
+		FROM
+			GRLS.model m1
+			LEFT OUTER JOIN w_movie_count mc
+			ON m1.id = mc.model_id
+	),
+	w_rank AS (
+		SELECT
+			mr.model_id,
+			CONVERT(varchar, mr.rank) + '/' + CONVERT(varchar, mr.scheme_max_rank) AS ranking
+		FROM
+			GRLS.dv_model_rank_by_scheme mr
+			INNER JOIN GRLS.attribute_scheme s
+			ON mr.scheme_id_l1 = s.scheme_id
+		WHERE
+			s.scheme_abbrev = 'SIMPLE'
+	)
 	SELECT
 		m.id,
 		m.is_excluded,
@@ -27,9 +61,12 @@ CREATE VIEW GRLS.pv_model_extended AS
 		al.l2_desc AS nationality,
 		f.flags,
 		m.comment,
+		m.movie_count,
 		img.*
 	FROM
-		GRLS.model m
+		w_model m
+		INNER JOIN w_rank rnk 
+		ON m.id = rnk.model_id
 		OUTER APPLY (
 			SELECT
 				STRING_AGG(x.model_name, ' / ') AS aliases
@@ -73,19 +110,8 @@ CREATE VIEW GRLS.pv_model_extended AS
 			WHERE
 				i.model_id = m.id
 		) img
-		OUTER APPLY (
-			SELECT
-				CONVERT(varchar, mr.rank) + '/' + CONVERT(varchar, mr.scheme_max_rank) AS ranking
-			FROM
-				GRLS.dv_model_rank_by_scheme mr
-				INNER JOIN GRLS.attribute_scheme s
-				ON mr.scheme_id_l1 = s.scheme_id
-			WHERE
-				mr.model_id = m.id AND
-				s.scheme_abbrev = 'SIMPLE'
-		) rnk
 		INNER JOIN GRLS.bv_model_attribute_simple al
 		ON m.id = al.model_id AND al.abbrev = 'NATN'
-		
+
 GO
 PRINT '########## GRLS.pv_model_extended created successfully ##########'

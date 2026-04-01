@@ -34,6 +34,9 @@ BEGIN
 	IF @p_update_type NOT IN ('C', 'R')
    		RAISERROR ('Update type must be C or R - operation failed.', 16, 1)
 
+	IF EXISTS (SELECT 1 FROM @p_movie p LEFT OUTER JOIN GRLS.movie m ON p.string_value = m.title WHERE m.title IS NULL)
+   		RAISERROR ('One or more movies not found for supplied title list - operation failed.', 16, 1)
+
 	BEGIN TRY
 
 		BEGIN TRANSACTION
@@ -47,8 +50,8 @@ BEGIN
 				mm.model_id = @v_model_id
 
 		IF @p_debug = 1
-			SELECT * FROM @p_movie
-			
+			SELECT p.string_value, m.* FROM @p_movie p LEFT OUTER JOIN GRLS.movie m ON p.string_value = m.title WHERE m.title IS NULL			
+
 		INSERT INTO GRLS.movie_model(movie_id, model_id)
 		SELECT
 			m.id,

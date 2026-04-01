@@ -10,9 +10,9 @@ DECLARE @p_input_json COMMON.json = '
 			{ "flag_abbrev": "CNLINGUS", "selected": 0 },
 			{ "flag_abbrev": "EXCEPTNL", "selected": 0 },
 			{ "flag_abbrev": "MASTBATE", "selected": 0 },
-			{ "flag_abbrev": "PENETRTE", "selected": 1 },
+			{ "flag_abbrev": "PENETRTE", "selected": 0 },
 			{ "flag_abbrev": "SHWRBATH", "selected": 0 },
-			{ "flag_abbrev": "SWIMPOOL", "selected": 0 },
+			{ "flag_abbrev": "SWIMPOOL", "selected": 1 },
 			{ "flag_abbrev": "TOYSOBJS", "selected": 0 }
 		]
 	}'
