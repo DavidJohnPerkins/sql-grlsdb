@@ -25,9 +25,10 @@ BEGIN
 
 	BEGIN TRY 
 
-		DECLARE @model_id		int = (SELECT JSON_VALUE(@p_input_json, '$."model_id"')),
-				@search_term	varchar(50) = (SELECT JSON_VALUE(@p_input_json, '$."search_term"')),
-				@min_rating		int = (SELECT JSON_VALUE(@p_input_json, '$."minimum_rating"'))
+		DECLARE @model_id				int = (SELECT JSON_VALUE(@p_input_json, '$."model_id"')),
+				@title_search_term		varchar(50) = (SELECT JSON_VALUE(@p_input_json, '$."title_search_term"')),
+				@comment_search_term	varchar(50) = (SELECT JSON_VALUE(@p_input_json, '$."comment_search_term"')),
+				@min_rating				int = (SELECT JSON_VALUE(@p_input_json, '$."minimum_rating"'))
 
 		IF ISNULL(@model_id, '') = ''
 			RAISERROR ('The model_id attribute is not present - operation failed.', 16, 1)
@@ -35,8 +36,11 @@ BEGIN
 		IF ISNULL(@min_rating, 0) = 0
 			RAISERROR ('The minumum rating attribute is not present - operation failed.', 16, 1)
 
-		IF ISNULL(@search_term, '') = ''
-			SET @search_term = '%'
+		IF ISNULL(@title_search_term, '') = ''
+			SET @title_search_term = '%'
+
+		IF ISNULL(@comment_search_term, '') = ''
+			SET @comment_search_term = '%'
 
 		IF @p_execute = 1
 		BEGIN
@@ -48,7 +52,9 @@ BEGIN
 				FROM 
 					GRLS.pv_movie_list m
 				WHERE
-					m.rating >= @min_rating AND m.comment LIKE @search_term 
+					m.rating >= @min_rating AND 
+					m.title LIKE @title_search_term AND
+					m.comment LIKE @comment_search_term 
 			END
 			ELSE
 			BEGIN
