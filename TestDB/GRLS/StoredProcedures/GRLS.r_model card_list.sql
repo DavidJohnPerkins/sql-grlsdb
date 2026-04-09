@@ -37,7 +37,14 @@ BEGIN
 			IF @model_id != -1
 			BEGIN
 				SELECT
-					m.* 
+					m.id,
+					m.is_excluded,
+					m.sobriquet,
+					m.principal_name,
+					m.hotness_quotient,
+					m.nationality,
+					COALESCE(m.flags, '') AS flags,
+					m.TH_url
 				FROM 
 					GRLS.pv_model_short m 
 				WHERE 
@@ -46,7 +53,14 @@ BEGIN
 			ELSE
 			BEGIN
 				SELECT
-					m.* 
+					m.id,
+					m.is_excluded,
+					m.sobriquet,
+					m.principal_name,
+					m.hotness_quotient,
+					m.nationality,
+					COALESCE(m.flags, '') AS flags,
+					m.TH_url
 				FROM 
 					GRLS.pv_model_short m 
 				WHERE

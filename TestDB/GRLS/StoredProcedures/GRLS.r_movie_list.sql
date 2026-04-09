@@ -54,7 +54,9 @@ BEGIN
 				WHERE
 					m.rating >= @min_rating AND 
 					m.title LIKE @title_search_term AND
-					m.comment LIKE @comment_search_term 
+					m.comment LIKE @comment_search_term
+				ORDER BY
+					m.title
 			END
 			ELSE
 			BEGIN
@@ -65,6 +67,8 @@ BEGIN
 					GRLS.pv_movie_list m
 					INNER JOIN GRLS.movie_model mm
 					ON m.id = mm.movie_id AND mm.model_id = @model_id
+				ORDER BY
+					m.title
 			END	
 		END
 	END TRY
