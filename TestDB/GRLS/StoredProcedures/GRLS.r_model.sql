@@ -44,7 +44,25 @@ BEGIN
 			IF @model_id != -1
 			BEGIN
 				SELECT
-					m.* 
+					m.id,
+					m.is_excluded,
+					m.sobriquet,
+					m.principal_name,
+					COALESCE(m.aliases, '') AS aliases,
+					m.hotness_quotient,
+					m.ranking,
+					m.year_of_birth,
+					m.nationality,
+					COALESCE(m.flags, '') AS flags,
+					m.comment,
+					m.movie_count,
+					m.TH_url,
+					m.RF_url,
+					m.FA_url,
+					m.BR_url,
+					m.PF_url,
+					m.PR_url,
+					m.AR_url
 				FROM 
 					GRLS.pv_model_extended m
 				WHERE 
@@ -53,7 +71,25 @@ BEGIN
 			ELSE
 			BEGIN
 				SELECT
-					m.* 
+					m.id,
+					m.is_excluded,
+					m.sobriquet,
+					m.principal_name,
+					COALESCE(m.aliases, '') AS aliases,
+					m.hotness_quotient,
+					m.ranking,
+					m.year_of_birth,
+					m.nationality,
+					COALESCE(m.flags, '') AS flags,
+					m.comment,
+					m.movie_count,
+					m.TH_url,
+					m.RF_url,
+					m.FA_url,
+					m.BR_url,
+					m.PF_url,
+					m.PR_url,
+					m.AR_url
 				INTO
 					#temp
 				FROM 
