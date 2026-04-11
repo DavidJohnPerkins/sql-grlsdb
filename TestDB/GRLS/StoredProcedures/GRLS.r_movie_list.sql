@@ -47,7 +47,13 @@ BEGIN
 			IF @model_id = -1
 			BEGIN
 				SELECT
-					m.*,
+					m.id,
+					m.title,
+					m.comment,
+					m.rating,
+					m.participants,
+					COALESCE(m.flags, '') AS flags,
+					COALESCE(m.names, '') AS names,
 					UPPER(LEFT(m.title, 1)) AS image_folder
 				FROM 
 					GRLS.pv_movie_list m
@@ -61,7 +67,13 @@ BEGIN
 			ELSE
 			BEGIN
 				SELECT
-					m.*,
+					m.id,
+					m.title,
+					m.comment,
+					m.rating,
+					m.participants,
+					COALESCE(m.flags, '') AS flags,
+					COALESCE(m.names, '') AS names,
 					UPPER(LEFT(m.title, 1)) AS image_folder
 				FROM 
 					GRLS.pv_movie_list m

@@ -52,10 +52,19 @@ BEGIN
 					n.model_name LIKE @search_term
 			)
 			SELECT
-				m.*
-			FROM
-				GRLS.pv_model_extended m
-				inner join w_id w on m.id = w.model_id
+				m.id,
+				m.is_excluded,
+				m.sobriquet,
+				m.principal_name,
+				m.hotness_quotient,
+				m.nationality,
+				m.ranking,
+				m.flags,
+				m.TH_url,
+				m.movie_count
+			FROM 
+				GRLS.pv_model_short m 
+				INNER JOIN w_id w ON m.id = w.model_id
 			WHERE
 				(m.is_excluded = 0 OR m.is_excluded = @show_excluded)
 			ORDER BY

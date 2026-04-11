@@ -15,6 +15,26 @@ GO
 
 CREATE VIEW GRLS.pv_model_short AS
 
+	WITH w_movie_count AS (
+		SELECT
+			mm.model_id,
+			COUNT(1) AS movie_count
+		FROM
+			GRLS.movie_model mm
+		GROUP BY
+			mm.model_id
+	),
+	w_rank AS (
+		SELECT
+			mr.model_id,
+			CONVERT(varchar, mr.rank) + '/' + CONVERT(varchar, mr.scheme_max_rank) AS ranking
+		FROM
+			GRLS.dv_model_rank_by_scheme mr
+			INNER JOIN GRLS.attribute_scheme s
+			ON mr.scheme_id_l1 = s.scheme_id
+		WHERE
+			s.scheme_abbrev = 'SIMPLE'
+	)
 	SELECT 
 		m.id,
 		m.is_excluded,
@@ -22,12 +42,18 @@ CREATE VIEW GRLS.pv_model_short AS
 		mn.model_name AS principal_name,
 		m.hotness_quotient,
 		al.l2_desc AS nationality,
-		f.flags,
-		img.TH_url
+		mr.ranking,
+		COALESCE(f.flags, '') AS flags,
+		img.TH_url,
+		COALESCE(mc.movie_count, 0) AS movie_count
 	FROM
 		GRLS.model m
 		INNER JOIN GRLS.model_name mn
 		ON m.id = mn.model_id AND mn.is_principal_name = 1
+		INNER JOIN w_rank mr
+		ON m.id = mr.model_id
+		LEFT OUTER JOIN w_movie_count mc 
+		ON m.id = mc.model_id
 		OUTER APPLY (
 			SELECT
 				STRING_AGG(x.flag_abbrev, '/') AS flags

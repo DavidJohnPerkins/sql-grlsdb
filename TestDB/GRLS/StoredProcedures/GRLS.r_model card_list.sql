@@ -24,51 +24,41 @@ BEGIN
 	SET NOCOUNT ON
 
 	BEGIN TRY 
-		DECLARE @model_id	int = (SELECT JSON_VALUE(@p_input_json, '$."model_id"'))
+		DECLARE @search_term varchar(50) = (SELECT JSON_VALUE(@p_input_json, '$."search_term"')),
+				@show_excluded	bit = (SELECT e.show_excluded FROM COMMON.bv_environment e)
 
-		IF ISNULL(@model_id, '') = ''
-   			RAISERROR ('The model_id attribute is not present - operation failed.', 16, 1)
-
-		IF @p_debug = 1 
-			PRINT @model_id
+		IF ISNULL(@search_term, '') = ''
+			RAISERROR ('The search_term attribute is not present - operation failed.', 16, 1)
 
 		IF @p_execute = 1
 		BEGIN
-			IF @model_id != -1
-			BEGIN
+			WITH w_id AS (
 				SELECT
-					m.id,
-					m.is_excluded,
-					m.sobriquet,
-					m.principal_name,
-					m.hotness_quotient,
-					m.nationality,
-					COALESCE(m.flags, '') AS flags,
-					m.TH_url
-				FROM 
-					GRLS.pv_model_short m 
-				WHERE 
-					m.id = @model_id
-			END
-			ELSE
-			BEGIN
-				SELECT
-					m.id,
-					m.is_excluded,
-					m.sobriquet,
-					m.principal_name,
-					m.hotness_quotient,
-					m.nationality,
-					COALESCE(m.flags, '') AS flags,
-					m.TH_url
-				FROM 
-					GRLS.pv_model_short m 
+					n.model_id
+				FROM
+					GRLS.model_name n
 				WHERE
-					m.is_excluded = 0
-				ORDER BY
-					m.principal_name
-			END
-
+					n.is_principal_name = 1 AND
+					n.model_name LIKE @search_term
+			)
+			SELECT
+				m.id,
+				m.is_excluded,
+				m.sobriquet,
+				m.principal_name,
+				m.hotness_quotient,
+				m.nationality,
+				m.ranking,
+				m.flags,
+				m.TH_url,
+				m.movie_count
+			FROM 
+				GRLS.pv_model_short m 
+				INNER JOIN w_id w ON m.id = w.model_id
+			WHERE
+				(m.is_excluded = 0 OR m.is_excluded = @show_excluded)
+			ORDER BY
+				m.principal_name
 		END
 	END TRY
 
