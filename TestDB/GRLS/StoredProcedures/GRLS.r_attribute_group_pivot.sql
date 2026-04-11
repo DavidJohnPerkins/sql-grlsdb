@@ -37,16 +37,22 @@ BEGIN
 
 		SET @query = '
 			SELECT 
-				sobriquet, adj_total, ~cols 
+				model_id, sobriquet, adj_total, ~cols 
 			FROM 
 				(
 					SELECT 
-						ga.sobriquet,
-						ga.abbrev,
+						ga.model_id,
+						m.sobriquet,
+						ga.l1_group_abbrev,
 						ga.adj_preference,
-						ga.adj_total
+						ga.adj_total,
+						l1.abbrev
 					FROM 
-						GRLS.v_attribute_group_analysis ga
+						GRLS.dv_attribute_group_analysis ga
+						INNER JOIN GRLS.model m 
+						ON ga.model_id = m.id
+						INNER JOIN GRLS.attribute_level_1 l1
+						ON ga.l1_id = l1.l1_id
 					WHERE 
 						ga.l1_group_abbrev = ^~group^ AND
 						ga.scheme_abbrev = ^~scheme^
@@ -54,7 +60,7 @@ BEGIN
 			PIVOT 
 				(
 					MIN(adj_preference)
-					FOR abbrev IN (~cols)
+					FOR x.abbrev IN (~cols)
 			) p '
 
 		SET @query = REPLACE(@query, '~cols', @cols)
