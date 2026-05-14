@@ -3,10 +3,10 @@ GO
 
 DECLARE @json	COMMON.json = '
 	{
-		"sobriquet":	"LILIT_ARIEL",
+		"sobriquet":	"LADY_D",
 		"update_type":	"C",
 		"movie_titles": [
-			{ "movie_title": "ariel-a.mp4"}
+			{ "movie_title": "lucy-li-lady-dee.mp4"}
 		]
 	}
 '

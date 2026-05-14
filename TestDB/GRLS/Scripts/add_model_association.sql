@@ -3,13 +3,15 @@ GO
 
 DECLARE @json	COMMON.json = '
 	{
-		"sobriquet":	"MICHELLE_H",
+		"sobriquet":	"LADY_D",
 		"update_type":	"C",
 		"model_associates": [
-			{ "associate_sobriquet": "IZZY_DELPHINE"}
+			{ "associate_sobriquet": "LUCY_LI"},
+			{ "associate_sobriquet": "JIA_LISSA"}
 		]
 	}
 '
-EXEC GRLS.c_model_association @json, 1, 1
+EXEC GRLS.c_model_association @json, 0, 1
 
-select * from GRLS.model_associate
+--select * from GRLS.model where sobriquet like 'SY%'
+
