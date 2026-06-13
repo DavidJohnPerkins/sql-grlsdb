@@ -2,18 +2,19 @@ DECLARE @mode char(3)='ALL'
 DECLARE @p_input_json COMMON.json = '
 	{
 		"name_search_term":		"%%",
-		"search_mode_flag":		"ANY",
+		"search_mode_flag":		"ALL",
 		"search_mode_attrib":	"ALL",
 		"flag_type":			"MOD",
 		"search_flags": [
-			{ "flag_abbrev": "WMNCHILD", "selected": 0 },
-			{ "flag_abbrev": "NPPIERCE", "selected": 1 },
-			{ "flag_abbrev": "GNPIERCE", "selected": 1 },
+			{ "flag_abbrev": "WMNCHILD", "selected": 1 },
+			{ "flag_abbrev": "NPPIERCE", "selected": 0 },
+			{ "flag_abbrev": "GNPIERCE", "selected": 0 },
 			{ "flag_abbrev": "HTROPORN", "selected": 0 },
 			{ "flag_abbrev": "ANALPORN", "selected": 0 },
 			{ "flag_abbrev": "LSBNPORN", "selected": 0 },
 			{ "flag_abbrev": "EXCEPTNL", "selected": 0 },
 			{ "flag_abbrev": "LRGBRSTS", "selected": 0 },
+			{ "flag_abbrev": "SMLBRSTS", "selected": 1 },
 			{ "flag_abbrev": "PUBEHAIR", "selected": 0 }
 		],
 		"search_attribs": [
