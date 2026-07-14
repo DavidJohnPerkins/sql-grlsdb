@@ -38,8 +38,8 @@ BEGIN
 				SUM(fb.bin_val) AS flag_sum
 			FROM
 				GRLS.model_name n
-				INNER JOIN GRLS.model_flag mf
-					INNER JOIN GRLS.bv_flag_binary fb 
+				LEFT OUTER JOIN GRLS.model_flag mf
+					LEFT OUTER JOIN GRLS.bv_flag_binary fb 
 					ON mf.flag_id = fb.flag_id
 				ON n.model_id = mf.model_id
 			WHERE
