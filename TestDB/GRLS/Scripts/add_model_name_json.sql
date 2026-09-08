@@ -3,12 +3,10 @@ GO
 
 DECLARE @json	COMMON.json = '
 	{
-		"sobriquet":	"MICHELLE_H",
+		"sobriquet":	"CANDICE",
 		"update_type":	"C",
 		"model_names": [
-			{ "model_name":	"Marga E", "is_principal_name": 0 },
-			{ "model_name":	"Noemi", "is_principal_name": 0 },
-			{ "model_name":	"Red Fox", "is_principal_name": 0 }
+			{ "model_name":	"Kaylee", "is_principal_name": 0 }
 		],
 	}
 '
